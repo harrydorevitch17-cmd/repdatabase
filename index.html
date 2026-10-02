@@ -144,7 +144,6 @@ function renderThumbs(){
   wrap.innerHTML = draftImages.map((u,i)=>`<div class="thumb"><img src="${u}"><button onclick="removeThumb(${i})">×</button></div>`).join('');
 }
 function removeThumb(i){ draftImages.splice(i,1); renderThumbs(); }
-
 async function handleUpload(files){
   if(!currentUser){ showToast('Log in first.'); return; }
   for(const file of files){
@@ -229,4 +228,8 @@ function decorateCards(){document.querySelectorAll('.rating').forEach(x=>x.remov
   await loadProducts();
 })();
 
-sb.auth.onAuthStateChange((_event
+sb.auth.onAuthStateChange((_event, session) => {
+  currentUser = session?.user || null;
+  refreshAuthUI();
+});
+</script></body></html>
