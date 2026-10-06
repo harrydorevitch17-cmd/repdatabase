@@ -123,6 +123,8 @@ header{display:flex;align-items:center;justify-content:space-between;gap:20px;ma
 .action:hover{border-color:rgba(124,108,255,.55);background:rgba(124,108,255,.12)}
 .action.aff{grid-column:1/-1;height:36px;background:linear-gradient(135deg,rgba(196,181,253,.32),rgba(147,197,253,.24));border:1px solid rgba(196,181,253,.55);color:#fff;font-weight:750;font-size:11px;letter-spacing:.2px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 4px 20px rgba(167,139,250,.28),0 0 0 1px rgba(255,255,255,.08) inset}
 .action.aff:hover{transform:translateY(-1px);background:linear-gradient(135deg,rgba(196,181,253,.48),rgba(147,197,253,.38));box-shadow:0 6px 28px rgba(167,139,250,.45),0 0 0 1px rgba(255,255,255,.12) inset}
+.action.product{background:linear-gradient(135deg,#ffb347,#ff7b00);border:1px solid rgba(255,140,0,.6);color:#1a0e00;font-weight:800;box-shadow:0 4px 18px rgba(255,130,0,.35),0 0 0 1px rgba(255,200,120,.2) inset}
+.action.product:hover{background:linear-gradient(135deg,#ffc266,#ff8a1a);box-shadow:0 6px 26px rgba(255,130,0,.55),0 0 0 1px rgba(255,220,160,.35) inset;transform:translateY(-1px)}
 .action.edit{grid-column:1/-1;height:28px;margin-top:2px;background:linear-gradient(135deg,rgba(124,108,255,.16),rgba(34,230,255,.10));border-color:rgba(124,108,255,.45);font-size:10.5px}
 .empty{padding:70px 20px;text-align:center;color:var(--muted);border:1px dashed var(--border);border-radius:20px;grid-column:1/-1;display:flex;flex-direction:column;align-items:center;gap:10px}
 .empty-icon{width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,rgba(124,108,255,.2),rgba(34,230,255,.1));display:grid;place-items:center;font-size:26px;border:1px solid rgba(124,108,255,.3)}
@@ -331,7 +333,7 @@ function card(p){
       </div>
       <div class="meta"><span class="rating">★ ${p.rating}</span><span>▣ ${p.qc} QC</span></div>
       <div class="actions">
-        <button class="action" onclick="openProduct(${p.id})">Product ↗</button>
+        <button class="action product" onclick="openProduct(${p.id})">Product ↗</button>
         <button class="action" onclick="openQC(${p.id})">QC photos</button>
         <button class="action aff" onclick="openKakobuy()">🎟 Sign up with Kakobuy — get ¥3000 voucher</button>
         ${currentUser?`<button class="action edit" onclick="openAdmin(${p.id})">✎ Edit item</button>`:''}
