@@ -67,17 +67,17 @@ header{display:flex;align-items:center;justify-content:space-between;gap:20px;ma
 .btn:hover{border-color:rgba(124,108,255,.55);background:var(--surface2)}
 .btn.primary{background:linear-gradient(135deg,var(--accent),#8d5cff);color:var(--accentText);border-color:transparent;font-weight:650;box-shadow:0 6px 22px rgba(124,108,255,.36)}
 .btn.primary:hover{box-shadow:0 8px 28px rgba(124,108,255,.48)}
-.banner{display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 16px;margin:0 0 24px;
-  background:linear-gradient(90deg,rgba(124,108,255,.14),rgba(34,230,255,.08),rgba(255,79,216,.12));
-  border:1px solid rgba(124,108,255,.30);border-radius:14px;font-size:12.5px;color:var(--text);
+.banner{display:flex;align-items:center;justify-content:center;gap:10px;padding:10px 16px;margin:0 0 24px;
+  background:linear-gradient(90deg,rgba(222,41,16,.22),rgba(222,41,16,.14) 45%,rgba(255,222,0,.14) 75%,rgba(255,222,0,.22));
+  border:1px solid rgba(255,140,80,.35);border-radius:14px;font-size:12.5px;color:var(--text);
   position:relative;overflow:hidden;
   backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);
 }
-.banner::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(124,108,255,.20),transparent);animation:bannerSweep 7s linear infinite;pointer-events:none}
+.banner::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,180,80,.22),transparent);animation:bannerSweep 7s linear infinite;pointer-events:none}
 @keyframes bannerSweep{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
-.banner a{color:var(--cyan);font-weight:750;text-decoration:none;border-bottom:1px dashed rgba(34,230,255,.5);transition:.2s}
-.banner a:hover{color:var(--pink);border-bottom-color:var(--pink)}
-.banner-tag{background:linear-gradient(135deg,var(--accent),var(--cyan));color:#fff;font-size:10px;font-weight:800;padding:3px 7px;border-radius:6px;letter-spacing:.6px}
+.banner a{color:#ffde00;font-weight:750;text-decoration:none;border-bottom:1px dashed rgba(255,222,0,.6);transition:.2s;text-shadow:0 0 12px rgba(255,222,0,.25)}
+.banner a:hover{color:#fff;border-bottom-color:#fff;text-shadow:0 0 14px rgba(255,255,255,.5)}
+.cn-flag{width:32px;height:auto;border-radius:3px;box-shadow:0 0 0 1px rgba(255,255,255,.15) inset,0 2px 8px rgba(0,0,0,.25);flex-shrink:0}
 .hero{display:flex;justify-content:space-between;align-items:end;margin:20px 0 22px}
 .hero h2{font-size:34px;line-height:1;margin:0 0 10px;letter-spacing:-1.6px;
   background:linear-gradient(120deg,var(--text) 38%,var(--accent) 72%,var(--cyan) 100%);
@@ -188,9 +188,18 @@ header{display:flex;align-items:center;justify-content:space-between;gap:20px;ma
 <header><div class="brand"><div class="mark">RI</div><div><h1>Replica Index</h1><p>Independent fashion catalogue</p></div></div><div class="header-actions"><select class="select" id="currency"><option>AUD</option><option>USD</option><option>EUR</option><option>GBP</option><option>CNY</option></select><button class="btn" id="savedBtn">♡ Saved</button><button class="btn" id="authBtn">Log in</button><button class="btn primary" id="addBtn" style="display:none">+ Add item</button></div></header>
 
 <div class="banner">
-  <span class="banner-tag">TIP</span>
-  <span>This site is heavily compatible with Kakobuy —</span>
-  <a href="https://ikako.vip/r/9enta" target="_blank" rel="noopener">get mega discounts ↗</a>
+  <svg class="cn-flag" viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <rect width="30" height="20" fill="#de2910"/>
+    <g fill="#ffde00">
+      <path d="M5 2.5 L5.9 5 L8.5 5 L6.4 6.6 L7.2 9.2 L5 7.6 L2.8 9.2 L3.6 6.6 L1.5 5 L4.1 5 Z"/>
+      <circle cx="10.2" cy="2" r="0.7"/>
+      <circle cx="11.6" cy="3.7" r="0.7"/>
+      <circle cx="11.6" cy="5.9" r="0.7"/>
+      <circle cx="10.2" cy="7.6" r="0.7"/>
+    </g>
+  </svg>
+  <span>Discover Chinese brands —</span>
+  <a href="https://ikako.vip/r/9enta" target="_blank" rel="noopener">sign up to Kakobuy free for ¥3000 credit ↗</a>
 </div>
 
 <section class="hero"><div><h2>Find your next piece.</h2><p>A clean catalogue for comparing listings, prices and QC photos.</p></div><input class="search" id="search" placeholder="Search brand, item or seller…  (press / )"></section>
