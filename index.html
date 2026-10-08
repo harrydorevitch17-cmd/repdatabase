@@ -290,7 +290,7 @@ function card(p,i){
   const buyLink=p.kakobuyLink||p.affiliateLink||AFF;
   const taobao=p.productLink?`<a class="action taobao" href="${p.productLink}" target="_blank" rel="noopener">Taobao listing ↗</a>`:'';
   const directKb=p.kakobuyLink?`<a class="action kblink" href="${p.kakobuyLink}" target="_blank" rel="noopener">Kakobuy link ↗</a>`:'';
-  const buy=`<a class="action kb" href="${buyLink}" target="_blank" rel="noopener">Buy with Kakobuy — gift + free shipping</a>`;
+  const buy=`<a class="action kb" href="${buyLink}" target="_blank" rel="noopener">Free Shipping with Kakobuy</a>`;
   const edit=currentUser?`<button class="action edit" onclick="openAdmin(${p.id})">✎ Edit</button>`:'';
   const price=p.cny?`<div class="price mono">${money(p.cny)}</div><div class="qc">¥${p.cny}</div>`:'';
   const priority=i<5?'fetchpriority="high"':'';
