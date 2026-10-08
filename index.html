@@ -76,7 +76,7 @@ background:linear-gradient(120deg,var(--text) 38%,var(--accent) 72%,var(--cyan) 
 .topline{display:flex;justify-content:space-between;gap:8px;align-items:flex-start;margin-bottom:8px}
 .name{font-weight:750;font-size:12.5px;line-height:1.25;letter-spacing:-.15px;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
 .seller{color:var(--muted);font-size:10.5px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.rating{font-weight:700;font-size:11.5px;white-space:nowrap;color:var(--text)}
+.price{font-weight:800;font-size:12.5px;letter-spacing:-.3px;white-space:nowrap;color:var(--text)}
 .qc{color:var(--muted);font-size:10px;text-align:right;margin-top:2px;white-space:nowrap}
 .kb-label{display:flex;align-items:center;gap:5px;font-size:10px;font-weight:750;color:#ff7135;letter-spacing:.3px;text-transform:uppercase;margin-bottom:5px}
 .actions{display:grid;gap:5px}
@@ -103,6 +103,7 @@ background:linear-gradient(120deg,var(--text) 38%,var(--accent) 72%,var(--cyan) 
 .admin-grid input:focus,.admin-grid textarea:focus{outline:none;border-color:rgba(124,108,255,.6);box-shadow:0 0 0 3px rgba(124,108,255,.14)}
 .admin-grid textarea{min-height:70px;resize:vertical}
 .admin-wide{grid-column:1/-1}
+.admin-section{grid-column:1/-1;font-size:11px;font-weight:750;color:#ff7135;text-transform:uppercase;letter-spacing:.6px;margin-top:8px;padding-top:8px;border-top:1px solid var(--glass-border)}
 .admin-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}
 .admin-note{color:var(--muted);font-size:12px;margin:5px 0 0}
 .upload-row{grid-column:1/-1;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
@@ -121,7 +122,7 @@ background:linear-gradient(120deg,var(--text) 38%,var(--accent) 72%,var(--cyan) 
 @media(max-width:900px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:640px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.banner{font-size:11px;flex-wrap:wrap;text-align:center}.wrap{padding:16px 14px 40px}.admin-grid{grid-template-columns:1fr}}
 </style>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 <div id="app"><main class="wrap">
@@ -162,7 +163,7 @@ background:linear-gradient(120deg,var(--text) 38%,var(--accent) 72%,var(--cyan) 
 <button class="fab" id="fab">+</button>
 <div class="modal" id="adminModal"><div class="modal-box" id="adminBox"></div></div>
 <div class="modal" id="authModal"><div class="modal-box" id="authBox"></div></div>
-
+<div class="toast" id="toast"></div>
 <script>
 const $=s=>document.querySelector(s);
 const SUPABASE_URL='https://xbhqvoapbfhyhcrhafxm.supabase.co';
@@ -193,9 +194,12 @@ async function loadProducts(){
     const main=imgs[0]||row.image||'';
     return {
       id:row.id,name:row.name,brand:row.brand,category:row.category,
-      seller:row.seller,rating:row.rating,qc:row.qc,status:row.status,
+      seller:row.seller,rating:row.rating,qc:row.qc,cny:row.cny,status:row.status,
       image:main,images:imgs.length?imgs:(main?[main]:[]),
-      productLink:row.product_link,kakobuyLink:row.kakobuy_link,notes:row.notes
+      productLink:row.product_link,
+      kakobuyLink:row.kakobuy_link,
+      affiliateLink:row.affiliate_link,
+      notes:row.notes
     };
   });
   render();
@@ -243,10 +247,11 @@ function render(){
 }
 
 function card(p,i){
-  const kbLink=p.kakobuyLink||AFF;
+  const kbLink=p.kakobuyLink||p.affiliateLink||AFF;
   const kb=`<a class="action kb" href="${kbLink}" target="_blank" rel="noopener">🏆 Buy via Kakobuy — gift + shipping</a>`;
   const taobao=p.productLink?`<a class="action taobao" href="${p.productLink}" target="_blank" rel="noopener">Taobao listing ↗</a>`:'';
   const edit=currentUser?`<button class="action edit" onclick="openAdmin(${p.id})">✎ Edit</button>`:'';
+  const price=p.cny?`<div class="price mono">¥${p.cny}</div>`:'';
   const priority=i<5?'fetchpriority="high"':'';
   return `<article class="card">
     <div class="photo">
@@ -256,7 +261,7 @@ function card(p,i){
     <div class="content">
       <div class="topline">
         <div style="min-width:0;flex:1"><div class="name">${p.name}</div><div class="seller">${p.brand||''}${p.seller?' · '+p.seller:''}</div></div>
-        <div><div class="rating">${p.rating?'★ '+p.rating:''}</div><div class="qc">${p.qc||0} QC</div></div>
+        <div>${price}<div class="qc">${p.qc||0} QC</div></div>
       </div>
       <div class="kb-label">🏆 Best price via Kakobuy</div>
       <div class="actions">${kb}${taobao}${edit}</div>
@@ -290,16 +295,15 @@ function openAdmin(id=null){
   const p=id?products.find(x=>x.id===id):null;
   draftImages=p&&p.images?[...p.images]:[];
   $('#adminBox').innerHTML=`
-    <div class="modal-head"><div><h3>${p?'Edit item':'Add item'}</h3><p class="admin-note">Taobao link for the listing. Kakobuy link for the buyer button.</p></div><button class="close" onclick="closeAdmin()">×</button></div>
+    <div class="modal-head"><div><h3>${p?'Edit item':'Add item'}</h3><p class="admin-note">Details, images, and the three links for this item.</p></div><button class="close" onclick="closeAdmin()">×</button></div>
     <div class="admin-grid">
       <input id="aName" placeholder="Product name" value="${p?.name||''}">
       <input id="aBrand" placeholder="Brand" value="${p?.brand||''}">
       <input id="aCategory" placeholder="Category" value="${p?.category||''}">
       <input id="aSeller" placeholder="Seller" value="${p?.seller||''}">
+      <input id="aPrice" type="number" placeholder="Price (CNY)" value="${p?.cny||''}">
       <input id="aRating" type="number" step=".1" min="0" max="5" placeholder="Rating" value="${p?.rating||''}">
-      <input id="aQc" type="number" min="0" placeholder="QC photo count" value="${p?.qc||''}">
-      <input class="admin-wide" id="aProduct" placeholder="Taobao product link (item.taobao.com/...)" value="${p?.productLink||''}">
-      <input class="admin-wide" id="aKakobuy" placeholder="Kakobuy purchase link for this item (blank = use global link)" value="${p?.kakobuyLink||''}">
+      <input class="admin-wide" id="aStatus" placeholder="Status" value="${p?.status||'In stock'}">
       <div class="upload-row">
         <label class="upload-btn" for="aFiles">⬆ Upload images</label>
         <input id="aFiles" type="file" accept="image/*" multiple>
@@ -307,7 +311,12 @@ function openAdmin(id=null){
       </div>
       <div class="thumb-strip" id="thumbStrip"></div>
       <input class="admin-wide" id="aImage" placeholder="Fallback image URL (optional)" value="${p?.image||''}">
-      <input class="admin-wide" id="aStatus" placeholder="Status" value="${p?.status||'In stock'}">
+
+      <div class="admin-section">Links</div>
+      <input class="admin-wide" id="aAffiliate" placeholder="Affiliate link — your signup link (used if no Kakobuy link below)" value="${p?.affiliateLink||''}">
+      <input class="admin-wide" id="aProduct" placeholder="Taobao link — direct listing (shown as small grey link)" value="${p?.productLink||''}">
+      <input class="admin-wide" id="aKakobuy" placeholder="Kakobuy link for this item — the big orange button" value="${p?.kakobuyLink||''}">
+
       <textarea class="admin-wide" id="aNotes" placeholder="Notes">${p?.notes||''}</textarea>
     </div>
     <div class="admin-actions">
@@ -332,13 +341,15 @@ async function saveAdmin(id){
     brand:$('#aBrand').value.trim(),
     category:$('#aCategory').value.trim()||'Other',
     seller:$('#aSeller').value.trim(),
+    cny:Number($('#aPrice').value)||0,
     rating:Number($('#aRating').value)||0,
-    qc:Number($('#aQc').value)||finalImages.length,
+    qc:finalImages.length,
     status:$('#aStatus').value.trim()||'In stock',
     image:finalImages[0]||urlImage||'',
     images:finalImages,
     product_link:$('#aProduct').value.trim(),
     kakobuy_link:$('#aKakobuy').value.trim(),
+    affiliate_link:$('#aAffiliate').value.trim(),
     notes:$('#aNotes').value.trim()
   };
   if(!data.name){showToast('Add a name first.');return}
