@@ -40,8 +40,8 @@ header{display:flex;align-items:center;justify-content:space-between;gap:16px;ma
 .btn,.select{border:1px solid var(--glass-border);background:var(--surface);color:var(--text);border-radius:11px;height:36px;padding:0 14px;font:inherit;font-size:13px;font-weight:600;cursor:pointer;backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);box-shadow:0 1px 0 var(--glass-hi) inset;transition:.18s;display:inline-flex;align-items:center;gap:6px;text-decoration:none}
 .select{padding:0 10px}
 .btn:hover{border-color:rgba(124,108,255,.55);background:var(--surface2)}
-.btn.kb{background:linear-gradient(135deg,#ff5c1f,#e6260a);color:#fff;border-color:transparent;font-weight:800;box-shadow:0 6px 22px rgba(230,38,10,.42)}
-.btn.kb:hover{box-shadow:0 8px 28px rgba(255,60,20,.6)}
+.btn.kb{background:linear-gradient(135deg,#4a1fd6 0%,#7c4dff 45%,#a78bfa 75%,#6ee7ff 100%);background-size:200% 200%;background-position:0% 50%;color:#fff;border-color:rgba(140,120,255,.6);font-weight:750;box-shadow:0 6px 22px rgba(124,108,255,.45),0 0 0 1px rgba(255,255,255,.12) inset,0 0 30px rgba(124,108,255,.15);transition:.35s cubic-bezier(.2,.7,.3,1)}
+.btn.kb:hover{background-position:100% 50%;box-shadow:0 8px 32px rgba(124,108,255,.65),0 0 0 1px rgba(255,255,255,.22) inset,0 0 40px rgba(110,231,255,.25)}
 .banner{display:flex;align-items:center;justify-content:center;gap:10px;padding:9px 16px;margin:0 0 20px;
 background:linear-gradient(90deg,rgba(222,41,16,.22),rgba(222,41,16,.14) 45%,rgba(255,222,0,.14) 75%,rgba(255,222,0,.22));
 border:1px solid rgba(255,140,80,.35);border-radius:13px;font-size:12.5px;color:var(--text);
@@ -63,8 +63,10 @@ background:linear-gradient(120deg,var(--text) 38%,var(--accent) 72%,var(--cyan) 
 .tab:hover{color:var(--text)}
 .tab.active{background:linear-gradient(135deg,rgba(124,108,255,.20),rgba(34,230,255,.10));color:var(--text);box-shadow:0 0 0 1px rgba(124,108,255,.5),0 0 18px rgba(124,108,255,.14)}
 .tab .tab-count{opacity:.55;font-weight:600;margin-left:3px}
-.toolbar{display:flex;justify-content:space-between;align-items:center;margin:6px 0 12px;font-size:12px;color:var(--muted)}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:6px 0 12px;font-size:12px;color:var(--muted)}
 .toolbar .mono{color:var(--text);font-weight:700}
+.search-input{border:1px solid var(--glass-border);background:var(--surface);color:var(--text);border-radius:10px;height:34px;padding:0 12px;font:inherit;font-size:12.5px;width:min(280px,50vw);backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%);box-shadow:0 1px 0 var(--glass-hi) inset;transition:.18s}
+.search-input:focus{outline:none;border-color:rgba(124,108,255,.6);box-shadow:0 0 0 3px rgba(124,108,255,.16)}
 .grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
 .skeleton-card{background:var(--surface);border:1px solid var(--glass-border);border-radius:16px;overflow:hidden;position:relative;backdrop-filter:blur(20px);height:300px}
 .skeleton-card::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.06),transparent);animation:skeletonSweep 1.4s linear infinite;pointer-events:none}
@@ -84,7 +86,6 @@ background:linear-gradient(120deg,var(--text) 38%,var(--accent) 72%,var(--cyan) 
 .seller{color:var(--muted);font-size:10.5px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .price{font-weight:800;font-size:12.5px;letter-spacing:-.3px;white-space:nowrap;color:var(--text)}
 .qc{color:var(--muted);font-size:10px;text-align:right;margin-top:1px;white-space:nowrap}
-.kb-label{display:flex;align-items:center;gap:5px;font-size:10px;font-weight:750;color:#ff7135;letter-spacing:.3px;text-transform:uppercase;margin-bottom:5px}
 .actions{display:grid;gap:6px}
 .action{border:1px solid var(--glass-border);border-radius:9px;background:rgba(255,255,255,.03);color:var(--text);font-weight:650;font-size:11px;cursor:pointer;transition:.16s;display:flex;align-items:center;justify-content:center;gap:5px;text-decoration:none;text-align:center;padding:0 6px}
 .action:hover{border-color:rgba(124,108,255,.55);background:rgba(124,108,255,.12)}
@@ -92,10 +93,8 @@ background:linear-gradient(120deg,var(--text) 38%,var(--accent) 72%,var(--cyan) 
 .action.taobao:hover{background:linear-gradient(135deg,#ffb457,#ff8a1a);box-shadow:0 6px 22px rgba(255,130,0,.55);transform:translateY(-1px)}
 .action.kblink{background:transparent;color:#ff4a4a;font-weight:750;font-size:11.5px;height:28px;border-color:rgba(255,74,74,.35)}
 .action.kblink:hover{background:rgba(255,74,74,.10);border-color:rgba(255,74,74,.7);color:#ff6b6b}
-.action.kb{height:40px;color:#fff;font-weight:800;font-size:12px;border:1px solid rgba(255,255,255,.2);position:relative;overflow:hidden;background:linear-gradient(90deg,#ff3cac,#784ba0,#2b86c5,#22e6ff,#46e6a5,#ffe66d,#ff3cac);background-size:300% 100%;animation:rainbowMove 5s linear infinite;box-shadow:0 4px 22px rgba(124,108,255,.4),0 0 0 1px rgba(255,255,255,.12) inset}
-.action.kb::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.25),transparent 50%);opacity:.6;pointer-events:none}
-.action.kb:hover{transform:translateY(-1px);box-shadow:0 6px 30px rgba(124,108,255,.65),0 0 0 1px rgba(255,255,255,.25) inset}
-@keyframes rainbowMove{0%{background-position:0% 50%}100%{background-position:300% 50%}}
+.action.kb{height:40px;color:#fff;font-weight:750;font-size:12px;letter-spacing:.1px;border:1px solid rgba(140,120,255,.6);background:linear-gradient(135deg,#4a1fd6 0%,#7c4dff 45%,#a78bfa 75%,#6ee7ff 100%);background-size:200% 200%;background-position:0% 50%;box-shadow:0 4px 20px rgba(124,108,255,.42),0 0 0 1px rgba(255,255,255,.12) inset,0 0 26px rgba(124,108,255,.14);transition:.35s cubic-bezier(.2,.7,.3,1)}
+.action.kb:hover{transform:translateY(-1px);background-position:100% 50%;box-shadow:0 6px 28px rgba(124,108,255,.65),0 0 0 1px rgba(255,255,255,.22) inset,0 0 36px rgba(110,231,255,.28)}
 .action.edit{background:linear-gradient(135deg,rgba(124,108,255,.16),rgba(34,230,255,.10));border-color:rgba(124,108,255,.45);font-size:10px;height:26px}
 .empty{padding:60px 20px;text-align:center;color:var(--muted);border:1px dashed var(--border);border-radius:16px;grid-column:1/-1}
 </style>
@@ -113,7 +112,7 @@ background:linear-gradient(120deg,var(--text) 38%,var(--accent) 72%,var(--cyan) 
 .admin-grid input:focus,.admin-grid textarea:focus{outline:none;border-color:rgba(124,108,255,.6);box-shadow:0 0 0 3px rgba(124,108,255,.14)}
 .admin-grid textarea{min-height:70px;resize:vertical}
 .admin-wide{grid-column:1/-1}
-.admin-section{grid-column:1/-1;font-size:11px;font-weight:750;color:#ff7135;text-transform:uppercase;letter-spacing:.6px;margin-top:8px;padding-top:8px;border-top:1px solid var(--glass-border)}
+.admin-section{grid-column:1/-1;font-size:11px;font-weight:750;color:#a78bfa;text-transform:uppercase;letter-spacing:.6px;margin-top:8px;padding-top:8px;border-top:1px solid var(--glass-border)}
 .admin-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}
 .admin-note{color:var(--muted);font-size:12px;margin:5px 0 0}
 .upload-row{grid-column:1/-1;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
@@ -130,7 +129,7 @@ background:linear-gradient(120deg,var(--text) 38%,var(--accent) 72%,var(--cyan) 
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 @media(max-width:1200px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media(max-width:900px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:640px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.banner{font-size:11px;flex-wrap:wrap;text-align:center}.wrap{padding:16px 14px 40px}.admin-grid{grid-template-columns:1fr}}
+@media(max-width:640px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.banner{font-size:11px;flex-wrap:wrap;text-align:center}.wrap{padding:16px 14px 40px}.admin-grid{grid-template-columns:1fr}.toolbar{flex-direction:column;align-items:stretch}.search-input{width:100%}}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -164,14 +163,17 @@ background:linear-gradient(120deg,var(--text) 38%,var(--accent) 72%,var(--cyan) 
 
 <section class="hero">
   <h2>Curated Chinese fashion finds.</h2>
-  <p>Buy direct from Taobao. Get ¥3000 free credit on Kakobuy.</p>
+  <p>A comprehensive database of Chinese sellers on TaoBao.</p>
   <div class="hero-cta">
-    <a class="btn kb" href="https://ikako.vip/r/9enta" target="_blank" rel="noopener">🏆 Sign up with Kakobuy — free ¥3000 credit ↗</a>
+    <a class="btn kb" href="https://ikako.vip/r/9enta" target="_blank" rel="noopener">Sign up with Kakobuy — free ¥3000 credit ↗</a>
   </div>
 </section>
 
 <nav class="tabs" id="tabs"></nav>
-<div class="toolbar"><div><span class="mono" id="count">…</span></div></div>
+<div class="toolbar">
+  <div><span class="mono" id="count">…</span></div>
+  <input class="search-input" id="search" placeholder="Search brand, item or seller…" autocomplete="off">
+</div>
 <section class="grid" id="grid"></section>
 </main></div>
 <button class="fab" id="fab">+</button>
@@ -191,6 +193,7 @@ const money=n=>new Intl.NumberFormat('en-AU',{style:'currency',currency}).format
 let products=[];
 let currentUser=null;
 let active='All';
+let query='';
 
 function showSkeletons(){
   const grid=$('#grid');
@@ -205,7 +208,7 @@ function showSkeletons(){
 
 async function loadProducts(){
   showSkeletons();
-  const {data,error}=await sb.from('products').select('*').order('id');
+  const {data,error}=await sb.from('products').select('*').order('created_at',{ascending:false});
   if(error){console.error(error);showToast('Could not load items.');return}
   products=(data||[]).map(row=>{
     const imgs=Array.isArray(row.images)?row.images.filter(Boolean):[];
@@ -270,10 +273,14 @@ function setCat(c){active=c;render()}
 function render(){
   renderTabs();
   const grid=$('#grid');
-  const list=active==='All'?products:products.filter(p=>p.category===active);
+  let list=active==='All'?products:products.filter(p=>p.category===active);
+  if(query){
+    const q=query.toLowerCase();
+    list=list.filter(p=>`${p.name} ${p.brand||''} ${p.seller||''}`.toLowerCase().includes(q));
+  }
   $('#count').textContent=list.length+(list.length===1?' item':' items');
   if(!list.length){
-    grid.innerHTML=`<div class="empty">No items${active!=='All'?' in '+active:''}.</div>`;
+    grid.innerHTML=`<div class="empty">No items${query?' for "'+query+'"':''}${active!=='All'&&!query?' in '+active:''}.</div>`;
     return;
   }
   grid.innerHTML=list.map((p,i)=>card(p,i)).join('');
@@ -283,7 +290,7 @@ function card(p,i){
   const buyLink=p.kakobuyLink||p.affiliateLink||AFF;
   const taobao=p.productLink?`<a class="action taobao" href="${p.productLink}" target="_blank" rel="noopener">Taobao listing ↗</a>`:'';
   const directKb=p.kakobuyLink?`<a class="action kblink" href="${p.kakobuyLink}" target="_blank" rel="noopener">Kakobuy link ↗</a>`:'';
-  const buy=`<a class="action kb" href="${buyLink}" target="_blank" rel="noopener">🏆 Buy product with Kakobuy — gift + free shipping</a>`;
+  const buy=`<a class="action kb" href="${buyLink}" target="_blank" rel="noopener">Buy with Kakobuy — gift + free shipping</a>`;
   const edit=currentUser?`<button class="action edit" onclick="openAdmin(${p.id})">✎ Edit</button>`:'';
   const price=p.cny?`<div class="price mono">${money(p.cny)}</div><div class="qc">¥${p.cny}</div>`:'';
   const priority=i<5?'fetchpriority="high"':'';
@@ -297,7 +304,6 @@ function card(p,i){
         <div style="min-width:0;flex:1"><div class="name">${p.name}</div><div class="seller">${p.brand||''}${p.seller?' · '+p.seller:''}</div></div>
         <div>${price}</div>
       </div>
-      <div class="kb-label">🏆 Best price via Kakobuy</div>
       <div class="actions">${taobao}${directKb}${buy}${edit}</div>
     </div>
   </article>`;
@@ -348,7 +354,7 @@ function openAdmin(id=null){
       <div class="admin-section">Links</div>
       <input class="admin-wide" id="aAffiliate" placeholder="Affiliate link — your signup link (used if no Kakobuy link below)" value="${p?.affiliateLink||''}">
       <input class="admin-wide" id="aProduct" placeholder="Taobao link — direct listing (orange button)" value="${p?.productLink||''}">
-      <input class="admin-wide" id="aKakobuy" placeholder="Kakobuy link for this item — red link + rainbow button" value="${p?.kakobuyLink||''}">
+      <input class="admin-wide" id="aKakobuy" placeholder="Kakobuy link for this item — red link + gradient button" value="${p?.kakobuyLink||''}">
       <textarea class="admin-wide" id="aNotes" placeholder="Notes">${p?.notes||''}</textarea>
     </div>
     <div class="admin-actions">
@@ -415,6 +421,8 @@ document.addEventListener('keydown',e=>{
 
 const curSel=$('#currency');
 if(curSel){curSel.value=currency;curSel.onchange=e=>{currency=e.target.value;render()}}
+const searchEl=$('#search');
+if(searchEl){searchEl.oninput=e=>{query=e.target.value;render()}}
 
 function showToast(t){
   const x=$('#toast');
