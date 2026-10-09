@@ -697,7 +697,8 @@ function card(p,i){
   const altSrc=p.clean?p.images[0]:p.images[1];
   const alt=altSrc?`<img class="alt" data-src="${esc(imgUrl(altSrc,480))}" data-srcset="${esc(srcset(altSrc,[320,480,720]))}" sizes="${CARD_SIZES}" alt="">`:'';
   const mainImg=p.clean
-    ?`<img src="${cleanSrc(p)}" alt="${esc(p.name)}" decoding="async" ${load} onload="this.classList.add('in');this.parentNode.classList.add('loaded')" onerror="this.parentNode.classList.add('loaded')">`
+    // If the clean file is missing (e.g. not deployed yet), fall back to the original photo instead of a blank box.
+    ?`<img src="${cleanSrc(p)}" alt="${esc(p.name)}" decoding="async" ${load} data-fallback="${esc(imgUrl(p.image,480))}" onload="this.classList.add('in');this.parentNode.classList.add('loaded')" onerror="if(this.dataset.fallback){this.src=this.dataset.fallback;this.removeAttribute('data-fallback');this.parentNode.classList.remove('clean')}else this.parentNode.classList.add('loaded')">`
     :`<img src="${esc(imgUrl(p.image,480))}" srcset="${esc(srcset(p.image,[320,480,720,960]))}" sizes="${CARD_SIZES}" alt="${esc(p.name)}" decoding="async" ${load} onload="this.classList.add('in');this.parentNode.classList.add('loaded')" onerror="this.parentNode.classList.add('loaded')">`;
   const eyebrow=[cleanBrand(p.brand),p.seller].filter(Boolean).map(esc).join(' · ');
   // Only show status when it says something (e.g. "Sold out"); "In stock" on every card is noise.
