@@ -197,8 +197,8 @@ radial-gradient(1000px 640px at 100% -4%,rgba(34,230,255,.13),transparent 55%),v
 .close{border:0;background:var(--surface2);color:var(--text);width:36px;height:36px;border-radius:11px;cursor:pointer;font-size:16px}
 .close:hover{background:rgba(124,108,255,.18)}
 .admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
-.admin-grid input,.admin-grid textarea{width:100%;border:1px solid var(--glass-border);background:var(--surface2);color:var(--text);border-radius:12px;padding:11px 12px;font:inherit;font-size:14px}
-.admin-grid input:focus,.admin-grid textarea:focus{outline:none;border-color:rgba(124,108,255,.6);box-shadow:0 0 0 3px rgba(124,108,255,.14)}
+.admin-grid input,.admin-grid textarea,.draft-fields input{width:100%;border:1px solid var(--glass-border);background:var(--surface2);color:var(--text);border-radius:12px;padding:11px 12px;font:inherit;font-size:14px}
+.admin-grid input:focus,.admin-grid textarea:focus,.draft-fields input:focus{outline:none;border-color:rgba(124,108,255,.6);box-shadow:0 0 0 3px rgba(124,108,255,.14)}
 .admin-grid textarea{min-height:70px;resize:vertical}
 .admin-wide{grid-column:1/-1}
 .admin-section{grid-column:1/-1;font-family:var(--mono);font-size:11px;color:#a78bfa;text-transform:uppercase;letter-spacing:.1em;margin-top:8px;padding-top:12px;border-top:1px solid var(--glass-border)}
@@ -216,6 +216,30 @@ radial-gradient(1000px 640px at 100% -4%,rgba(34,230,255,.13),transparent 55%),v
 .fab.show{display:grid;place-items:center}
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(15px);opacity:0;background:var(--kb);color:#fff;padding:11px 18px;border-radius:14px;font-size:13.5px;font-weight:600;transition:.22s;z-index:30;box-shadow:0 12px 30px rgba(124,108,255,.5);pointer-events:none}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+/* bulk add */
+#bulkModal .modal-box{width:min(1120px,100%)}
+.bulk-paste{width:100%;min-height:220px;margin-top:16px;border:1px dashed rgba(124,108,255,.45);background:var(--surface2);color:var(--text);border-radius:16px;padding:16px;font:inherit;font-family:var(--mono);font-size:13px;line-height:1.6;resize:vertical}
+.bulk-paste:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(124,108,255,.14)}
+.bulk-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:16px 0 12px}
+.bulk-summary{font-family:var(--mono);font-size:12px;color:var(--muted);line-height:1.6}
+.bulk-summary b{color:var(--text);font-weight:500}
+.bulk-skipped{margin:0 0 12px;padding:10px 14px;border-radius:12px;background:rgba(255,170,60,.08);border:1px solid rgba(255,170,60,.3);font-size:12.5px;color:var(--muted);line-height:1.6}
+.drafts{display:grid;gap:10px}
+.draft{position:relative;display:grid;grid-template-columns:96px 1fr;gap:14px;align-items:start;padding:12px 48px 12px 12px;border:1px solid var(--glass-border);border-radius:16px;background:var(--surface);transition:border-color .2s}
+.draft.ready{border-color:rgba(61,220,151,.5)}
+.draft.active{box-shadow:0 0 0 3px rgba(124,108,255,.18)}
+.dz{width:96px;height:120px;border-radius:12px;border:1px dashed rgba(124,108,255,.5);background:rgba(124,108,255,.06);display:grid;place-items:center;text-align:center;font-size:11px;line-height:1.4;color:var(--muted);cursor:pointer;position:relative;overflow:hidden;padding:6px}
+.dz.over{border-color:var(--cyan);background:rgba(34,230,255,.12)}
+.dz img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.dz .n{position:absolute;bottom:5px;right:5px;background:rgba(7,9,18,.82);color:#fff;font-family:var(--mono);font-size:10px;padding:2px 7px;border-radius:999px}
+.dz input{display:none}
+.draft-fields{display:grid;grid-template-columns:2fr 1.3fr 1fr .8fr;gap:8px}
+.draft-fields input{border:1px solid var(--glass-border);background:var(--surface2);color:var(--text);border-radius:10px;padding:10px 11px;font:inherit;font-size:13.5px}
+.draft-meta{grid-column:2;display:flex;gap:14px;flex-wrap:wrap;align-items:center;font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:8px}
+.draft-meta a{color:var(--accent);text-decoration:none}
+.draft-meta .ok{color:#3ddc97}
+.draft-x{position:absolute;top:10px;right:10px;width:30px;height:30px;border:0;border-radius:9px;background:var(--surface2);color:var(--muted);cursor:pointer;font-size:14px}
+.draft-x:hover{color:#ff4f6d;background:rgba(255,79,109,.12)}
 @media(max-width:980px){
   .hero{grid-template-columns:1fr;padding:48px 0 24px;gap:32px}
   .qv{grid-template-columns:1fr}
@@ -253,6 +277,12 @@ radial-gradient(1000px 640px at 100% -4%,rgba(34,230,255,.13),transparent 55%),v
   .action{font-size:12px;height:34px;padding:0 6px}
   .action.kb{height:42px;font-size:12.5px;white-space:normal;line-height:1.15}
   .admin-grid{grid-template-columns:1fr}
+  .draft{grid-template-columns:80px 1fr;padding-right:12px}
+  .dz{width:80px;height:100px}
+  .draft-fields{grid-template-columns:1fr 1fr}
+  .draft-fields input:first-child{grid-column:1/-1}
+  .draft-meta{grid-column:1/-1}
+  .draft-x{top:auto;bottom:10px}
   .modal{padding:0;align-items:flex-end}
   #viewModal .modal-box{border-radius:22px 22px 0 0;max-height:96vh}
   .qv-info{padding:20px}
@@ -272,6 +302,7 @@ radial-gradient(1000px 640px at 100% -4%,rgba(34,230,255,.13),transparent 55%),v
       <option>AUD</option><option>USD</option><option>EUR</option><option>GBP</option><option>CNY</option>
     </select>
     <button class="btn" id="authBtn">Log in</button>
+    <button class="btn" id="bulkBtn" style="display:none">Bulk add</button>
     <button class="btn kb" id="addBtn" style="display:none">+ Add item</button>
   </div>
 </div></header>
@@ -325,6 +356,7 @@ radial-gradient(1000px 640px at 100% -4%,rgba(34,230,255,.13),transparent 55%),v
 </div>
 <button class="fab" id="fab" aria-label="Add item">+</button>
 <div class="modal" id="viewModal" role="dialog" aria-modal="true"><div class="modal-box" id="viewBox"></div></div>
+<div class="modal" id="bulkModal"><div class="modal-box" id="bulkBox"></div></div>
 <div class="modal" id="adminModal"><div class="modal-box" id="adminBox"></div></div>
 <div class="modal" id="authModal"><div class="modal-box" id="authBox"></div></div>
 <div class="toast" id="toast"></div>
@@ -334,6 +366,30 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const SUPABASE_URL='https://xbhqvoapbfhyhcrhafxm.supabase.co';
 const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhiaHF2b2FwYmZoeWhjcmhhZnhtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA5MjUxNTcsImV4cCI6MjEwNjUwMTE1N30.w-AH-743HhJjDwazZg-AdkuotzANoCd7kwXH6exIo-g';
 const AFF='https://ikako.vip/r/9enta';
+const AFF_CODE='9enta';
+
+// Turns any Taobao/Tmall/Weidian item URL (tracking junk and all) into a clean canonical link.
+function parseLink(raw){
+  let u;
+  try{u=new URL(String(raw||'').trim())}catch{return null}
+  const host=u.hostname.replace(/^(www|m|h5|world)\./,'');
+  const q=k=>u.searchParams.get(k)||u.searchParams.get(k.toLowerCase());
+  if(/(^|\.)(taobao|tmall)\.com$/.test(host)){
+    const id=q('id');
+    if(id&&/^\d+$/.test(id)) return {key:'tb:'+id,url:`https://item.taobao.com/item.htm?id=${id}`,site:'Taobao'};
+  }
+  if(/(^|\.)weidian\.com$/.test(host)){
+    const id=q('itemID')||q('itemId');
+    if(id&&/^\d+$/.test(id)) return {key:'wd:'+id,url:`https://weidian.com/item.html?itemID=${id}`,site:'Weidian'};
+  }
+  if(/(^|\.)tb\.cn$/.test(host)) return {error:'short tb.cn link — open it and copy the full item.taobao.com address'};
+  return {error:'not a Taobao/Tmall/Weidian item link'};
+}
+// Kakobuy's item page for a product, carrying the affiliate code. Change here if Kakobuy's format differs.
+const kakobuyFor=url=>url?`https://www.kakobuy.com/item/details?url=${encodeURIComponent(url)}&affcode=${AFF_CODE}`:'';
+const isUrl=u=>/^https?:\/\//i.test(String(u||'').trim());
+// Main button target: a hand-set Kakobuy link, else one generated from the Taobao link, else the signup link.
+const buyLinkFor=p=>(isUrl(p.kakobuyLink)&&p.kakobuyLink.trim())||kakobuyFor(parseLink(p.productLink)?.url)||p.affiliateLink||AFF;
 const rates={CNY:1,AUD:0.215,USD:0.139,EUR:0.119,GBP:0.103};
 const store={
   get(k){try{return localStorage.getItem(k)}catch{return null}},
@@ -430,6 +486,7 @@ function renderTicker(){
 
 function refreshAuthUI(){
   $('#addBtn').style.display=currentUser?'':'none';
+  $('#bulkBtn').style.display=currentUser?'':'none';
   $('#fab').classList.toggle('show',!!currentUser);
   $('#authBtn').textContent=currentUser?'Log out':'Log in';
   if(products.length) render();
@@ -506,16 +563,14 @@ let newIds=new Set();
 const isNew=p=>newIds.has(p.id);
 
 function buyButtons(p,big){
-  const buyLink=p.kakobuyLink||p.affiliateLink||AFF;
-  const taobao=p.productLink?`<a class="action taobao" href="${esc(p.productLink)}" target="_blank" rel="noopener">Taobao ↗</a>`:'';
-  const directKb=p.kakobuyLink?`<a class="action" href="${esc(p.kakobuyLink)}" target="_blank" rel="noopener">Kakobuy link ↗</a>`:'';
-  const buy=`<a class="action kb" href="${esc(buyLink)}" target="_blank" rel="noopener">Free shipping with Kakobuy${big?' ↗':''}</a>`;
-  const row=taobao||directKb?`<div class="action-row">${taobao}${directKb}</div>`:'';
-  return buy+row;
+  const site=parseLink(p.productLink)?.site||'Taobao';
+  const taobao=isUrl(p.productLink)?`<div class="action-row"><a class="action taobao" href="${esc(parseLink(p.productLink)?.url||p.productLink)}" target="_blank" rel="noopener">${site} ↗</a></div>`:'';
+  const buy=`<a class="action kb" href="${esc(buyLinkFor(p))}" target="_blank" rel="noopener">Free shipping with Kakobuy${big?' ↗':''}</a>`;
+  return buy+taobao;
 }
 
 function card(p,i){
-  const buyLink=p.kakobuyLink||p.affiliateLink||AFF;
+  const buyLink=buyLinkFor(p);
   const edit=currentUser?`<button class="action edit" onclick="openAdmin(${Number(p.id)})">✎ Edit</button>`:'';
   const price=p.cny?`<div class="price">${money(p.cny)}</div><div class="cny">¥${esc(p.cny)}</div>`:'';
   // First row loads immediately at high priority; everything else waits until it's near the viewport.
@@ -615,18 +670,38 @@ function renderThumbs(){
   wrap.innerHTML=draftImages.map((u,i)=>`<div class="thumb"><img src="${esc(imgUrl(u,160))}" decoding="async"><button onclick="removeThumb(${i})">×</button></div>`).join('');
 }
 function removeThumb(i){draftImages.splice(i,1);renderThumbs()}
-async function handleUpload(files){
-  if(!currentUser){showToast('Log in first.');return}
-  for(const file of files){
-    const ext=file.name.split('.').pop().toLowerCase();
+// Shrink photos in the browser before upload (max 1800px WebP) so originals aren't 10MB PNGs.
+async function compressImage(file){
+  if(!/^image\/(png|jpe?g|webp|heic|heif)$/i.test(file.type)) return file;
+  try{
+    const bmp=await createImageBitmap(file);
+    const scale=Math.min(1,1800/Math.max(bmp.width,bmp.height));
+    const c=document.createElement('canvas');
+    c.width=Math.round(bmp.width*scale);c.height=Math.round(bmp.height*scale);
+    c.getContext('2d').drawImage(bmp,0,0,c.width,c.height);
+    const blob=await new Promise(r=>c.toBlob(r,'image/webp',.86));
+    return blob&&blob.size<file.size?new File([blob],'photo.webp',{type:'image/webp'}):file;
+  }catch{return file}
+}
+async function uploadFiles(files){
+  if(!currentUser||!sb){showToast('Log in first.');return []}
+  const urls=[];
+  for(const original of files){
+    if(!original.type.startsWith('image/')) continue;
+    const file=await compressImage(original);
+    const ext=(file.name.split('.').pop()||'jpg').toLowerCase();
     const path=`${Date.now()}-${Math.random().toString(36).slice(2,8)}.${ext}`;
-    const {error}=await sb.storage.from('item-images').upload(path,file,{cacheControl:'31536000',upsert:false});
+    const {error}=await sb.storage.from('item-images').upload(path,file,{cacheControl:'31536000',upsert:false,contentType:file.type});
     if(error){console.error(error);showToast('Upload failed: '+error.message);continue}
-    const {data}=sb.storage.from('item-images').getPublicUrl(path);
-    draftImages.push(data.publicUrl);
+    urls.push(sb.storage.from('item-images').getPublicUrl(path).data.publicUrl);
   }
+  return urls;
+}
+async function handleUpload(files){
+  const urls=await uploadFiles([...files]);
+  draftImages.push(...urls);
   renderThumbs();
-  showToast('Uploaded.');
+  if(urls.length) showToast('Uploaded.');
 }
 
 function openAdmin(id=null){
@@ -653,8 +728,8 @@ function openAdmin(id=null){
       <input class="admin-wide" id="aImage" placeholder="Fallback image URL (optional)" value="${v('image')}">
       <div class="admin-section">Links</div>
       <input class="admin-wide" id="aAffiliate" placeholder="Affiliate link — your signup link (used if no Kakobuy link below)" value="${v('affiliateLink')}">
-      <input class="admin-wide" id="aProduct" placeholder="Taobao link — direct listing" value="${v('productLink')}">
-      <input class="admin-wide" id="aKakobuy" placeholder="Kakobuy link for this item — used by the main button" value="${v('kakobuyLink')}">
+      <input class="admin-wide" id="aProduct" placeholder="Taobao / Weidian link — paste it and the Kakobuy link fills itself" value="${v('productLink')}">
+      <input class="admin-wide" id="aKakobuy" placeholder="Kakobuy link — auto-made from the Taobao link (override if needed)" value="${esc(isUrl(p?.kakobuyLink)?p.kakobuyLink:'')}">
       <textarea class="admin-wide" id="aNotes" placeholder="Notes (shown in quick view)">${v('notes')}</textarea>
     </div>
     <div class="admin-actions">
@@ -665,6 +740,13 @@ function openAdmin(id=null){
   $('#adminModal').classList.add('open');
   renderThumbs();
   $('#aFiles').onchange=e=>handleUpload(e.target.files);
+  $('#aProduct').onchange=e=>{
+    const link=parseLink(e.target.value);
+    if(!link||link.error) return;
+    e.target.value=link.url;
+    const kb=$('#aKakobuy');
+    if(!kb.value.trim()||kb.value.includes('kakobuy.com/item/details')) kb.value=kakobuyFor(link.url);
+  };
   $('#aSave').onclick=()=>saveAdmin(p?.id||null);
   if(p) $('#aDelete').onclick=()=>deleteAdmin(p.id);
 }
@@ -710,15 +792,227 @@ async function deleteAdmin(id){
   showToast('Deleted.');
 }
 
+/* ---------- bulk add ---------- */
+// Drafts live in localStorage so closing the window mid-way doesn't lose work.
+let drafts=[];
+let bulkNotes=[];
+let activeDraft=-1;
+try{drafts=JSON.parse(store.get('ri-drafts')||'[]')}catch{drafts=[]}
+const saveDrafts=()=>store.set('ri-drafts',JSON.stringify(drafts.map(({uploading,...d})=>d)));
+const isReady=d=>d.name.trim()&&d.images.length&&!d.uploading;
+
+function openBulk(){
+  if(!currentUser){showToast('Log in first.');return}
+  $('#bulkModal').classList.add('open');
+  document.body.classList.add('locked');
+  drafts.length?renderDrafts():renderPaste();
+}
+function closeBulk(){
+  $('#bulkModal').classList.remove('open');
+  document.body.classList.remove('locked');
+}
+
+function renderPaste(){
+  $('#bulkBox').innerHTML=`
+    <div class="modal-head"><div><h3>Bulk add</h3><p class="admin-note">Paste Taobao, Tmall or Weidian links — one per line, or a whole chat/notes dump. Links are picked out, cleaned and turned into drafts with Kakobuy links made for you.</p></div><button class="close" onclick="closeBulk()">×</button></div>
+    <textarea class="bulk-paste" id="bulkPaste" placeholder="https://item.taobao.com/item.htm?id=…&#10;https://weidian.com/item.html?itemID=…"></textarea>
+    <div class="admin-actions">
+      ${drafts.length?'<button class="btn" onclick="renderDrafts()">Back to drafts</button>':''}
+      <button class="btn kb" id="bulkMake">Create drafts</button>
+    </div>`;
+  $('#bulkPaste').focus();
+  $('#bulkMake').onclick=()=>makeDrafts($('#bulkPaste').value);
+}
+
+function makeDrafts(text){
+  const found=String(text).match(/https?:\/\/[^\s"'<>,，]+/g)||[];
+  const onSite=new Set(products.map(p=>parseLink(p.productLink)?.key).filter(Boolean));
+  const inDrafts=new Set(drafts.map(d=>d.key));
+  let added=0;
+  bulkNotes=[];
+  for(const raw of found){
+    const link=parseLink(raw);
+    if(!link||link.error){bulkNotes.push(`${raw.slice(0,60)}… — ${link?.error||'not a link'}`);continue}
+    if(onSite.has(link.key)){bulkNotes.push(`${link.url} — already on the site`);continue}
+    if(inDrafts.has(link.key)) continue;
+    inDrafts.add(link.key);
+    drafts.push({key:link.key,url:link.url,site:link.site,name:'',brand:'',category:'',cny:'',images:[]});
+    added++;
+  }
+  saveDrafts();
+  if(!added&&!drafts.length){showToast(found.length?'No new item links found.':'No links found in that text.');return}
+  renderDrafts();
+  showToast(`${added} draft${added===1?'':'s'} created.`);
+}
+
+function bulkSummary(){
+  const ready=drafts.filter(isReady).length;
+  return `<b>${drafts.length}</b> draft${drafts.length===1?'':'s'} · <b>${ready}</b> ready to publish<br>Ready = name + at least one photo. Drop, click or paste (⌘V) photos onto a row.`;
+}
+
+function draftRow(d,i){
+  const cover=d.images[0]?`<img src="${esc(imgUrl(d.images[0],320))}" alt="">`:'';
+  const label=d.uploading?'Uploading…':d.images.length?'':'Drop, click<br>or paste<br>photos';
+  return `<div class="draft ${isReady(d)?'ready':''} ${i===activeDraft?'active':''}" data-i="${i}">
+    <label class="dz" data-i="${i}">${cover}<span style="position:relative">${label}</span>${d.images.length?`<span class="n">${d.images.length}</span>`:''}<input type="file" accept="image/*" multiple data-i="${i}"></label>
+    <div>
+      <div class="draft-fields">
+        <input data-i="${i}" data-f="name" placeholder="Name *" value="${esc(d.name)}">
+        <input data-i="${i}" data-f="brand" placeholder="Brand" list="dlBrands" value="${esc(d.brand)}">
+        <input data-i="${i}" data-f="category" placeholder="Category" list="dlCats" value="${esc(d.category)}">
+        <input data-i="${i}" data-f="cny" placeholder="¥ price" type="number" min="0" value="${esc(d.cny)}">
+      </div>
+      <div class="draft-meta">
+        <a href="${esc(d.url)}" target="_blank" rel="noopener">Open ${esc(d.site)} ↗</a>
+        <a href="${esc(kakobuyFor(d.url))}" target="_blank" rel="noopener">Kakobuy ↗</a>
+        ${d.images.length?`<button class="action" style="height:24px;font-size:11px;padding:0 8px" data-clear="${i}">Clear photos</button>`:''}
+        ${isReady(d)?'<span class="ok">✓ ready</span>':''}
+      </div>
+    </div>
+    <button class="draft-x" data-del="${i}" aria-label="Remove draft">×</button>
+  </div>`;
+}
+
+function renderDrafts(){
+  const uniq=k=>[...new Set(products.map(p=>(p[k]||'').trim()).filter(Boolean))];
+  const ready=drafts.filter(isReady).length;
+  $('#bulkBox').innerHTML=`
+    <div class="modal-head"><div><h3>Bulk add</h3></div><button class="close" onclick="closeBulk()">×</button></div>
+    <datalist id="dlBrands">${uniq('brand').map(b=>`<option value="${esc(b)}">`).join('')}</datalist>
+    <datalist id="dlCats">${uniq('category').map(c=>`<option value="${esc(c)}">`).join('')}</datalist>
+    <div class="bulk-bar">
+      <div class="bulk-summary" id="bulkSummary">${bulkSummary()}</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn" onclick="renderPaste()">+ Add more links</button>
+        <button class="btn kb" id="bulkPublish" ${ready?'':'disabled style="opacity:.5;cursor:not-allowed"'}>Publish ${ready} ready</button>
+      </div>
+    </div>
+    ${bulkNotes.length?`<div class="bulk-skipped">Skipped:<br>${bulkNotes.map(esc).join('<br>')}</div>`:''}
+    <div class="drafts" id="draftList">${drafts.map(draftRow).join('')||'<div class="empty"><b>No drafts</b>Paste some links to get started.</div>'}</div>`;
+  $('#bulkPublish').onclick=publishDrafts;
+}
+
+// Update one row in place so typing elsewhere doesn't lose focus.
+function refreshDraft(i){
+  const old=document.querySelector(`.draft[data-i="${i}"]`);
+  if(old) old.outerHTML=draftRow(drafts[i],i);
+  refreshBulkBar();
+}
+function refreshBulkBar(){
+  const sum=$('#bulkSummary');
+  if(sum) sum.innerHTML=bulkSummary();
+  const btn=$('#bulkPublish');
+  if(!btn) return;
+  const ready=drafts.filter(isReady).length;
+  btn.textContent=`Publish ${ready} ready`;
+  btn.disabled=!ready;
+  btn.style.opacity=ready?'':'.5';
+  btn.style.cursor=ready?'':'not-allowed';
+}
+
+async function addDraftPhotos(i,files){
+  const d=drafts[i];
+  if(!d||!files.length) return;
+  d.uploading=(d.uploading||0)+1;
+  refreshDraft(i);
+  const urls=await uploadFiles([...files]);
+  d.images.push(...urls);
+  d.uploading--;
+  if(!d.uploading) delete d.uploading;
+  saveDrafts();
+  refreshDraft(i);
+}
+
+async function publishDrafts(){
+  const ready=drafts.filter(isReady);
+  if(!ready.length) return;
+  const rows=ready.map(d=>({
+    name:d.name.trim(),
+    brand:d.brand.trim(),
+    category:d.category.trim()||'Other',
+    seller:'',
+    cny:Number(d.cny)||0,
+    rating:0,
+    qc:d.images.length,
+    status:'In stock',
+    image:d.images[0],
+    images:d.images,
+    product_link:d.url,
+    kakobuy_link:kakobuyFor(d.url),
+    affiliate_link:AFF,
+    notes:''
+  }));
+  const btn=$('#bulkPublish');
+  btn.disabled=true;btn.textContent='Publishing…';
+  const {error}=await sb.from('products').insert(rows);
+  if(error){console.error(error);showToast('Publish failed: '+error.message);refreshBulkBar();return}
+  drafts=drafts.filter(d=>!isReady(d));
+  saveDrafts();
+  await loadProducts();
+  showToast(`Published ${rows.length} item${rows.length===1?'':'s'}.`);
+  drafts.length?renderDrafts():closeBulk();
+}
+
+const bulkBox=$('#bulkBox');
+bulkBox.addEventListener('input',e=>{
+  const f=e.target.dataset.f;
+  if(!f) return;
+  const i=+e.target.dataset.i;
+  drafts[i][f]=e.target.value;
+  saveDrafts();
+  e.target.closest('.draft').classList.toggle('ready',!!isReady(drafts[i]));
+  refreshBulkBar();
+});
+bulkBox.addEventListener('change',e=>{
+  if(e.target.type==='file') addDraftPhotos(+e.target.dataset.i,e.target.files);
+});
+bulkBox.addEventListener('click',e=>{
+  const del=e.target.closest('[data-del]');
+  if(del){drafts.splice(+del.dataset.del,1);activeDraft=-1;saveDrafts();renderDrafts();return}
+  const clear=e.target.closest('[data-clear]');
+  if(clear){e.preventDefault();drafts[+clear.dataset.clear].images=[];saveDrafts();refreshDraft(+clear.dataset.clear)}
+});
+bulkBox.addEventListener('focusin',e=>{
+  const row=e.target.closest('.draft');
+  if(!row) return;
+  document.querySelectorAll('.draft.active').forEach(r=>r.classList.remove('active'));
+  row.classList.add('active');
+  activeDraft=+row.dataset.i;
+});
+bulkBox.addEventListener('dragover',e=>{
+  const dz=e.target.closest('.dz');
+  if(!dz) return;
+  e.preventDefault();
+  dz.classList.add('over');
+});
+bulkBox.addEventListener('dragleave',e=>e.target.closest('.dz')?.classList.remove('over'));
+bulkBox.addEventListener('drop',e=>{
+  const dz=e.target.closest('.dz');
+  if(!dz) return;
+  e.preventDefault();
+  dz.classList.remove('over');
+  addDraftPhotos(+dz.dataset.i,e.dataTransfer.files);
+});
+// Paste a screenshot straight into whichever row you're working on.
+document.addEventListener('paste',e=>{
+  if(!$('#bulkModal').classList.contains('open')||activeDraft<0||!drafts[activeDraft]) return;
+  const files=[...(e.clipboardData?.files||[])].filter(f=>f.type.startsWith('image/'));
+  if(!files.length) return;
+  e.preventDefault();
+  addDraftPhotos(activeDraft,files);
+});
+
 /* ---------- wiring ---------- */
 $('#authBtn').onclick=openAuth;
 $('#addBtn').onclick=()=>openAdmin();
+$('#bulkBtn').onclick=openBulk;
+$('#bulkModal').onclick=e=>{if(e.target.id==='bulkModal')closeBulk()};
 $('#fab').onclick=()=>openAdmin();
 $('#authModal').onclick=e=>{if(e.target.id==='authModal')closeAuth()};
 $('#adminModal').onclick=e=>{if(e.target.id==='adminModal')closeAdmin()};
 $('#viewModal').onclick=e=>{if(e.target.id==='viewModal')closeView()};
 document.addEventListener('keydown',e=>{
-  if(e.key==='Escape'){closeAuth();closeAdmin();closeView()}
+  if(e.key==='Escape'){closeAuth();closeAdmin();closeView();closeBulk()}
   if(viewing&&e.key==='ArrowRight') showPhoto(viewIdx+1);
   if(viewing&&e.key==='ArrowLeft') showPhoto(viewIdx-1);
 });
