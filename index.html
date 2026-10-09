@@ -501,7 +501,7 @@ const useClean=!new URLSearchParams(location.search).has('original');
 const fetchClean=()=>useClean?fetch('/img/clean/index.json').then(r=>r.ok?r.json():{}).catch(()=>({})):Promise.resolve({});
 const firstClean=fetchClean();
 let cleanMap={};
-const cleanSrc=(p,w)=>p.clean?`/img/clean/${p.clean}-${w}.webp`:'';
+const cleanSrc=p=>p.clean?`/img/clean/${p.clean}.webp`:'';
 
 // Originals are multi-MB PNGs; serve resized WebP from Supabase's image CDN instead.
 const OBJ='/storage/v1/object/public/';
@@ -553,7 +553,7 @@ function mapRows(data){
   });
 }
 // Photo list used by cards and quick view: the clean shot first, then the original photos.
-const gallery=p=>[...(p.clean?[{src:cleanSrc(p,1080),srcset:`${cleanSrc(p,640)} 640w, ${cleanSrc(p,1080)} 1080w`,thumb:cleanSrc(p,640),white:true}]:[]),
+const gallery=p=>[...(p.clean?[{src:cleanSrc(p),srcset:'',thumb:cleanSrc(p),white:true}]:[]),
   ...p.images.map(u=>({src:imgUrl(u,1080),srcset:srcset(u,[720,1080,1600]),thumb:imgUrl(u,160)}))];
 
 function applyRows(rows){
@@ -697,7 +697,7 @@ function card(p,i){
   const altSrc=p.clean?p.images[0]:p.images[1];
   const alt=altSrc?`<img class="alt" data-src="${esc(imgUrl(altSrc,480))}" data-srcset="${esc(srcset(altSrc,[320,480,720]))}" sizes="${CARD_SIZES}" alt="">`:'';
   const mainImg=p.clean
-    ?`<img src="${cleanSrc(p,640)}" srcset="${cleanSrc(p,640)} 640w, ${cleanSrc(p,1080)} 1080w" sizes="${CARD_SIZES}" alt="${esc(p.name)}" decoding="async" ${load} onload="this.classList.add('in');this.parentNode.classList.add('loaded')" onerror="this.parentNode.classList.add('loaded')">`
+    ?`<img src="${cleanSrc(p)}" alt="${esc(p.name)}" decoding="async" ${load} onload="this.classList.add('in');this.parentNode.classList.add('loaded')" onerror="this.parentNode.classList.add('loaded')">`
     :`<img src="${esc(imgUrl(p.image,480))}" srcset="${esc(srcset(p.image,[320,480,720,960]))}" sizes="${CARD_SIZES}" alt="${esc(p.name)}" decoding="async" ${load} onload="this.classList.add('in');this.parentNode.classList.add('loaded')" onerror="this.parentNode.classList.add('loaded')">`;
   const eyebrow=[cleanBrand(p.brand),p.seller].filter(Boolean).map(esc).join(' · ');
   // Only show status when it says something (e.g. "Sold out"); "In stock" on every card is noise.
