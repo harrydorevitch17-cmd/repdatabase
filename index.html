@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://xbhqvoapbfhyhcrhafxm.supabase.co">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700;800&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <!-- Only needed for admin login/editing, so it loads without blocking the page. -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
 <style>
@@ -30,7 +30,6 @@
 --cyan:#22e6ff;
 --grad:linear-gradient(135deg,var(--accent),var(--cyan));
 --kb:linear-gradient(135deg,#4a1fd6 0%,#6d3df5 50%,#7c55ff 100%);
---display:Unbounded,Inter,system-ui,sans-serif;
 --sans:Geist,Inter,system-ui,-apple-system,sans-serif;
 --mono:'Geist Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
 --radius:20px;
@@ -50,15 +49,15 @@ radial-gradient(1000px 640px at 100% -4%,rgba(34,230,255,.13),transparent 55%),v
 .announce{display:block;text-align:center;padding:9px 16px;font-size:13px;font-weight:500;text-decoration:none;color:#fff;background:var(--kb);position:relative;overflow:hidden}
 .announce::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent);animation:sweep 6s linear infinite;pointer-events:none}
 .announce b{font-weight:700}
-.announce span{opacity:.8;margin-left:6px}
+.announce .short{display:none}
 @keyframes sweep{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
 
 /* header */
 .site-head{position:sticky;top:0;z-index:4;backdrop-filter:blur(18px) saturate(150%);-webkit-backdrop-filter:blur(18px) saturate(150%);background:light-dark(rgba(243,245,252,.72),rgba(5,7,15,.68));border-bottom:1px solid var(--glass-border)}
 .site-head .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:66px}
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none}
-.mark{width:36px;height:36px;border-radius:11px;background:var(--grad);color:#fff;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:14px;letter-spacing:-.5px;box-shadow:0 0 22px rgba(124,108,255,.45)}
-.brand h1{font-family:var(--display);font-size:15px;font-weight:700;margin:0;letter-spacing:-.3px}
+.mark{width:36px;height:36px;border-radius:11px;background:var(--grad);color:#fff;display:grid;place-items:center;font-weight:800;font-size:15px;letter-spacing:-.5px;box-shadow:0 0 22px rgba(124,108,255,.45)}
+.brand h1{font-size:16px;font-weight:700;margin:0;letter-spacing:-.4px}
 .brand p{margin:2px 0 0;color:var(--muted);font-size:11px;font-family:var(--mono)}
 .header-actions{display:flex;gap:8px;align-items:center}
 .btn,.select{border:1px solid var(--glass-border);background:var(--surface);color:var(--text);border-radius:12px;height:38px;padding:0 15px;font:inherit;font-size:13.5px;font-weight:600;cursor:pointer;backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);box-shadow:0 1px 0 var(--glass-hi) inset;transition:.18s;display:inline-flex;align-items:center;justify-content:center;gap:7px;text-decoration:none;white-space:nowrap}
@@ -79,7 +78,7 @@ radial-gradient(1000px 640px at 100% -4%,rgba(34,230,255,.13),transparent 55%),v
 .hero-sub{margin:0 0 30px;color:var(--muted);font-size:17px;line-height:1.55;max-width:520px}
 .hero-ctas{display:flex;gap:12px;flex-wrap:wrap}
 .stats{display:flex;gap:34px;margin-top:38px}
-.stats b{display:block;font-family:var(--display);font-size:26px;font-weight:700;letter-spacing:-.03em}
+.stats b{display:block;font-size:28px;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
 .stats span{font-family:var(--mono);font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
 .steps{display:grid;gap:12px;counter-reset:step}
 .step{display:flex;gap:16px;align-items:flex-start;padding:20px;border-radius:var(--radius);background:var(--surface);border:1px solid var(--glass-border);box-shadow:0 1px 0 var(--glass-hi) inset;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);transition:.25s var(--ease)}
@@ -88,13 +87,14 @@ radial-gradient(1000px 640px at 100% -4%,rgba(34,230,255,.13),transparent 55%),v
 .step h3{margin:2px 0 4px;font-size:15.5px;font-weight:600;letter-spacing:-.01em}
 .step p{margin:0;color:var(--muted);font-size:13.5px;line-height:1.45}
 .step a{color:var(--accent);font-weight:600;text-decoration:none}
+.steps-mini{display:none}
 
 /* brand ticker */
 .ticker{overflow:hidden;border-block:1px solid var(--glass-border);padding:16px 0;margin-top:10px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
 .ticker[hidden]{display:none}
 .ticker-track{display:flex;width:max-content;animation:ticker 45s linear infinite}
 .ticker:hover .ticker-track{animation-play-state:paused}
-.ticker-track span{font-family:var(--display);font-weight:700;font-size:15px;text-transform:uppercase;letter-spacing:-.01em;color:var(--muted);padding:0 22px;white-space:nowrap;display:flex;align-items:center;gap:44px}
+.ticker-track span{font-weight:600;font-size:14px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding:0 22px;white-space:nowrap;display:flex;align-items:center;gap:44px}
 .ticker-track span::after{content:"✦";font-size:10px;color:var(--accent)}
 @keyframes ticker{to{transform:translateX(-50%)}}
 
@@ -120,9 +120,9 @@ radial-gradient(1000px 640px at 100% -4%,rgba(34,230,255,.13),transparent 55%),v
 .skeleton-card::after,.photo::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.07),transparent);animation:sweep 1.4s linear infinite;pointer-events:none}
 .skeleton-photo{aspect-ratio:4/5;background:linear-gradient(135deg,rgba(124,108,255,.1),rgba(34,230,255,.06))}
 .skeleton-line{height:12px;border-radius:6px;background:rgba(127,127,160,.14);margin:14px 16px 0}
-.card{position:relative;display:flex;flex-direction:column;background:var(--solid);border:1px solid var(--glass-border);border-radius:var(--radius);overflow:hidden;transition:transform .3s var(--ease),box-shadow .3s,border-color .3s;box-shadow:0 1px 0 var(--glass-hi) inset,0 10px 30px rgba(0,0,0,.12);animation:rise .5s var(--ease) both;animation-delay:calc(var(--i,0) * 35ms);content-visibility:auto;contain-intrinsic-size:auto 470px}
+.card{position:relative;display:flex;flex-direction:column;background:var(--solid);border:1px solid var(--glass-border);border-radius:var(--radius);overflow:hidden;transition:transform .3s var(--ease),box-shadow .3s,border-color .3s;box-shadow:0 1px 2px rgba(0,0,0,.06);animation:rise .5s var(--ease) both;animation-delay:calc(var(--i,0) * 35ms);content-visibility:auto;contain-intrinsic-size:auto 470px}
 @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-.card:hover{transform:translateY(-4px);border-color:rgba(124,108,255,.5);box-shadow:0 18px 44px rgba(50,40,150,.25),0 0 30px rgba(124,108,255,.18)}
+.card:hover{transform:translateY(-3px);border-color:rgba(124,108,255,.45);box-shadow:0 16px 40px rgba(30,25,90,.22)}
 .photo{display:block;aspect-ratio:4/5;background:linear-gradient(135deg,rgba(124,108,255,.16),rgba(34,230,255,.08));position:relative;overflow:hidden;cursor:zoom-in}
 .photo.loaded::after{display:none}
 .photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity .45s ease,transform .7s var(--ease)}
@@ -132,35 +132,55 @@ radial-gradient(1000px 640px at 100% -4%,rgba(34,230,255,.13),transparent 55%),v
 .card:hover .photo img.alt.ready{opacity:1}
 .chips{position:absolute;top:12px;left:12px;display:flex;gap:6px;z-index:2}
 .chip{background:rgba(7,9,18,.72);color:#fff;padding:6px 10px;border-radius:999px;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;align-items:center;gap:6px}
-.chip.stock::before{content:"";width:6px;height:6px;border-radius:50%;background:#3ddc97}
 .chip.new{background:var(--grad);border-color:transparent;font-weight:500}
-.save{position:absolute;top:12px;right:12px;z-index:3;width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.18);background:rgba(7,9,18,.62);color:#fff;font-size:17px;line-height:1;display:grid;place-items:center;cursor:pointer;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:.2s var(--ease)}
+.save{position:absolute;top:10px;right:10px;z-index:3;width:34px;height:34px;border-radius:50%;border:0;background:rgba(7,9,18,.5);color:#fff;font-size:15px;line-height:1;display:grid;place-items:center;cursor:pointer;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:.2s var(--ease)}
 .save:hover{transform:scale(1.08)}
 .save.on{background:#ff4d6d;border-color:transparent}
 .stat-line{font-family:var(--mono);font-size:11px;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap}
 .stat-line b{color:var(--text);font-weight:500}
-.qv-share{display:flex;gap:8px}
-.qv-share .action{flex:1;height:36px;font-size:12.5px}
+.qv-share{display:grid;grid-template-columns:repeat(auto-fit,minmax(0,1fr));gap:8px}
+.qv-share .action{height:38px;font-size:12.5px}
 .view-hint{position:absolute;left:12px;right:12px;bottom:12px;z-index:2;display:flex;justify-content:space-between;align-items:center;opacity:0;transform:translateY(6px);transition:.3s var(--ease)}
 .card:hover .view-hint{opacity:1;transform:none}
 .view-hint span{background:rgba(7,9,18,.72);color:#fff;padding:6px 10px;border-radius:999px;font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
-.content{padding:16px;display:flex;flex-direction:column;gap:14px;flex:1}
-.topline{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
-.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:5px}
+.content{padding:14px 14px 14px;display:flex;flex-direction:column;gap:12px;flex:1}
+.topline{display:flex;flex-direction:column;gap:4px}
+.meta-row{font-family:var(--mono);font-size:11.5px;color:var(--muted);white-space:nowrap;display:flex;gap:6px;align-items:baseline;margin-top:2px}
+.meta-row a{color:light-dark(#c2410c,#ff9a4d);text-decoration:none;font-weight:500}
+.meta-row a:hover{text-decoration:underline}
+.photo.clean{background:#fff}
+.photo.clean::after{background:linear-gradient(90deg,transparent,rgba(120,120,160,.08),transparent)}
+/* primary buy button: label + arrow left, price right */
+.buy{position:relative;display:flex;align-items:center;justify-content:space-between;gap:10px;height:46px;padding:0 6px 0 16px;border-radius:14px;background:var(--kb);color:#fff;text-decoration:none;font-weight:650;font-size:14.5px;overflow:hidden;isolation:isolate;box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 6px 18px rgba(109,61,245,.28);transition:transform .2s var(--ease),box-shadow .2s}
+.buy::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.22) 50%,transparent 70%);transform:translateX(-120%);transition:transform .6s var(--ease)}
+.buy:hover{transform:translateY(-1px);box-shadow:inset 0 1px 0 rgba(255,255,255,.25),0 10px 26px rgba(109,61,245,.5)}
+.buy:hover::before{transform:translateX(120%)}
+.buy:active{transform:translateY(0) scale(.98)}
+.buy-label{display:flex;align-items:center;gap:8px}
+.buy-arrow{width:16px;height:16px;transition:transform .2s var(--ease)}
+.buy:hover .buy-arrow,.qv-credit:hover .buy-arrow{transform:translateX(3px)}
+.buy-price{font-family:var(--mono);font-weight:600;font-size:14px;padding:7px 10px;border-radius:10px;background:rgba(255,255,255,.16);font-variant-numeric:tabular-nums}
+.buy.big{height:58px;font-size:16px;padding-left:20px;border-radius:16px;box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 12px 32px rgba(109,61,245,.42)}
+.buy.big .buy-price{font-size:15px;padding:9px 12px}
+.qv-trust{list-style:none;margin:2px 0 4px;padding:0;display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12.5px;color:var(--muted)}
+.qv-trust li{display:flex;align-items:center;gap:6px}
+.qv-trust li::before{content:"✓";color:#3ddc97;font-weight:700}
+.qv-credit{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:14px;text-decoration:none;font-size:13.5px;background:light-dark(#f2efff,rgba(124,108,255,.12));border:1px solid rgba(124,108,255,.35);color:var(--text)}
+.qv-credit b{font-weight:650}
+.qv-credit .buy-arrow-wrap{margin-left:auto;color:var(--accent);display:flex}
+.qv-credit:hover{border-color:var(--accent)}
+.qv-media.white{background:#fff}
+.qv-thumb.white{background:#fff}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .name{font-weight:600;font-size:15px;line-height:1.3;letter-spacing:-.01em;margin:0;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical}
-.price{font-family:var(--mono);font-weight:500;font-size:16px;white-space:nowrap;text-align:right}
-.cny{font-family:var(--mono);color:var(--muted);font-size:11.5px;text-align:right;margin-top:3px}
 .actions{display:grid;gap:8px;margin-top:auto}
-.action-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(0,1fr));gap:8px}
 .action{border:1px solid var(--glass-border);border-radius:12px;background:var(--surface2);color:var(--text);font:inherit;font-weight:600;font-size:13px;height:38px;cursor:pointer;transition:.18s;display:flex;align-items:center;justify-content:center;gap:6px;text-decoration:none;text-align:center;padding:0 10px;white-space:nowrap}
 .action:hover{border-color:rgba(124,108,255,.55);background:rgba(124,108,255,.12)}
-.action.kb{height:46px;color:#fff;font-size:14px;border-color:rgba(160,140,255,.5);background:var(--kb);box-shadow:0 8px 24px rgba(109,61,245,.38),inset 0 1px 0 rgba(255,255,255,.22)}
-.action.kb:hover{transform:translateY(-1px);box-shadow:0 10px 30px rgba(109,61,245,.6),0 0 26px rgba(110,231,255,.2),inset 0 1px 0 rgba(255,255,255,.28)}
-.action.taobao{color:light-dark(#c2410c,#ff9a4d);border-color:rgba(255,120,30,.35);background:rgba(255,110,20,.08)}
-.action.taobao:hover{background:rgba(255,110,20,.16);border-color:rgba(255,120,30,.7)}
+.action.kb{height:42px;color:#fff;font-size:14px;border-color:transparent;background:var(--kb);box-shadow:inset 0 1px 0 rgba(255,255,255,.2)}
+.action.kb:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(109,61,245,.45),inset 0 1px 0 rgba(255,255,255,.25)}
 .action.edit{height:32px;font-size:12px;border-style:dashed}
 .empty{padding:70px 20px;text-align:center;color:var(--muted);border:1px dashed var(--border);border-radius:var(--radius);grid-column:1/-1}
-.empty b{display:block;font-family:var(--display);font-size:18px;color:var(--text);margin-bottom:6px}
+.empty b{display:block;font-size:18px;font-weight:700;color:var(--text);margin-bottom:6px}
 
 /* quick view */
 .qv{display:grid;grid-template-columns:1.1fr 1fr;gap:0;min-height:min(640px,86vh)}
@@ -172,7 +192,7 @@ radial-gradient(1000px 640px at 100% -4%,rgba(34,230,255,.13),transparent 55%),v
 .qv-nav.prev{left:14px}.qv-nav.next{right:14px}
 .qv-count{position:absolute;bottom:14px;left:14px;background:rgba(7,9,18,.7);color:#fff;font-family:var(--mono);font-size:11.5px;padding:6px 10px;border-radius:999px}
 .qv-info{padding:28px;display:flex;flex-direction:column;gap:18px;overflow:auto;max-height:86vh}
-.qv-info h3{font-family:var(--display);font-size:24px;line-height:1.15;letter-spacing:-.02em;margin:0;text-transform:uppercase}
+.qv-info h3{font-size:26px;font-weight:700;line-height:1.15;letter-spacing:-.025em;margin:0}
 .qv-price{display:flex;align-items:baseline;gap:12px}
 .qv-price b{font-family:var(--mono);font-size:28px;font-weight:500}
 .qv-price span{font-family:var(--mono);color:var(--muted);font-size:14px}
@@ -182,7 +202,6 @@ radial-gradient(1000px 640px at 100% -4%,rgba(34,230,255,.13),transparent 55%),v
 .qv-thumb.on,.qv-thumb:hover{opacity:1;border-color:var(--accent)}
 .qv-thumb img{width:100%;height:100%;object-fit:cover;display:block}
 .qv-actions{display:grid;gap:8px;margin-top:auto}
-.qv-actions .action.kb{height:54px;font-size:15px}
 .qv-close{position:absolute;top:14px;right:14px;z-index:3}
 #viewModal .modal-box{padding:0;width:min(1040px,100%);overflow:hidden;position:relative}
 
@@ -191,8 +210,7 @@ radial-gradient(1000px 640px at 100% -4%,rgba(34,230,255,.13),transparent 55%),v
 .site-foot .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
 .site-foot a{color:var(--text);font-weight:600;text-decoration:none}
 .site-foot p{margin:0;max-width:560px}
-</style>
-<style>
+
 .modal{position:fixed;inset:0;background:rgba(4,6,14,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;padding:20px;z-index:20}
 .modal.open{display:flex;animation:fadeIn .2s ease}
 .modal.open .modal-box{animation:pop .3s var(--ease)}
@@ -200,7 +218,7 @@ radial-gradient(1000px 640px at 100% -4%,rgba(34,230,255,.13),transparent 55%),v
 @keyframes pop{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:none}}
 .modal-box{width:min(720px,100%);max-height:90vh;overflow:auto;background:light-dark(rgba(255,255,255,.97),rgba(13,18,32,.94));border:1px solid var(--glass-border);border-radius:22px;padding:24px;box-shadow:0 30px 90px rgba(0,0,0,.55);backdrop-filter:blur(28px) saturate(150%)}
 .modal-head{display:flex;justify-content:space-between;align-items:center;gap:12px}
-.modal-head h3{margin:0;font-family:var(--display);font-size:18px;letter-spacing:-.02em}
+.modal-head h3{margin:0;font-size:19px;font-weight:700;letter-spacing:-.02em}
 .close{border:0;background:var(--surface2);color:var(--text);width:36px;height:36px;border-radius:11px;cursor:pointer;font-size:16px}
 .close:hover{background:rgba(124,108,255,.18)}
 .admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
@@ -310,26 +328,32 @@ radial-gradient(1000px 640px at 100% -4%,rgba(34,230,255,.13),transparent 55%),v
   .search{flex:1}
   .search-input{width:100%}
   .count{display:none}
-  .hero h2{font-size:clamp(30px,8.6vw,40px)}
-  .hero-sub{font-size:15.5px}
-  .hero-ctas .btn{flex:1}
-  .step{padding:14px;gap:12px}
-  .step::before{width:34px;height:34px;font-size:12px;border-radius:10px}
-  .step h3{font-size:14.5px}
-  .step p{font-size:13px}
-  .stats{gap:22px;margin-top:28px}
-  .stats b{font-size:21px}
+  .announce .long{display:none}
+  .announce .short{display:inline}
+  .hero{padding:28px 0 8px;gap:0}
+  .pill{display:none}
+  .hero h2{font-size:clamp(30px,9vw,40px);margin-top:0}
+  .hero-sub{font-size:15px;margin-bottom:20px}
+  .hero-ctas{gap:8px}
+  .hero-ctas .btn{flex:1;height:48px;padding:0 12px;font-size:14px}
+  .steps{display:none}
+  .steps-mini{display:flex;gap:6px;margin:16px 0 0;padding:0;list-style:none;counter-reset:m;font-size:12px;color:var(--muted)}
+  .steps-mini li{counter-increment:m;flex:1;display:flex;align-items:center;gap:6px;padding:8px;border-radius:12px;background:var(--surface);border:1px solid var(--glass-border);line-height:1.2}
+  .steps-mini li::before{content:counter(m);flex-shrink:0;width:20px;height:20px;border-radius:6px;display:grid;place-items:center;background:var(--grad);color:#fff;font-family:var(--mono);font-size:11px}
+  .stats{display:none}
+  .ticker{display:none!important}
   .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
   .content{padding:11px;gap:10px}
-  .topline{flex-direction:column;gap:6px}
-  .price,.cny{text-align:left}
   .name{font-size:13.5px}
+  .buy{height:42px;padding:0 4px 0 12px;font-size:13.5px}
+  .buy-price{font-size:12.5px;padding:6px 8px}
+  .buy .buy-arrow{display:none}
+  .qv-actions{position:sticky;bottom:0;margin:0 -20px -20px;padding:14px 20px 20px;background:light-dark(rgba(255,255,255,.96),rgba(13,18,32,.97));border-top:1px solid var(--glass-border);backdrop-filter:blur(12px)}
   .chips{top:8px;left:8px}
   .chip{padding:5px 8px;font-size:9.5px}
-  .save{top:8px;right:8px;width:32px;height:32px;font-size:14px}
+  .save{top:8px;right:8px;width:30px;height:30px;font-size:13px}
   .view-hint{display:none}
   .action{font-size:12px;height:34px;padding:0 6px}
-  .action.kb{height:42px;font-size:12.5px;white-space:normal;line-height:1.15}
   .admin-grid{grid-template-columns:1fr}
   .draft{grid-template-columns:80px 1fr;padding-right:12px}
   .dz{width:80px;height:100px}
@@ -339,7 +363,8 @@ radial-gradient(1000px 640px at 100% -4%,rgba(34,230,255,.13),transparent 55%),v
   .draft-x{top:auto;bottom:10px}
   .modal{padding:0;align-items:flex-end}
   #viewModal .modal-box{border-radius:22px 22px 0 0;max-height:96vh}
-  .qv-info{padding:20px}
+  .qv-info{padding:20px;overflow:visible}
+  .qv-media{height:min(50vh,440px)}
   .qv-info h3{font-size:19px}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
@@ -347,7 +372,7 @@ radial-gradient(1000px 640px at 100% -4%,rgba(34,230,255,.13),transparent 55%),v
 </head>
 <body>
 <div id="app">
-<a class="announce" href="https://ikako.vip/r/9enta" target="_blank" rel="noopener" data-track="signup"><b>New to Kakobuy?</b> Sign up free with our link for ¥3000 credit<span>→</span></a>
+<a class="announce" href="https://ikako.vip/r/9enta" target="_blank" rel="noopener" data-track="signup"><b>New to Kakobuy?</b> <span class="long">Sign up free with our link for ¥3000 credit</span><span class="short">Get ¥3000 free credit</span> →</a>
 
 <header class="site-head"><div class="wrap">
   <a class="brand" href="#top"><div class="mark">RI</div><div><h1>Replica Index</h1><p>repdatabase.store</p></div></a>
@@ -367,7 +392,7 @@ radial-gradient(1000px 640px at 100% -4%,rgba(34,230,255,.13),transparent 55%),v
   <div>
     <span class="pill"><i></i>Independent Chinese labels on Taobao</span>
     <h2>Shop the source,<br><span class="grad">not the logo.</span></h2>
-    <p class="hero-sub">A curated catalogue of real Chinese brands — original designs, real prices, direct Taobao links and one-tap ordering through Kakobuy.</p>
+    <p class="hero-sub">Real Chinese brands, original designs, Taobao prices — with one-tap ordering through Kakobuy.</p>
     <div class="hero-ctas">
       <a class="btn kb lg" href="https://ikako.vip/r/9enta" target="_blank" rel="noopener" data-track="signup">Get ¥3000 free credit ↗</a>
       <a class="btn lg" href="#shop">Browse finds ↓</a>
@@ -380,9 +405,10 @@ radial-gradient(1000px 640px at 100% -4%,rgba(34,230,255,.13),transparent 55%),v
   </div>
   <div class="steps">
     <div class="step"><div><h3>Make a Kakobuy account</h3><p><a href="https://ikako.vip/r/9enta" target="_blank" rel="noopener" data-track="signup">Sign up with our link</a> — new accounts get ¥3000 in credit.</p></div></div>
-    <div class="step"><div><h3>Pick a piece here</h3><p>Tap “Free shipping with Kakobuy” on anything you like.</p></div></div>
+    <div class="step"><div><h3>Pick a piece here</h3><p>Tap “Buy on Kakobuy” on anything you like.</p></div></div>
     <div class="step"><div><h3>Pay, check QC, ship</h3><p>Kakobuy buys it from the Taobao seller and sends you QC photos before it ships.</p></div></div>
   </div>
+  <ol class="steps-mini"><li>Sign up to Kakobuy</li><li>Pick a piece</li><li>Pay &amp; ship</li></ol>
 </section>
 <div class="ticker" id="ticker" hidden aria-hidden="true"><div class="ticker-track" id="tickerTrack"></div></div>
 
@@ -451,14 +477,31 @@ const store={
   get(k){try{return localStorage.getItem(k)}catch{return null}},
   set(k,v){try{localStorage.setItem(k,v)}catch{}}
 };
-let currency=rates[store.get('ri-currency')]?store.get('ri-currency'):'AUD';
-const money=n=>new Intl.NumberFormat('en-AU',{style:'currency',currency}).format(n*rates[currency]);
+// Default currency from the visitor's timezone; a manual pick is remembered.
+const guessCurrency=()=>{
+  const tz=Intl.DateTimeFormat().resolvedOptions().timeZone||'';
+  if(tz.startsWith('Australia/')) return 'AUD';
+  if(tz==='Europe/London') return 'GBP';
+  if(tz.startsWith('Europe/')) return 'EUR';
+  if(/^Asia\/(Shanghai|Chongqing|Harbin|Urumqi)/.test(tz)) return 'CNY';
+  return 'USD';
+};
+let currency=rates[store.get('ri-currency')]?store.get('ri-currency'):guessCurrency();
+// narrowSymbol: "$24.29" rather than "US$24.29" / "A$24.29".
+const money=n=>new Intl.NumberFormat('en-US',{style:'currency',currency,currencyDisplay:'narrowSymbol'}).format(n*rates[currency]);
 
 // Product list is public, so fetch it straight away with plain REST — no need to wait for supabase-js.
 const fetchRows=()=>fetch(`${SUPABASE_URL}/rest/v1/products?select=*&order=created_at.desc,id.desc`,{
   headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY}
 }).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json()});
 const firstFetch=fetchRows();
+// White-background product photos (made by video/scripts/clean-photos.mjs, served from /img/clean/).
+// Add ?original to the URL to see the old photos for comparison.
+const useClean=!new URLSearchParams(location.search).has('original');
+const fetchClean=()=>useClean?fetch('/img/clean/index.json').then(r=>r.ok?r.json():{}).catch(()=>({})):Promise.resolve({});
+const firstClean=fetchClean();
+let cleanMap={};
+const cleanSrc=(p,w)=>p.clean?`/img/clean/${p.clean}-${w}.webp`:'';
 
 // Originals are multi-MB PNGs; serve resized WebP from Supabase's image CDN instead.
 const OBJ='/storage/v1/object/public/';
@@ -504,10 +547,14 @@ function mapRows(data){
       productLink:row.product_link,
       kakobuyLink:row.kakobuy_link,
       affiliateLink:row.affiliate_link,
-      notes:row.notes
+      notes:row.notes,
+      clean:cleanMap[row.id]||null
     };
   });
 }
+// Photo list used by cards and quick view: the clean shot first, then the original photos.
+const gallery=p=>[...(p.clean?[{src:cleanSrc(p,1080),srcset:`${cleanSrc(p,640)} 640w, ${cleanSrc(p,1080)} 1080w`,thumb:cleanSrc(p,640),white:true}]:[]),
+  ...p.images.map(u=>({src:imgUrl(u,1080),srcset:srcset(u,[720,1080,1600]),thumb:imgUrl(u,160)}))];
 
 function applyRows(rows){
   products=mapRows(rows);
@@ -518,14 +565,16 @@ function applyRows(rows){
   openFromHash();
 }
 
-async function loadProducts(pending){
+async function loadProducts(pending,pendingClean){
   showSkeletons();
-  let rows;
-  try{rows=await (pending||fetchRows())}
+  let rows,clean;
+  try{[rows,clean]=await Promise.all([pending||fetchRows(),pendingClean||fetchClean()])}
   catch(e){console.error(e);if(!products.length)showToast('Could not load items.');return}
-  const json=JSON.stringify(rows);
-  if(json===store.get('ri-products')&&products.length) return;
+  const json=JSON.stringify(rows),cleanJson=JSON.stringify(clean);
+  if(json===store.get('ri-products')&&cleanJson===store.get('ri-clean')&&products.length) return;
   store.set('ri-products',json);
+  store.set('ri-clean',cleanJson);
+  cleanMap=clean;
   applyRows(rows);
 }
 
@@ -629,38 +678,49 @@ const NEW_COUNT=6;
 let newIds=new Set();
 const isNew=p=>newIds.has(p.id);
 
-function buyButtons(p,big){
-  const site=parseLink(p.productLink)?.site||'Taobao';
-  const taobao=isUrl(p.productLink)?`<div class="action-row"><a class="action taobao" href="${esc(parseLink(p.productLink)?.url||p.productLink)}" target="_blank" rel="noopener" data-track="taobao" data-pid="${Number(p.id)}">${site} ↗</a></div>`:'';
-  const buy=`<a class="action kb" href="${esc(buyLinkFor(p))}" target="_blank" rel="noopener" data-track="kakobuy" data-pid="${Number(p.id)}">Free shipping with Kakobuy${big?' ↗':''}</a>`;
-  return buy+taobao;
+const ARROW='<svg class="buy-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+// The one primary action: price sits inside the button, right where the decision happens.
+function buyBtn(p,big){
+  return `<a class="buy${big?' big':''}" href="${esc(buyLinkFor(p))}" target="_blank" rel="noopener" data-track="kakobuy" data-pid="${Number(p.id)}">
+    <span class="buy-label">${big?'Buy on Kakobuy':'Buy'}${ARROW}</span>${p.cny?`<span class="buy-price">${money(p.cny)}</span>`:''}</a>`;
 }
+const signedUp=()=>store.get('ri-signup')==='1';
+// Notes often contain the pasted Taobao link; only show the human-written part.
+const cleanNotes=n=>String(n||'').split('\n').filter(l=>!/^\s*https?:\/\/\S+\s*$/.test(l)).join('\n').trim();
 
 function card(p,i){
   const buyLink=buyLinkFor(p);
   const edit=currentUser?`<button class="action edit" onclick="openAdmin(${Number(p.id)})">✎ Edit</button>`:'';
-  const price=p.cny?`<div class="price">${money(p.cny)}</div><div class="cny">¥${esc(p.cny)}</div>`:'';
   // First row loads immediately at high priority; everything else waits until it's near the viewport.
   const load=i<4?'loading="eager" fetchpriority="high"':i<8?'loading="eager"':'loading="lazy"';
-  const alt=p.images[1]?`<img class="alt" data-src="${esc(imgUrl(p.images[1],480))}" data-srcset="${esc(srcset(p.images[1],[320,480,720]))}" sizes="${CARD_SIZES}" alt="">`:'';
+  // Hovering a clean shot reveals the real photo; otherwise the second photo.
+  const altSrc=p.clean?p.images[0]:p.images[1];
+  const alt=altSrc?`<img class="alt" data-src="${esc(imgUrl(altSrc,480))}" data-srcset="${esc(srcset(altSrc,[320,480,720]))}" sizes="${CARD_SIZES}" alt="">`:'';
+  const mainImg=p.clean
+    ?`<img src="${cleanSrc(p,640)}" srcset="${cleanSrc(p,640)} 640w, ${cleanSrc(p,1080)} 1080w" sizes="${CARD_SIZES}" alt="${esc(p.name)}" decoding="async" ${load} onload="this.classList.add('in');this.parentNode.classList.add('loaded')" onerror="this.parentNode.classList.add('loaded')">`
+    :`<img src="${esc(imgUrl(p.image,480))}" srcset="${esc(srcset(p.image,[320,480,720,960]))}" sizes="${CARD_SIZES}" alt="${esc(p.name)}" decoding="async" ${load} onload="this.classList.add('in');this.parentNode.classList.add('loaded')" onerror="this.parentNode.classList.add('loaded')">`;
   const eyebrow=[cleanBrand(p.brand),p.seller].filter(Boolean).map(esc).join(' · ');
-  const chips=(isNew(p)?'<span class="chip new">New</span>':'')+(p.status?`<span class="chip stock">${esc(p.status)}</span>`:'');
+  // Only show status when it says something (e.g. "Sold out"); "In stock" on every card is noise.
+  const status=p.status&&!/^in stock$/i.test(p.status.trim())?`<span class="chip">${esc(p.status)}</span>`:'';
+  const chips=(isNew(p)?'<span class="chip new">New</span>':'')+status;
+  const tb=parseLink(p.productLink);
+  const tbLink=isUrl(p.productLink)?`<a href="${esc(tb?.url||p.productLink)}" target="_blank" rel="noopener" data-track="taobao" data-pid="${Number(p.id)}">${tb?.site||'Taobao'} ↗</a>`:'';
   const st=currentUser&&itemStats?itemStats.get(p.id):null;
   const statLine=currentUser&&itemStats?`<div class="stat-line"><span>${statsDays}d:</span><span><b>${st?.views||0}</b> views</span><span><b>${st?.kakobuy||0}</b> Kakobuy</span><span><b>${st?.saves||0}</b> ♥</span></div>`:'';
   return `<article class="card" style="--i:${Math.min(i,12)}">
     <button class="save ${saved.has(p.id)?'on':''}" data-save="${Number(p.id)}" aria-label="${saved.has(p.id)?'Remove from saved':'Save'}" aria-pressed="${saved.has(p.id)}">${saved.has(p.id)?'♥':'♡'}</button>
-    <a class="photo" href="${esc(buyLink)}" target="_blank" rel="noopener" data-view="${Number(p.id)}" aria-label="View ${esc(p.name)}">
-      <img src="${esc(imgUrl(p.image,480))}" srcset="${esc(srcset(p.image,[320,480,720,960]))}" sizes="${CARD_SIZES}" alt="${esc(p.name)}" decoding="async" ${load} onload="this.classList.add('in');this.parentNode.classList.add('loaded')" onerror="this.parentNode.classList.add('loaded')">
+    <a class="photo${p.clean?' clean':''}" href="${esc(buyLink)}" target="_blank" rel="noopener" data-view="${Number(p.id)}" aria-label="View ${esc(p.name)}">
+      ${mainImg}
       ${alt}
       <span class="chips">${chips}</span>
-      <span class="view-hint"><span>Quick view</span>${p.images.length>1?`<span>${p.images.length} photos</span>`:''}</span>
+      <span class="view-hint"><span>Quick view</span>${gallery(p).length>1?`<span>${gallery(p).length} photos</span>`:''}</span>
     </a>
     <div class="content">
       <div class="topline">
-        <div style="min-width:0;flex:1">${eyebrow?`<div class="eyebrow">${eyebrow}</div>`:''}<h3 class="name">${esc(p.name)}</h3></div>
-        <div>${price}</div>
+        ${eyebrow?`<div class="eyebrow">${eyebrow}</div>`:''}<h3 class="name">${esc(p.name)}</h3>
+        <div class="meta-row">${p.cny?`<span>¥${esc(p.cny)}</span>`:''}${p.cny&&tbLink?'<span>·</span>':''}${tbLink}</div>
       </div>
-      <div class="actions">${buyButtons(p,false)}${statLine}${edit}</div>
+      <div class="actions">${buyBtn(p)}${statLine}${edit}</div>
     </div>
   </article>`;
 }
@@ -673,10 +733,13 @@ function openView(id){
   const p=products.find(x=>x.id===id);
   if(!p) return;
   viewing=p;viewIdx=0;
+  const pics=gallery(p);
   track('view',p.id);
-  const thumbs=p.images.length>1?`<div class="qv-thumbs">${p.images.map((u,i)=>`<button class="qv-thumb" data-i="${i}" aria-label="Photo ${i+1}"><img src="${esc(imgUrl(u,160))}" alt="" loading="lazy" decoding="async"></button>`).join('')}</div>`:'';
-  const nav=p.images.length>1?`<button class="qv-nav prev" aria-label="Previous photo">‹</button><button class="qv-nav next" aria-label="Next photo">›</button><span class="qv-count" id="qvCount"></span>`:'';
+  const thumbs=pics.length>1?`<div class="qv-thumbs">${pics.map((g,i)=>`<button class="qv-thumb${g.white?' white':''}" data-i="${i}" aria-label="Photo ${i+1}"><img src="${esc(g.thumb)}" alt="" loading="lazy" decoding="async"></button>`).join('')}</div>`:'';
+  const nav=pics.length>1?`<button class="qv-nav prev" aria-label="Previous photo">‹</button><button class="qv-nav next" aria-label="Next photo">›</button><span class="qv-count" id="qvCount"></span>`:'';
   const eyebrow=[cleanBrand(p.brand),p.seller].filter(Boolean).map(esc).join(' · ');
+  const tb=parseLink(p.productLink);
+  const tbBtn=isUrl(p.productLink)?`<a class="action" href="${esc(tb?.url||p.productLink)}" target="_blank" rel="noopener" data-track="taobao" data-pid="${Number(p.id)}">${tb?.site||'Taobao'} ↗</a>`:'';
   $('#viewBox').innerHTML=`
     <button class="close qv-close" onclick="closeView()" aria-label="Close">×</button>
     <div class="qv">
@@ -687,12 +750,16 @@ function openView(id){
           <h3>${esc(p.name)}</h3>
         </div>
         ${p.cny?`<div class="qv-price"><b>${money(p.cny)}</b><span>¥${esc(p.cny)}</span></div>`:''}
-        ${p.notes&&!/^https?:\/\/\S+$/.test(p.notes.trim())?`<p class="qv-notes">${esc(p.notes)}</p>`:''}
+        ${cleanNotes(p.notes)?`<p class="qv-notes">${esc(cleanNotes(p.notes))}</p>`:''}
         ${thumbs}
-        <div class="qv-actions">${buyButtons(p,true)}
+        <div class="qv-actions">
+          ${buyBtn(p,true)}
+          <ul class="qv-trust"><li>Kakobuy buys it from the seller for you</li><li>QC photos before it ships</li><li>Ships worldwide</li></ul>
+          ${signedUp()?'':`<a class="qv-credit" href="${AFF}" target="_blank" rel="noopener" data-track="signup"><span>🎁</span><span><b>New to Kakobuy?</b> Sign up first for ¥3000 credit</span><span class="buy-arrow-wrap">${ARROW}</span></a>`}
           <div class="qv-share">
-            <button class="action" id="qvCopy">Copy link</button>
+            ${tbBtn}
             <button class="action" id="qvSave">${saved.has(p.id)?'♥ Saved':'♡ Save'}</button>
+            <button class="action" id="qvCopy">Copy link</button>
           </div>
         </div>
       </div>
@@ -719,20 +786,22 @@ function openView(id){
 
 function showPhoto(i){
   if(!viewing) return;
-  const n=viewing.images.length;
+  const pics=gallery(viewing);
+  const n=pics.length;
   viewIdx=(i+n)%n;
-  const u=viewing.images[viewIdx];
+  const g=pics[viewIdx];
   const img=$('#qvImg');
   img.classList.remove('in');
   img.onload=()=>img.classList.add('in');
-  img.srcset=srcset(u,[720,1080,1600]);
-  img.src=imgUrl(u,1080);
+  $('#qvMedia').classList.toggle('white',!!g.white);
+  img.srcset=g.srcset;
+  img.src=g.src;
   if(img.complete&&img.naturalWidth) img.classList.add('in');
   const c=$('#qvCount');
   if(c) c.textContent=`${viewIdx+1} / ${n}`;
   $('#viewBox').querySelectorAll('.qv-thumb').forEach((b,k)=>b.classList.toggle('on',k===viewIdx));
   // Warm the next photo so arrowing through feels instant.
-  if(n>1){const next=viewing.images[(viewIdx+1)%n];const pre=new Image();pre.sizes=img.sizes;pre.srcset=srcset(next,[720,1080,1600]);pre.src=imgUrl(next,1080)}
+  if(n>1){const next=pics[(viewIdx+1)%n];const pre=new Image();pre.sizes=img.sizes;pre.srcset=next.srcset;pre.src=next.src}
 }
 
 function closeView(){
@@ -815,14 +884,15 @@ function track(kind,productId){
 }
 document.addEventListener('click',e=>{
   const a=e.target.closest('a[data-track]');
-  if(a) track(a.dataset.track,a.dataset.pid?+a.dataset.pid:null);
+  if(!a) return;
+  if(a.dataset.track==='signup') store.set('ri-signup','1');
+  track(a.dataset.track,a.dataset.pid?+a.dataset.pid:null);
 },true);
 (()=>{try{if(!sessionStorage.getItem('ri-visit')){sessionStorage.setItem('ri-visit','1');track('visit')}}catch{track('visit')}})();
 
 /* ---------- stats dashboard (admin) ---------- */
 let statsDays=7;
 let itemStats=null; // Map product_id -> {views,kakobuy,taobao,saves} for the selected period
-let lastStats=null;
 const fmtN=n=>new Intl.NumberFormat('en-AU').format(n||0);
 const pct=(a,b)=>b?`${Math.round(a/b*1000)/10}%`:'—';
 const REF_LABEL={tiktok:'TikTok',instagram:'Instagram',facebook:'Facebook',x:'X / Twitter',reddit:'Reddit',discord:'Discord',youtube:'YouTube',snapchat:'Snapchat',google:'Google',search:'Other search',direct:'Direct / unknown'};
@@ -834,7 +904,6 @@ async function loadStats(days=statsDays){
   since.setHours(0,0,0,0);
   const {data,error}=await sb.rpc('event_stats',{since:since.toISOString(),tz:Intl.DateTimeFormat().resolvedOptions().timeZone});
   if(error){console.warn('stats unavailable:',error.message);return {error}}
-  lastStats=data;
   itemStats=new Map((data.by_item||[]).map(r=>[r.product_id,r]));
   render();
   return data;
@@ -1359,8 +1428,9 @@ function showToast(t){
 // Paint instantly from the last visit's data, then swap in fresh data when it lands.
 (()=>{
   const cached=store.get('ri-products');
+  if(useClean){try{cleanMap=JSON.parse(store.get('ri-clean')||'{}')}catch{}}
   if(cached){try{applyRows(JSON.parse(cached))}catch{}}
-  loadProducts(firstFetch);
+  loadProducts(firstFetch,firstClean);
 })();
 
 // supabase-js is deferred, so it's ready by DOMContentLoaded. Only auth + admin need it.
