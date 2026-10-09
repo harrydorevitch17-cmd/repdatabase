@@ -74,7 +74,7 @@ radial-gradient(1000px 640px at 100% -4%,rgba(34,230,255,.13),transparent 55%),v
 .pill{display:inline-flex;align-items:center;gap:9px;padding:7px 14px;border-radius:999px;background:var(--surface);border:1px solid var(--glass-border);font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);box-shadow:0 1px 0 var(--glass-hi) inset}
 .pill i{width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan);animation:blink 2.4s ease-in-out infinite}
 @keyframes blink{50%{opacity:.35}}
-.hero h2{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:clamp(34px,5.6vw,72px);line-height:1;letter-spacing:-.035em;margin:22px 0 20px}
+.hero h2{font-family:var(--sans);font-weight:700;font-size:clamp(32px,4.4vw,56px);line-height:1.05;letter-spacing:-.035em;margin:20px 0 18px}
 .grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 .hero-sub{margin:0 0 30px;color:var(--muted);font-size:17px;line-height:1.55;max-width:520px}
 .hero-ctas{display:flex;gap:12px;flex-wrap:wrap}
@@ -134,6 +134,13 @@ radial-gradient(1000px 640px at 100% -4%,rgba(34,230,255,.13),transparent 55%),v
 .chip{background:rgba(7,9,18,.72);color:#fff;padding:6px 10px;border-radius:999px;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;align-items:center;gap:6px}
 .chip.stock::before{content:"";width:6px;height:6px;border-radius:50%;background:#3ddc97}
 .chip.new{background:var(--grad);border-color:transparent;font-weight:500}
+.save{position:absolute;top:12px;right:12px;z-index:3;width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.18);background:rgba(7,9,18,.62);color:#fff;font-size:17px;line-height:1;display:grid;place-items:center;cursor:pointer;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:.2s var(--ease)}
+.save:hover{transform:scale(1.08)}
+.save.on{background:#ff4d6d;border-color:transparent}
+.stat-line{font-family:var(--mono);font-size:11px;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap}
+.stat-line b{color:var(--text);font-weight:500}
+.qv-share{display:flex;gap:8px}
+.qv-share .action{flex:1;height:36px;font-size:12.5px}
 .view-hint{position:absolute;left:12px;right:12px;bottom:12px;z-index:2;display:flex;justify-content:space-between;align-items:center;opacity:0;transform:translateY(6px);transition:.3s var(--ease)}
 .card:hover .view-hint{opacity:1;transform:none}
 .view-hint span{background:rgba(7,9,18,.72);color:#fff;padding:6px 10px;border-radius:999px;font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
@@ -216,6 +223,52 @@ radial-gradient(1000px 640px at 100% -4%,rgba(34,230,255,.13),transparent 55%),v
 .fab.show{display:grid;place-items:center}
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(15px);opacity:0;background:var(--kb);color:#fff;padding:11px 18px;border-radius:14px;font-size:13.5px;font-weight:600;transition:.22s;z-index:30;box-shadow:0 12px 30px rgba(124,108,255,.5);pointer-events:none}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+/* stats dashboard */
+#statsModal .modal-box{width:min(1160px,100%)}
+#statsModal .modal-head{gap:16px}
+#statsModal .modal-head h3{margin-right:auto}
+.st-periods{display:flex;gap:6px}
+.st-tiles{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin:18px 0 14px;transition:opacity .2s}
+.st-tiles.loading{opacity:.4}
+.st-tile{padding:16px;border-radius:16px;background:var(--surface2);border:1px solid var(--glass-border);display:flex;flex-direction:column;gap:4px}
+.st-tile span{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.st-tile b{font-size:28px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.st-tile small{font-size:11.5px;color:var(--muted)}
+.st-card{padding:18px;border-radius:18px;border:1px solid var(--glass-border);background:var(--surface);margin-bottom:12px;min-width:0}
+.st-card h4{margin:0 0 12px;font-size:14px;font-weight:600}
+.st-card-head{display:flex;justify-content:space-between;align-items:center}
+.st-card-head h4{margin:0}
+.st-link{border:0;background:none;color:var(--accent);font:inherit;font-size:12.5px;font-weight:600;cursor:pointer}
+.st-chart{position:relative;margin-top:10px}
+.st-chart svg{width:100%;height:auto;display:block;overflow:visible}
+.st-grid-line{stroke:var(--glass-border);stroke-width:1}
+.st-axis{fill:var(--muted);font-family:var(--mono);font-size:11px}
+.st-val{fill:var(--text);font-family:var(--mono);font-size:12px;font-weight:500}
+.st-bar path{fill:var(--accent);transition:opacity .15s}
+.st-chart svg:hover .st-bar path{opacity:.45}
+.st-chart svg:hover .st-bar.on path{opacity:1}
+.st-tip{position:absolute;pointer-events:none;background:var(--solid);border:1px solid var(--glass-border);box-shadow:0 10px 30px rgba(0,0,0,.25);border-radius:12px;padding:10px 12px;font-size:12.5px;display:grid;gap:2px;white-space:nowrap;z-index:2}
+.st-tip b{font-size:13px;margin-bottom:2px}
+.st-tip span{color:var(--muted)}
+.st-devices{display:flex;gap:18px;margin-top:12px;font-size:12.5px;color:var(--muted);text-transform:capitalize}
+.st-devices b{color:var(--text);font-weight:600}
+.st-grid{display:grid;grid-template-columns:1fr 1.25fr;gap:12px}
+.st-table{width:100%;border-collapse:collapse;font-size:13px}
+.st-table th{text-align:right;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:500;padding:0 8px 8px}
+.st-table td{text-align:right;padding:8px;border-top:1px solid var(--glass-border);font-variant-numeric:tabular-nums}
+.st-table th:first-child,.st-table td:first-child{text-align:left;padding-left:0}
+.st-table tr[data-open]{cursor:pointer}
+.st-table tr[data-open]:hover td{background:rgba(124,108,255,.06)}
+.st-daytable{margin-top:12px}
+.st-item{display:flex;align-items:center;gap:10px;max-width:280px}
+.st-item img{width:34px;height:42px;object-fit:cover;border-radius:7px;flex-shrink:0}
+.st-item span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.st-none{color:var(--muted);text-align:center!important;padding:22px!important}
+.st-note{margin:12px 0 0;font-size:12px;color:var(--muted);line-height:1.5}
+.st-empty{padding:50px 20px;text-align:center;color:var(--muted);line-height:1.7}
+.st-empty b{display:block;color:var(--text);font-size:16px}
+@media(max-width:980px){.st-tiles{grid-template-columns:repeat(3,1fr)}.st-grid{grid-template-columns:1fr}}
+@media(max-width:560px){.st-tiles{grid-template-columns:repeat(2,1fr)}#statsModal .modal-head{flex-wrap:wrap}}
 /* bulk add */
 #bulkModal .modal-box{width:min(1120px,100%)}
 .bulk-paste{width:100%;min-height:220px;margin-top:16px;border:1px dashed rgba(124,108,255,.45);background:var(--surface2);color:var(--text);border-radius:16px;padding:16px;font:inherit;font-family:var(--mono);font-size:13px;line-height:1.6;resize:vertical}
@@ -257,7 +310,7 @@ radial-gradient(1000px 640px at 100% -4%,rgba(34,230,255,.13),transparent 55%),v
   .search{flex:1}
   .search-input{width:100%}
   .count{display:none}
-  .hero h2{font-size:clamp(30px,10vw,44px)}
+  .hero h2{font-size:clamp(30px,8.6vw,40px)}
   .hero-sub{font-size:15.5px}
   .hero-ctas .btn{flex:1}
   .step{padding:14px;gap:12px}
@@ -273,6 +326,7 @@ radial-gradient(1000px 640px at 100% -4%,rgba(34,230,255,.13),transparent 55%),v
   .name{font-size:13.5px}
   .chips{top:8px;left:8px}
   .chip{padding:5px 8px;font-size:9.5px}
+  .save{top:8px;right:8px;width:32px;height:32px;font-size:14px}
   .view-hint{display:none}
   .action{font-size:12px;height:34px;padding:0 6px}
   .action.kb{height:42px;font-size:12.5px;white-space:normal;line-height:1.15}
@@ -293,15 +347,16 @@ radial-gradient(1000px 640px at 100% -4%,rgba(34,230,255,.13),transparent 55%),v
 </head>
 <body>
 <div id="app">
-<a class="announce" href="https://ikako.vip/r/9enta" target="_blank" rel="noopener"><b>New to Kakobuy?</b> Sign up free with our link for ¥3000 credit<span>→</span></a>
+<a class="announce" href="https://ikako.vip/r/9enta" target="_blank" rel="noopener" data-track="signup"><b>New to Kakobuy?</b> Sign up free with our link for ¥3000 credit<span>→</span></a>
 
 <header class="site-head"><div class="wrap">
-  <a class="brand" href="#top"><div class="mark">RI</div><div><h1>Replica Index</h1><p>repdatabase.com</p></div></a>
+  <a class="brand" href="#top"><div class="mark">RI</div><div><h1>Replica Index</h1><p>repdatabase.store</p></div></a>
   <div class="header-actions">
     <select class="select" id="currency" aria-label="Currency">
       <option>AUD</option><option>USD</option><option>EUR</option><option>GBP</option><option>CNY</option>
     </select>
     <button class="btn" id="authBtn">Log in</button>
+    <button class="btn" id="statsBtn" style="display:none">Stats</button>
     <button class="btn" id="bulkBtn" style="display:none">Bulk add</button>
     <button class="btn kb" id="addBtn" style="display:none">+ Add item</button>
   </div>
@@ -314,7 +369,7 @@ radial-gradient(1000px 640px at 100% -4%,rgba(34,230,255,.13),transparent 55%),v
     <h2>Shop the source,<br><span class="grad">not the logo.</span></h2>
     <p class="hero-sub">A curated catalogue of real Chinese brands — original designs, real prices, direct Taobao links and one-tap ordering through Kakobuy.</p>
     <div class="hero-ctas">
-      <a class="btn kb lg" href="https://ikako.vip/r/9enta" target="_blank" rel="noopener">Get ¥3000 free credit ↗</a>
+      <a class="btn kb lg" href="https://ikako.vip/r/9enta" target="_blank" rel="noopener" data-track="signup">Get ¥3000 free credit ↗</a>
       <a class="btn lg" href="#shop">Browse finds ↓</a>
     </div>
     <div class="stats">
@@ -324,7 +379,7 @@ radial-gradient(1000px 640px at 100% -4%,rgba(34,230,255,.13),transparent 55%),v
     </div>
   </div>
   <div class="steps">
-    <div class="step"><div><h3>Make a Kakobuy account</h3><p><a href="https://ikako.vip/r/9enta" target="_blank" rel="noopener">Sign up with our link</a> — new accounts get ¥3000 in credit.</p></div></div>
+    <div class="step"><div><h3>Make a Kakobuy account</h3><p><a href="https://ikako.vip/r/9enta" target="_blank" rel="noopener" data-track="signup">Sign up with our link</a> — new accounts get ¥3000 in credit.</p></div></div>
     <div class="step"><div><h3>Pick a piece here</h3><p>Tap “Free shipping with Kakobuy” on anything you like.</p></div></div>
     <div class="step"><div><h3>Pay, check QC, ship</h3><p>Kakobuy buys it from the Taobao seller and sends you QC photos before it ships.</p></div></div>
   </div>
@@ -351,11 +406,12 @@ radial-gradient(1000px 640px at 100% -4%,rgba(34,230,255,.13),transparent 55%),v
 
 <footer class="site-foot"><div class="wrap">
   <p><b style="color:var(--text)">Replica Index</b> is an independent catalogue of Chinese brands on Taobao. Not affiliated with Taobao. Kakobuy links are affiliate links — signing up through them supports the site.</p>
-  <a href="https://ikako.vip/r/9enta" target="_blank" rel="noopener">Sign up to Kakobuy ↗</a>
+  <a href="https://ikako.vip/r/9enta" target="_blank" rel="noopener" data-track="signup">Sign up to Kakobuy ↗</a>
 </div></footer>
 </div>
 <button class="fab" id="fab" aria-label="Add item">+</button>
 <div class="modal" id="viewModal" role="dialog" aria-modal="true"><div class="modal-box" id="viewBox"></div></div>
+<div class="modal" id="statsModal"><div class="modal-box" id="statsBox"></div></div>
 <div class="modal" id="bulkModal"><div class="modal-box" id="bulkBox"></div></div>
 <div class="modal" id="adminModal"><div class="modal-box" id="adminBox"></div></div>
 <div class="modal" id="authModal"><div class="modal-box" id="authBox"></div></div>
@@ -399,7 +455,7 @@ let currency=rates[store.get('ri-currency')]?store.get('ri-currency'):'AUD';
 const money=n=>new Intl.NumberFormat('en-AU',{style:'currency',currency}).format(n*rates[currency]);
 
 // Product list is public, so fetch it straight away with plain REST — no need to wait for supabase-js.
-const fetchRows=()=>fetch(`${SUPABASE_URL}/rest/v1/products?select=*&order=created_at.desc`,{
+const fetchRows=()=>fetch(`${SUPABASE_URL}/rest/v1/products?select=*&order=created_at.desc,id.desc`,{
   headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY}
 }).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json()});
 const firstFetch=fetchRows();
@@ -419,6 +475,11 @@ let active='All';
 let query='';
 let sortBy='new';
 const NEW_DAYS=14;
+// Saved (♥) items live in this browser only.
+let saved=new Set();
+try{saved=new Set(JSON.parse(store.get('ri-saved')||'[]'))}catch{}
+const saveSaved=()=>store.set('ri-saved',JSON.stringify([...saved]));
+
 
 function showSkeletons(){
   const grid=$('#grid');
@@ -454,6 +515,7 @@ function applyRows(rows){
   renderStats();
   renderTicker();
   render();
+  openFromHash();
 }
 
 async function loadProducts(pending){
@@ -485,6 +547,9 @@ function renderTicker(){
 }
 
 function refreshAuthUI(){
+  if(currentUser){store.set('ri-admin','1');if(!itemStats) loadStats()}
+  else itemStats=null;
+  $('#statsBtn').style.display=currentUser?'':'none';
   $('#addBtn').style.display=currentUser?'':'none';
   $('#bulkBtn').style.display=currentUser?'':'none';
   $('#fab').classList.toggle('show',!!currentUser);
@@ -522,20 +587,22 @@ function renderTabs(){
   const counts={};
   products.forEach(p=>{counts[p.category]=(counts[p.category]||0)+1});
   const cats=['All',...new Set(products.map(p=>p.category))];
+  const savedCount=products.filter(p=>saved.has(p.id)).length;
+  if(savedCount||active==='Saved'){cats.push('Saved');counts.Saved=savedCount}
   const tabs=$('#tabs');
   if(!tabs) return;
   tabs.innerHTML=cats.map((c,i)=>{
     const n=c==='All'?products.length:(counts[c]||0);
-    return `<button class="tab ${active===c?'active':''}" data-cat="${i}">${esc(c)}<span class="tab-count">${n}</span></button>`;
+    return `<button class="tab ${active===c?'active':''}" data-cat="${i}">${c==='Saved'?'♥ Saved':esc(c)}<span class="tab-count">${n}</span></button>`;
   }).join('');
   tabs.querySelectorAll('.tab').forEach(b=>{b.onclick=()=>setCat(cats[+b.dataset.cat])});
 }
 function setCat(c){active=c;render()}
 
 function visibleList(){
-  let list=active==='All'?products:products.filter(p=>p.category===active);
+  let list=active==='All'?products:active==='Saved'?products.filter(p=>saved.has(p.id)):products.filter(p=>p.category===active);
   if(query){
-    const q=query.toLowerCase();
+    const q=query.toLowerCase().trim();
     list=list.filter(p=>`${p.name} ${p.brand||''} ${p.seller||''}`.toLowerCase().includes(q));
   }
   if(sortBy!=='new'){
@@ -564,8 +631,8 @@ const isNew=p=>newIds.has(p.id);
 
 function buyButtons(p,big){
   const site=parseLink(p.productLink)?.site||'Taobao';
-  const taobao=isUrl(p.productLink)?`<div class="action-row"><a class="action taobao" href="${esc(parseLink(p.productLink)?.url||p.productLink)}" target="_blank" rel="noopener">${site} ↗</a></div>`:'';
-  const buy=`<a class="action kb" href="${esc(buyLinkFor(p))}" target="_blank" rel="noopener">Free shipping with Kakobuy${big?' ↗':''}</a>`;
+  const taobao=isUrl(p.productLink)?`<div class="action-row"><a class="action taobao" href="${esc(parseLink(p.productLink)?.url||p.productLink)}" target="_blank" rel="noopener" data-track="taobao" data-pid="${Number(p.id)}">${site} ↗</a></div>`:'';
+  const buy=`<a class="action kb" href="${esc(buyLinkFor(p))}" target="_blank" rel="noopener" data-track="kakobuy" data-pid="${Number(p.id)}">Free shipping with Kakobuy${big?' ↗':''}</a>`;
   return buy+taobao;
 }
 
@@ -578,7 +645,10 @@ function card(p,i){
   const alt=p.images[1]?`<img class="alt" data-src="${esc(imgUrl(p.images[1],480))}" data-srcset="${esc(srcset(p.images[1],[320,480,720]))}" sizes="${CARD_SIZES}" alt="">`:'';
   const eyebrow=[cleanBrand(p.brand),p.seller].filter(Boolean).map(esc).join(' · ');
   const chips=(isNew(p)?'<span class="chip new">New</span>':'')+(p.status?`<span class="chip stock">${esc(p.status)}</span>`:'');
+  const st=currentUser&&itemStats?itemStats.get(p.id):null;
+  const statLine=currentUser&&itemStats?`<div class="stat-line"><span>${statsDays}d:</span><span><b>${st?.views||0}</b> views</span><span><b>${st?.kakobuy||0}</b> Kakobuy</span><span><b>${st?.saves||0}</b> ♥</span></div>`:'';
   return `<article class="card" style="--i:${Math.min(i,12)}">
+    <button class="save ${saved.has(p.id)?'on':''}" data-save="${Number(p.id)}" aria-label="${saved.has(p.id)?'Remove from saved':'Save'}" aria-pressed="${saved.has(p.id)}">${saved.has(p.id)?'♥':'♡'}</button>
     <a class="photo" href="${esc(buyLink)}" target="_blank" rel="noopener" data-view="${Number(p.id)}" aria-label="View ${esc(p.name)}">
       <img src="${esc(imgUrl(p.image,480))}" srcset="${esc(srcset(p.image,[320,480,720,960]))}" sizes="${CARD_SIZES}" alt="${esc(p.name)}" decoding="async" ${load} onload="this.classList.add('in');this.parentNode.classList.add('loaded')" onerror="this.parentNode.classList.add('loaded')">
       ${alt}
@@ -590,7 +660,7 @@ function card(p,i){
         <div style="min-width:0;flex:1">${eyebrow?`<div class="eyebrow">${eyebrow}</div>`:''}<h3 class="name">${esc(p.name)}</h3></div>
         <div>${price}</div>
       </div>
-      <div class="actions">${buyButtons(p,false)}${edit}</div>
+      <div class="actions">${buyButtons(p,false)}${statLine}${edit}</div>
     </div>
   </article>`;
 }
@@ -603,6 +673,7 @@ function openView(id){
   const p=products.find(x=>x.id===id);
   if(!p) return;
   viewing=p;viewIdx=0;
+  track('view',p.id);
   const thumbs=p.images.length>1?`<div class="qv-thumbs">${p.images.map((u,i)=>`<button class="qv-thumb" data-i="${i}" aria-label="Photo ${i+1}"><img src="${esc(imgUrl(u,160))}" alt="" loading="lazy" decoding="async"></button>`).join('')}</div>`:'';
   const nav=p.images.length>1?`<button class="qv-nav prev" aria-label="Previous photo">‹</button><button class="qv-nav next" aria-label="Next photo">›</button><span class="qv-count" id="qvCount"></span>`:'';
   const eyebrow=[cleanBrand(p.brand),p.seller].filter(Boolean).map(esc).join(' · ');
@@ -618,7 +689,12 @@ function openView(id){
         ${p.cny?`<div class="qv-price"><b>${money(p.cny)}</b><span>¥${esc(p.cny)}</span></div>`:''}
         ${p.notes&&!/^https?:\/\/\S+$/.test(p.notes.trim())?`<p class="qv-notes">${esc(p.notes)}</p>`:''}
         ${thumbs}
-        <div class="qv-actions">${buyButtons(p,true)}</div>
+        <div class="qv-actions">${buyButtons(p,true)}
+          <div class="qv-share">
+            <button class="action" id="qvCopy">Copy link</button>
+            <button class="action" id="qvSave">${saved.has(p.id)?'♥ Saved':'♡ Save'}</button>
+          </div>
+        </div>
       </div>
     </div>`;
   const box=$('#viewBox');
@@ -633,6 +709,9 @@ function openView(id){
     const dx=e.changedTouches[0].clientX-startX;startX=null;
     if(Math.abs(dx)>40) showPhoto(viewIdx+(dx<0?1:-1));
   });
+  $('#qvCopy').onclick=()=>copyLink(p);
+  $('#qvSave').onclick=()=>{toggleSave(p.id);$('#qvSave').textContent=saved.has(p.id)?'♥ Saved':'♡ Save'};
+  if(location.hash!=='#item-'+p.id) history.replaceState(null,'',`${location.pathname}${location.search}#item-${p.id}`);
   showPhoto(0);
   $('#viewModal').classList.add('open');
   document.body.classList.add('locked');
@@ -657,9 +736,231 @@ function showPhoto(i){
 }
 
 function closeView(){
+  if(!viewing) return;
   $('#viewModal').classList.remove('open');
   document.body.classList.remove('locked');
   viewing=null;
+  if(/^#item-\d+$/.test(location.hash)) history.replaceState(null,'',location.pathname+location.search);
+}
+
+// repdatabase.store/#item-29 opens that item (from "Copy link").
+let hashHandled=false;
+function openFromHash(force){
+  const m=location.hash.match(/^#item-(\d+)$/);
+  if(!m||(hashHandled&&!force)||!products.length) return;
+  const p=products.find(x=>x.id===+m[1]);
+  if(!p) return;
+  hashHandled=true;
+  if(viewing?.id!==p.id) openView(p.id);
+}
+window.addEventListener('hashchange',()=>openFromHash(true));
+
+async function copyLink(p){
+  const url=`${location.origin}/#item-${p.id}`;
+  try{await navigator.clipboard.writeText(url);showToast('Link copied — '+url.replace(/^https?:\/\//,''))}
+  catch{prompt('Copy this link:',url)}
+}
+
+function toggleSave(id){
+  saved.has(id)?saved.delete(id):(saved.add(id),track('save',id));
+  saveSaved();
+  if(active==='Saved'&&!products.some(p=>saved.has(p.id))) active='All';
+  render();
+  showToast(saved.has(id)?'Saved ♥':'Removed from saved');
+}
+
+/* ---------- analytics ---------- */
+// Anonymous: a random visitor id (this browser) + session id. No names, emails or IPs are stored.
+const randId=()=>(crypto.randomUUID?crypto.randomUUID():Math.random().toString(36).slice(2)+Date.now().toString(36)).slice(0,36);
+const visitorId=store.get('ri-vid')||(()=>{const v=randId();store.set('ri-vid',v);return v})();
+const session=(()=>{try{let v=sessionStorage.getItem('ri-sid');if(!v){v=randId();sessionStorage.setItem('ri-sid',v)}return v}catch{return randId()}})();
+const UA=navigator.userAgent;
+const device=/iPad|Tablet/i.test(UA)?'tablet':/Mobi|Android|iPhone/i.test(UA)?'mobile':'desktop';
+// Where this visit came from: ?ref= / utm_source, then the in-app browser (TikTok etc. hide the referrer), then the referring site.
+const normRef=r=>{
+  r=String(r||'').toLowerCase().replace(/^www\./,'');
+  if(/tiktok|musical_ly|bytedance/.test(r)) return 'tiktok';
+  if(/instagram/.test(r)) return 'instagram';
+  if(/(^|\.)(facebook|fb)\.|fban|fbav/.test(r)) return 'facebook';
+  if(/(^|\.)(t\.co|twitter\.com|x\.com)$/.test(r)) return 'x';
+  if(/reddit/.test(r)) return 'reddit';
+  if(/discord/.test(r)) return 'discord';
+  if(/youtube|youtu\.be/.test(r)) return 'youtube';
+  if(/snapchat/.test(r)) return 'snapchat';
+  if(/google\./.test(r)) return 'google';
+  if(/bing\.|duckduckgo/.test(r)) return 'search';
+  return r.slice(0,40)||'direct';
+};
+const visitRef=(()=>{
+  try{const r=sessionStorage.getItem('ri-ref');if(r) return r}catch{}
+  const q=new URLSearchParams(location.search);
+  let r=q.get('ref')||q.get('utm_source');
+  if(!r){const m=UA.match(/musical_ly|BytedanceWebview|TikTok|Instagram|FBAN|FBAV|Snapchat/i);if(m) r=m[0]}
+  if(!r&&document.referrer){try{const h=new URL(document.referrer).hostname;if(h.replace(/^www\./,'')!==location.hostname.replace(/^www\./,'')) r=h}catch{}}
+  r=normRef(r);
+  try{sessionStorage.setItem('ri-ref',r)}catch{}
+  return r;
+})();
+// Your own browser is never counted once you've logged in here.
+const isAdminBrowser=()=>!!currentUser||store.get('ri-admin')==='1';
+const viewedThisSession=new Set();
+function track(kind,productId){
+  if(isAdminBrowser()) return;
+  if(kind==='view'){if(viewedThisSession.has(productId)) return;viewedThisSession.add(productId)}
+  fetch(`${SUPABASE_URL}/rest/v1/events`,{
+    method:'POST',keepalive:true,
+    headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+SUPABASE_KEY,'Content-Type':'application/json',Prefer:'return=minimal'},
+    body:JSON.stringify({kind,product_id:productId||null,ref:visitRef,device,visitor_id:visitorId,session_id:session})
+  }).catch(()=>{});
+}
+document.addEventListener('click',e=>{
+  const a=e.target.closest('a[data-track]');
+  if(a) track(a.dataset.track,a.dataset.pid?+a.dataset.pid:null);
+},true);
+(()=>{try{if(!sessionStorage.getItem('ri-visit')){sessionStorage.setItem('ri-visit','1');track('visit')}}catch{track('visit')}})();
+
+/* ---------- stats dashboard (admin) ---------- */
+let statsDays=7;
+let itemStats=null; // Map product_id -> {views,kakobuy,taobao,saves} for the selected period
+let lastStats=null;
+const fmtN=n=>new Intl.NumberFormat('en-AU').format(n||0);
+const pct=(a,b)=>b?`${Math.round(a/b*1000)/10}%`:'—';
+const REF_LABEL={tiktok:'TikTok',instagram:'Instagram',facebook:'Facebook',x:'X / Twitter',reddit:'Reddit',discord:'Discord',youtube:'YouTube',snapchat:'Snapchat',google:'Google',search:'Other search',direct:'Direct / unknown'};
+
+async function loadStats(days=statsDays){
+  if(!sb||!currentUser) return null;
+  statsDays=days;
+  const since=new Date(Date.now()-(days-1)*864e5);
+  since.setHours(0,0,0,0);
+  const {data,error}=await sb.rpc('event_stats',{since:since.toISOString(),tz:Intl.DateTimeFormat().resolvedOptions().timeZone});
+  if(error){console.warn('stats unavailable:',error.message);return {error}}
+  lastStats=data;
+  itemStats=new Map((data.by_item||[]).map(r=>[r.product_id,r]));
+  render();
+  return data;
+}
+
+function openStats(){
+  if(!currentUser) return;
+  $('#statsModal').classList.add('open');
+  document.body.classList.add('locked');
+  $('#statsBox').innerHTML=`<div class="modal-head"><h3>Stats</h3><button class="close" onclick="closeStats()">×</button></div><div class="st-empty">Loading…</div>`;
+  loadStats(statsDays).then(renderDashboard);
+}
+function closeStats(){
+  $('#statsModal').classList.remove('open');
+  document.body.classList.remove('locked');
+}
+
+function renderDashboard(d){
+  const box=$('#statsBox');
+  const periods=[[7,'7 days'],[30,'30 days'],[90,'90 days']].map(([n,l])=>`<button class="tab ${statsDays===n?'active':''}" data-days="${n}">${l}</button>`).join('');
+  const head=`<div class="modal-head"><h3>Stats</h3><div class="st-periods">${periods}</div><button class="close" onclick="closeStats()">×</button></div>`;
+  if(!d||d.error){
+    box.innerHTML=head+`<div class="st-empty"><b>Tracking isn't switched on yet</b>Run the setup SQL in Supabase (SQL Editor) — then stats appear here.<br><span class="mono">${esc(d?.error?.message||'')}</span></div>`;
+    wireStats();return;
+  }
+  const t=d.totals||{};
+  const tiles=[
+    ['Visitors',fmtN(d.visitors),'unique browsers'],
+    ['Item views',fmtN(t.view),'quick views opened'],
+    ['Kakobuy clicks',fmtN(t.kakobuy),'buy-button clicks'],
+    ['Sign-up clicks',fmtN(t.signup),'¥3000 credit link'],
+    ['Click rate',pct(d.clickers,d.visitors),'visitors who clicked to buy'],
+    ['Saves',fmtN(t.save),'♥ added'],
+  ].map(([k,v,sub])=>`<div class="st-tile"><span>${k}</span><b>${v}</b><small>${sub}</small></div>`).join('');
+
+  const refs=(d.by_ref||[]).map(r=>`<tr><td>${esc(REF_LABEL[r.ref]||r.ref)}</td><td>${fmtN(r.visitors)}</td><td>${fmtN(r.kakobuy)}</td><td>${fmtN(r.signup)}</td><td>${pct(r.clickers,r.visitors)}</td></tr>`).join('')||`<tr><td colspan="5" class="st-none">No visits yet</td></tr>`;
+  const devTotal=(d.by_device||[]).reduce((a,r)=>a+r.visitors,0);
+  const devices=(d.by_device||[]).sort((a,b)=>b.visitors-a.visitors).map(r=>`<span><b>${pct(r.visitors,devTotal)}</b> ${esc(r.device)}</span>`).join('');
+
+  const byId=new Map(products.map(p=>[p.id,p]));
+  const items=(d.by_item||[]).filter(r=>byId.has(r.product_id)).sort((a,b)=>(b.kakobuy+b.taobao)-(a.kakobuy+a.taobao)||b.views-a.views).slice(0,20).map(r=>{
+    const p=byId.get(r.product_id);
+    return `<tr data-open="${p.id}"><td class="st-item"><img src="${esc(imgUrl(p.image,96))}" alt="" loading="lazy"><span>${esc(p.name)}</span></td><td>${fmtN(r.views)}</td><td>${fmtN(r.kakobuy)}</td><td>${fmtN(r.taobao)}</td><td>${pct(r.kakobuy+r.taobao,r.views)}</td><td>${fmtN(r.saves)}</td></tr>`;
+  }).join('')||`<tr><td colspan="6" class="st-none">No item activity yet</td></tr>`;
+
+  box.innerHTML=head+`
+    <div class="st-tiles">${tiles}</div>
+    <section class="st-card">
+      <div class="st-card-head"><h4>Visitors per day</h4><button class="st-link" id="stTableToggle">View as table</button></div>
+      ${dayChart(d.by_day||[])}
+      <div class="st-devices">${devices}</div>
+    </section>
+    <div class="st-grid">
+      <section class="st-card"><h4>Where visitors come from</h4>
+        <table class="st-table"><thead><tr><th>Source</th><th>Visitors</th><th>Kakobuy</th><th>Sign-ups</th><th>Click rate</th></tr></thead><tbody>${refs}</tbody></table>
+        <p class="st-note">Tip: set your TikTok bio link to <span class="mono">repdatabase.store/?ref=tiktok</span>. The TikTok app browser is also detected automatically.</p>
+      </section>
+      <section class="st-card"><h4>Top items</h4>
+        <table class="st-table"><thead><tr><th>Item</th><th>Views</th><th>Kakobuy</th><th>Taobao</th><th>Click rate</th><th>♥</th></tr></thead><tbody>${items}</tbody></table>
+      </section>
+    </div>
+    <div class="admin-actions"><button class="btn" id="stCsv">Download raw events (CSV)</button></div>`;
+  wireStats();
+}
+
+// Single-series column chart: visitors per day, hover for the day's breakdown.
+function dayChart(days){
+  if(!days.length) return '<div class="st-none">No data yet</div>';
+  const W=1000,H=220,L=40,B=26,T=14;
+  const max=Math.max(1,...days.map(x=>x.visitors));
+  const step=max<=5?1:Math.pow(10,Math.floor(Math.log10(max/4)));
+  const tick=Math.ceil(max/4/step)*step||1;
+  const top=tick*4;
+  const slot=(W-L)/days.length;
+  const bw=Math.min(24,slot-4);
+  const y=v=>T+(H-T-B)*(1-v/top);
+  const peak=days.reduce((a,b)=>b.visitors>a.visitors?b:a,days[0]);
+  const label=dd=>new Date(dd+'T00:00:00').toLocaleDateString('en-AU',{day:'numeric',month:'short'});
+  const every=Math.ceil(days.length/10);
+  let g='';
+  for(let i=0;i<=4;i++){const v=tick*i,yy=y(v);g+=`<line x1="${L}" x2="${W}" y1="${yy}" y2="${yy}" class="st-grid-line"/><text x="${L-8}" y="${yy+4}" text-anchor="end" class="st-axis">${fmtN(v)}</text>`}
+  const bars=days.map((x,i)=>{
+    const cx=L+slot*i+slot/2,h=Math.max(0,y(0)-y(x.visitors)),x0=cx-bw/2,r=Math.min(4,h);
+    const path=h>0?`M${x0},${y(0)} v${-(h-r)} q0,${-r} ${r},${-r} h${bw-2*r} q${r},0 ${r},${r} v${h-r} z`:'';
+    const tip=`${label(x.day)}|${x.visitors}|${x.views}|${x.kakobuy}|${x.signup}`;
+    return `<g class="st-bar" data-tip="${tip}" data-x="${cx}" data-y="${y(x.visitors)}"><rect x="${L+slot*i}" y="${T}" width="${slot}" height="${H-T-B}" fill="transparent"/>${path?`<path d="${path}"/>`:''}${x===peak&&x.visitors?`<text x="${cx}" y="${y(x.visitors)-6}" text-anchor="middle" class="st-val">${fmtN(x.visitors)}</text>`:''}${i%every===0?`<text x="${cx}" y="${H-6}" text-anchor="middle" class="st-axis">${label(x.day)}</text>`:''}</g>`;
+  }).join('');
+  const table=`<table class="st-table st-daytable" hidden><thead><tr><th>Day</th><th>Visitors</th><th>Item views</th><th>Kakobuy</th><th>Sign-ups</th></tr></thead><tbody>${days.map(x=>`<tr><td>${label(x.day)}</td><td>${x.visitors}</td><td>${x.views}</td><td>${x.kakobuy}</td><td>${x.signup}</td></tr>`).join('')}</tbody></table>`;
+  return `<div class="st-chart"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Visitors per day">${g}${bars}</svg><div class="st-tip" id="stTip" hidden></div></div>${table}`;
+}
+
+function wireStats(){
+  const box=$('#statsBox');
+  box.querySelectorAll('[data-days]').forEach(b=>{b.onclick=()=>{box.querySelector('.st-tiles')?.classList.add('loading');loadStats(+b.dataset.days).then(renderDashboard)}});
+  $('#stTableToggle')&&($('#stTableToggle').onclick=()=>{const t=box.querySelector('.st-daytable');t.hidden=!t.hidden;$('#stTableToggle').textContent=t.hidden?'View as table':'Hide table'});
+  $('#stCsv')&&($('#stCsv').onclick=downloadEvents);
+  box.querySelectorAll('tr[data-open]').forEach(tr=>{tr.onclick=()=>{closeStats();openView(+tr.dataset.open)}});
+  const svg=box.querySelector('.st-chart svg'),tip=$('#stTip');
+  if(!svg) return;
+  svg.addEventListener('pointermove',e=>{
+    const g=e.target.closest('.st-bar');
+    box.querySelectorAll('.st-bar.on').forEach(x=>x!==g&&x.classList.remove('on'));
+    if(!g){tip.hidden=true;return}
+    g.classList.add('on');
+    const [day,v,views,kb,su]=g.dataset.tip.split('|');
+    tip.innerHTML=`<b>${day}</b><span>${fmtN(+v)} visitors</span><span>${fmtN(+views)} item views</span><span>${fmtN(+kb)} Kakobuy clicks</span><span>${fmtN(+su)} sign-up clicks</span>`;
+    const r=svg.getBoundingClientRect(),sx=r.width/1000;
+    tip.hidden=false;
+    tip.style.left=Math.min(r.width-tip.offsetWidth,Math.max(0,+g.dataset.x*sx-tip.offsetWidth/2))+'px';
+    tip.style.top=Math.max(0,+g.dataset.y*sx-tip.offsetHeight-10)+'px';
+  });
+  svg.addEventListener('pointerleave',()=>{tip.hidden=true;box.querySelectorAll('.st-bar.on').forEach(x=>x.classList.remove('on'))});
+}
+
+async function downloadEvents(){
+  const since=new Date(Date.now()-statsDays*864e5).toISOString();
+  const {data,error}=await sb.from('events').select('created_at,kind,product_id,ref,device,visitor_id,session_id').gte('created_at',since).order('created_at').limit(100000);
+  if(error){showToast('Export failed: '+error.message);return}
+  const names=new Map(products.map(p=>[p.id,p.name]));
+  const cell=v=>`"${String(v??'').replace(/"/g,'""')}"`;
+  const csv=['time,event,item_id,item,source,device,visitor,session',...data.map(r=>[r.created_at,r.kind,r.product_id,names.get(r.product_id),r.ref,r.device,r.visitor_id,r.session_id].map(cell).join(','))].join('\n');
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));
+  a.download=`repdatabase-events-${statsDays}d.csv`;
+  a.click();
+  URL.revokeObjectURL(a.href);
 }
 
 /* ---------- admin ---------- */
@@ -1006,18 +1307,26 @@ document.addEventListener('paste',e=>{
 $('#authBtn').onclick=openAuth;
 $('#addBtn').onclick=()=>openAdmin();
 $('#bulkBtn').onclick=openBulk;
+$('#statsBtn').onclick=openStats;
+$('#statsModal').onclick=e=>{if(e.target.id==='statsModal')closeStats()};
 $('#bulkModal').onclick=e=>{if(e.target.id==='bulkModal')closeBulk()};
 $('#fab').onclick=()=>openAdmin();
 $('#authModal').onclick=e=>{if(e.target.id==='authModal')closeAuth()};
 $('#adminModal').onclick=e=>{if(e.target.id==='adminModal')closeAdmin()};
 $('#viewModal').onclick=e=>{if(e.target.id==='viewModal')closeView()};
 document.addEventListener('keydown',e=>{
-  if(e.key==='Escape'){closeAuth();closeAdmin();closeView();closeBulk()}
+  if(e.key==='Escape'){closeAuth();closeAdmin();closeView();closeBulk();closeStats()}
   if(viewing&&e.key==='ArrowRight') showPhoto(viewIdx+1);
   if(viewing&&e.key==='ArrowLeft') showPhoto(viewIdx-1);
 });
 
 const gridEl=$('#grid');
+gridEl.addEventListener('click',e=>{
+  const b=e.target.closest('[data-save]');
+  if(!b) return;
+  e.preventDefault();
+  toggleSave(+b.dataset.save);
+});
 // Photo opens quick view (cmd/ctrl-click still follows the buy link).
 gridEl.addEventListener('click',e=>{
   const a=e.target.closest('.photo[data-view]');
