@@ -14,7 +14,6 @@
 "38": true,
 "39": true,
 "40": true,
-"43": false,
 "52": true,
 "55": true,
 "58": true,
@@ -29,9 +28,5 @@
 "72": true,
 "74": true,
 "75": true,
-"9": false,
-"36": false,
-"56": false,
-"64": false,
-"35": false
+"9": false
 }

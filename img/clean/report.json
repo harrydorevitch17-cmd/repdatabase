@@ -330,26 +330,28 @@
   "right": 0
  },
  "35": {
-  "key": "0eb05b87",
+  "key": "906fdad1",
   "ok": true,
   "name": "Colour Block Long Sleeve",
-  "coverage": 0.489,
-  "mainShare": 0.999,
+  "coverage": 0.446,
+  "mainShare": 1,
+  "pieces": 1,
   "top": 0,
   "bottom": 0,
-  "left": 0.07,
-  "right": 0.179
+  "left": 0.069,
+  "right": 0
  },
  "36": {
-  "key": "84ea132d",
-  "ok": false,
+  "key": "adaf4cfa",
+  "ok": true,
   "name": "Graphic Long Sleeve",
-  "coverage": 0.532,
+  "coverage": 0.285,
   "mainShare": 1,
+  "pieces": 1,
   "top": 0,
   "bottom": 0,
-  "left": 0.443,
-  "right": 0.088
+  "left": 0,
+  "right": 0.087
  },
  "37": {
   "key": "ef8cee1e",
@@ -418,12 +420,13 @@
   "right": 0
  },
  "43": {
-  "key": "b84cd6b0",
-  "ok": false,
+  "key": "9c05ee55",
+  "ok": true,
   "name": "Paint Splat Cargo Shorts",
-  "coverage": 0.346,
+  "coverage": 0.362,
   "mainShare": 1,
-  "top": 0.502,
+  "pieces": 1,
+  "top": 0.571,
   "bottom": 0,
   "left": 0,
   "right": 0
@@ -550,13 +553,14 @@
   "right": 0
  },
  "56": {
-  "key": "0216a4e7",
-  "ok": false,
+  "key": "5cbbb222",
+  "ok": true,
   "name": "Budget interesting mule shoes",
-  "coverage": 0.226,
-  "mainShare": 0.763,
+  "coverage": 0.292,
+  "mainShare": 1,
+  "pieces": 2,
   "top": 0,
-  "bottom": 0.361,
+  "bottom": 0.321,
   "left": 0,
   "right": 0
  },
@@ -638,14 +642,15 @@
   "right": 0.131
  },
  "64": {
-  "key": "8008a381",
-  "ok": false,
+  "key": "c711a4cf",
+  "ok": true,
   "name": "Brown Loafers",
-  "coverage": 0.27,
-  "mainShare": 0.678,
+  "coverage": 0.236,
+  "mainShare": 1,
+  "pieces": 2,
   "top": 0,
-  "bottom": 0.406,
-  "left": 0.288,
+  "bottom": 0,
+  "left": 0,
   "right": 0
  },
  "65": {
@@ -764,6 +769,78 @@
   "name": "Old Money Style T-Shirt",
   "coverage": 0.221,
   "mainShare": 1,
+  "top": 0,
+  "bottom": 0,
+  "left": 0,
+  "right": 0
+ },
+ "77": {
+  "key": "40017207",
+  "ok": true,
+  "name": "SaltWater Wash Joggers",
+  "coverage": 0.277,
+  "mainShare": 0.974,
+  "pieces": 1,
+  "top": 0,
+  "bottom": 0,
+  "left": 0,
+  "right": 0
+ },
+ "78": {
+  "key": "48dd6080",
+  "ok": true,
+  "name": "Waffle Jumper",
+  "coverage": 0.304,
+  "mainShare": 0.97,
+  "pieces": 1,
+  "top": 0,
+  "bottom": 0,
+  "left": 0,
+  "right": 0
+ },
+ "79": {
+  "key": "409eb246",
+  "ok": true,
+  "name": "Striped Henley",
+  "coverage": 0.329,
+  "mainShare": 1,
+  "pieces": 1,
+  "top": 0,
+  "bottom": 0,
+  "left": 0,
+  "right": 0.118
+ },
+ "80": {
+  "key": "c3147de9",
+  "ok": true,
+  "name": "Striped Zip-up Jumper",
+  "coverage": 0.274,
+  "mainShare": 0.963,
+  "pieces": 1,
+  "top": 0,
+  "bottom": 0,
+  "left": 0,
+  "right": 0
+ },
+ "81": {
+  "key": "ff6bf97f",
+  "ok": true,
+  "name": "Applique Striped Jumper",
+  "coverage": 0.328,
+  "mainShare": 0.965,
+  "pieces": 1,
+  "top": 0,
+  "bottom": 0,
+  "left": 0,
+  "right": 0
+ },
+ "82": {
+  "key": "c902a2e5",
+  "ok": true,
+  "name": "Emoji Zip Up Jumper",
+  "coverage": 0.298,
+  "mainShare": 0.96,
+  "pieces": 1,
   "top": 0,
   "bottom": 0,
   "left": 0,
