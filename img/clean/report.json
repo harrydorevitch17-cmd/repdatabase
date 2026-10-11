@@ -977,5 +977,65 @@
   "bottom": 0,
   "left": 0,
   "right": 0
+ },
+ "95": {
+  "key": "15179e68",
+  "ok": true,
+  "name": "Experimen* 5 Hoodie",
+  "coverage": 0.287,
+  "mainShare": 1,
+  "pieces": 1,
+  "top": 0,
+  "bottom": 0,
+  "left": 0,
+  "right": 0
+ },
+ "96": {
+  "key": "717b75cd",
+  "ok": true,
+  "name": "Mutime* Denim Jacket",
+  "coverage": 0.236,
+  "mainShare": 1,
+  "pieces": 1,
+  "top": 0,
+  "bottom": 0,
+  "left": 0,
+  "right": 0
+ },
+ "97": {
+  "key": "44e518f4",
+  "ok": true,
+  "name": "VRK Plaid Jumper",
+  "coverage": 0.32,
+  "mainShare": 1,
+  "pieces": 1,
+  "top": 0,
+  "bottom": 0,
+  "left": 0,
+  "right": 0
+ },
+ "98": {
+  "key": "72a82d0a",
+  "ok": true,
+  "name": "PoolHous* Muscle Polos",
+  "coverage": 0.256,
+  "mainShare": 1,
+  "pieces": 1,
+  "top": 0,
+  "bottom": 0,
+  "left": 0,
+  "right": 0
+ },
+ "99": {
+  "key": "d74706b3",
+  "ok": true,
+  "name": "VRK Plaid Jumper",
+  "coverage": 0.375,
+  "mainShare": 1,
+  "pieces": 1,
+  "top": 0,
+  "bottom": 0,
+  "left": 0,
+  "right": 0
  }
 }
