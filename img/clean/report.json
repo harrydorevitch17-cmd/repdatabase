@@ -845,5 +845,77 @@
   "bottom": 0,
   "left": 0,
   "right": 0
+ },
+ "83": {
+  "key": "72350881",
+  "ok": true,
+  "name": "Curved Pleated Trousers",
+  "coverage": 0.401,
+  "mainShare": 1,
+  "pieces": 1,
+  "top": 0.412,
+  "bottom": 0,
+  "left": 0,
+  "right": 0
+ },
+ "84": {
+  "key": "07328295",
+  "ok": true,
+  "name": "Balenciag* x Fortnite Jumper",
+  "coverage": 0.551,
+  "mainShare": 1,
+  "pieces": 1,
+  "top": 0,
+  "bottom": 0.84,
+  "left": 0,
+  "right": 0
+ },
+ "85": {
+  "key": "c4d0687a",
+  "ok": true,
+  "name": "Experiment Five Plaid Jumper",
+  "coverage": 0.296,
+  "mainShare": 1,
+  "pieces": 1,
+  "top": 0,
+  "bottom": 0,
+  "left": 0,
+  "right": 0
+ },
+ "86": {
+  "key": "95f78965",
+  "ok": true,
+  "name": "Cole Henr* Long Sleeve",
+  "coverage": 0.341,
+  "mainShare": 1,
+  "pieces": 1,
+  "top": 0,
+  "bottom": 0,
+  "left": 0,
+  "right": 0
+ },
+ "87": {
+  "key": "fadca929",
+  "ok": true,
+  "name": "Mertr* Waterproof Jacket",
+  "coverage": 0.405,
+  "mainShare": 1,
+  "pieces": 1,
+  "top": 0,
+  "bottom": 0,
+  "left": 0.092,
+  "right": 0.186
+ },
+ "88": {
+  "key": "d8d8571e",
+  "ok": true,
+  "name": "Mertr* Underwear",
+  "coverage": 0.374,
+  "mainShare": 0.998,
+  "pieces": 1,
+  "top": 0,
+  "bottom": 0,
+  "left": 0,
+  "right": 0
  }
 }
