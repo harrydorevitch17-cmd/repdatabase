@@ -1104,5 +1104,77 @@
   "bottom": 0,
   "left": 0,
   "right": 0
+ },
+ "105": {
+  "key": "6f61343a",
+  "ok": true,
+  "name": "Cole Henr* New Long Sleeve",
+  "coverage": 0.303,
+  "mainShare": 1,
+  "pieces": 1,
+  "top": 0,
+  "bottom": 0,
+  "left": 0,
+  "right": 0
+ },
+ "106": {
+  "key": "00160ea5",
+  "ok": true,
+  "name": "Scuffers Pinstripe Jacket",
+  "coverage": 0.221,
+  "mainShare": 1,
+  "pieces": 1,
+  "top": 0,
+  "bottom": 0,
+  "left": 0,
+  "right": 0
+ },
+ "107": {
+  "key": "79bf1789",
+  "ok": true,
+  "name": "Poolhous* Ringer T-shirt’s",
+  "coverage": 0.32,
+  "mainShare": 1,
+  "pieces": 1,
+  "top": 0,
+  "bottom": 0,
+  "left": 0,
+  "right": 0
+ },
+ "108": {
+  "key": "0044e271",
+  "ok": true,
+  "name": "DM MLA Jumper",
+  "coverage": 0.376,
+  "mainShare": 1,
+  "pieces": 1,
+  "top": 0,
+  "bottom": 0,
+  "left": 0,
+  "right": 0
+ },
+ "109": {
+  "key": "a2e524be",
+  "ok": true,
+  "name": "VCT Brazil Knit",
+  "coverage": 0.287,
+  "mainShare": 1,
+  "pieces": 1,
+  "top": 0,
+  "bottom": 0,
+  "left": 0,
+  "right": 0
+ },
+ "110": {
+  "key": "16fcd69c",
+  "ok": true,
+  "name": "VCT Japan Windbreaker",
+  "coverage": 0.331,
+  "mainShare": 1,
+  "pieces": 1,
+  "top": 0,
+  "bottom": 0,
+  "left": 0,
+  "right": 0
  }
 }
