@@ -60,6 +60,20 @@ radial-gradient(1000px 640px at 100% -4%,rgba(34,230,255,.13),transparent 55%),v
 .brand h1{font-size:16px;font-weight:700;margin:0;letter-spacing:-.4px}
 .brand p{margin:2px 0 0;color:var(--muted);font-size:11px;font-family:var(--mono)}
 .header-actions{display:flex;gap:8px;align-items:center}
+/* discord */
+.dc-ico{width:18px;height:18px;flex-shrink:0}
+.btn.dc{background:#5865f2;color:#fff;border-color:rgba(140,150,255,.6);box-shadow:0 6px 20px rgba(88,101,242,.35),inset 0 1px 0 rgba(255,255,255,.22)}
+.btn.dc:hover{background:#4752c4;transform:translateY(-1px)}
+.community{margin:56px 0 0;display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:center;padding:28px 32px;border-radius:24px;color:#fff;text-decoration:none;background:radial-gradient(600px 260px at 0% 0%,rgba(255,255,255,.18),transparent 60%),linear-gradient(135deg,#4752c4,#5865f2 55%,#7983f5);box-shadow:0 20px 50px rgba(88,101,242,.35);transition:transform .2s var(--ease),box-shadow .2s}
+.community:hover{transform:translateY(-2px);box-shadow:0 26px 60px rgba(88,101,242,.45)}
+.community .dc-badge{width:64px;height:64px;border-radius:18px;background:rgba(255,255,255,.16);display:grid;place-items:center}
+.community .dc-badge .dc-ico{width:36px;height:36px}
+.community h3{margin:0 0 6px;font-size:clamp(20px,2.4vw,26px);letter-spacing:-.03em}
+.community p{margin:0;font-size:14.5px;line-height:1.5;color:rgba(255,255,255,.86)}
+.community .dc-live{display:inline-flex;align-items:center;gap:7px;margin-top:10px;font-family:var(--mono);font-size:12px;color:#fff}
+.community .dc-live[hidden]{display:none}
+.community .dc-live i{width:8px;height:8px;border-radius:50%;background:#3ddc97;box-shadow:0 0 0 3px rgba(61,220,151,.25)}
+.community .dc-cta{display:inline-flex;align-items:center;gap:8px;height:50px;padding:0 24px;border-radius:14px;background:#fff;color:#4752c4;font-weight:700;font-size:15px;white-space:nowrap}
 .btn,.select{border:1px solid var(--glass-border);background:var(--surface);color:var(--text);border-radius:12px;height:38px;padding:0 15px;font:inherit;font-size:13.5px;font-weight:600;cursor:pointer;backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);box-shadow:0 1px 0 var(--glass-hi) inset;transition:.18s;display:inline-flex;align-items:center;justify-content:center;gap:7px;text-decoration:none;white-space:nowrap}
 .select{padding:0 10px;font-family:var(--mono);font-size:12.5px}
 .btn:hover{border-color:rgba(124,108,255,.55);background:var(--surface2)}
@@ -246,7 +260,7 @@ radial-gradient(1000px 640px at 100% -4%,rgba(34,230,255,.13),transparent 55%),v
 #statsModal .modal-head{gap:16px}
 #statsModal .modal-head h3{margin-right:auto}
 .st-periods{display:flex;gap:6px}
-.st-tiles{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin:18px 0 14px;transition:opacity .2s}
+.st-tiles{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;margin:18px 0 14px;transition:opacity .2s}
 .st-tiles.loading{opacity:.4}
 .st-tile{padding:16px;border-radius:16px;background:var(--surface2);border:1px solid var(--glass-border);display:flex;flex-direction:column;gap:4px}
 .st-tile span{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
@@ -285,7 +299,7 @@ radial-gradient(1000px 640px at 100% -4%,rgba(34,230,255,.13),transparent 55%),v
 .st-note{margin:12px 0 0;font-size:12px;color:var(--muted);line-height:1.5}
 .st-empty{padding:50px 20px;text-align:center;color:var(--muted);line-height:1.7}
 .st-empty b{display:block;color:var(--text);font-size:16px}
-@media(max-width:980px){.st-tiles{grid-template-columns:repeat(3,1fr)}.st-grid{grid-template-columns:1fr}}
+@media(max-width:980px){.st-tiles{grid-template-columns:repeat(4,1fr)}.st-grid{grid-template-columns:1fr}}
 @media(max-width:560px){.st-tiles{grid-template-columns:repeat(2,1fr)}#statsModal .modal-head{flex-wrap:wrap}}
 /* bulk add */
 #bulkModal .modal-box{width:min(1120px,100%)}
@@ -322,6 +336,11 @@ radial-gradient(1000px 640px at 100% -4%,rgba(34,230,255,.13),transparent 55%),v
   .wrap{padding:0 16px}
   .site-head .wrap{height:60px}
   .brand p{display:none}
+  .btn.dc .dc-label{display:none}
+  .btn.dc{width:38px;padding:0}
+  .community{grid-template-columns:1fr;gap:14px;padding:22px;margin-top:36px;text-align:left}
+  .community .dc-badge{display:none}
+  .community .dc-cta{justify-content:center}
   .filters{top:60px;margin:16px -16px 14px;padding:10px 16px}
   .filters-row{flex-wrap:wrap;gap:8px}
   .tabs{order:3;flex-basis:100%}
@@ -380,6 +399,7 @@ radial-gradient(1000px 640px at 100% -4%,rgba(34,230,255,.13),transparent 55%),v
     <select class="select" id="currency" aria-label="Currency">
       <option>AUD</option><option>USD</option><option>EUR</option><option>GBP</option><option>CNY</option>
     </select>
+    <a class="btn dc" href="https://discord.gg/SRNW8bNbWa" target="_blank" rel="noopener" data-track="discord" aria-label="Join our Discord"><svg class="dc-ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.32 4.37A19.8 19.8 0 0 0 15.4 2.85a13.7 13.7 0 0 0-.63 1.29 18.4 18.4 0 0 0-5.5 0 13.3 13.3 0 0 0-.64-1.29 19.7 19.7 0 0 0-4.92 1.52C.6 9.07-.25 13.66.17 18.18a19.9 19.9 0 0 0 6.03 3.04c.49-.66.92-1.36 1.29-2.1a12.9 12.9 0 0 1-2.03-.97c.17-.12.34-.25.5-.38a14.2 14.2 0 0 0 12.1 0c.17.14.33.26.5.38-.65.39-1.33.71-2.04.98.37.73.8 1.43 1.29 2.09a19.8 19.8 0 0 0 6.04-3.04c.5-5.24-.84-9.79-3.53-13.81ZM8.02 15.4c-1.18 0-2.15-1.08-2.15-2.42s.95-2.42 2.15-2.42 2.17 1.09 2.15 2.42c0 1.34-.95 2.42-2.15 2.42Zm7.96 0c-1.18 0-2.15-1.08-2.15-2.42s.95-2.42 2.15-2.42 2.17 1.09 2.15 2.42c0 1.34-.94 2.42-2.15 2.42Z"/></svg><span class="dc-label">Discord</span></a>
     <button class="btn" id="authBtn">Log in</button>
     <button class="btn" id="statsBtn" style="display:none">Stats</button>
     <button class="btn" id="bulkBtn" style="display:none">Bulk add</button>
@@ -428,11 +448,23 @@ radial-gradient(1000px 640px at 100% -4%,rgba(34,230,255,.13),transparent 55%),v
   </div>
 </div>
 <section class="grid" id="grid"></section>
+<a class="community" id="community" href="https://discord.gg/SRNW8bNbWa" target="_blank" rel="noopener" data-track="discord">
+  <div class="dc-badge"><svg class="dc-ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.32 4.37A19.8 19.8 0 0 0 15.4 2.85a13.7 13.7 0 0 0-.63 1.29 18.4 18.4 0 0 0-5.5 0 13.3 13.3 0 0 0-.64-1.29 19.7 19.7 0 0 0-4.92 1.52C.6 9.07-.25 13.66.17 18.18a19.9 19.9 0 0 0 6.03 3.04c.49-.66.92-1.36 1.29-2.1a12.9 12.9 0 0 1-2.03-.97c.17-.12.34-.25.5-.38a14.2 14.2 0 0 0 12.1 0c.17.14.33.26.5.38-.65.39-1.33.71-2.04.98.37.73.8 1.43 1.29 2.09a19.8 19.8 0 0 0 6.04-3.04c.5-5.24-.84-9.79-3.53-13.81ZM8.02 15.4c-1.18 0-2.15-1.08-2.15-2.42s.95-2.42 2.15-2.42 2.17 1.09 2.15 2.42c0 1.34-.95 2.42-2.15 2.42Zm7.96 0c-1.18 0-2.15-1.08-2.15-2.42s.95-2.42 2.15-2.42 2.17 1.09 2.15 2.42c0 1.34-.94 2.42-2.15 2.42Z"/></svg></div>
+  <div>
+    <h3>Join the repdatabase Discord</h3>
+    <p>New finds before they hit the site, hauls &amp; QC pics from people who ordered, and a place to ask for anything you can't find.</p>
+    <span class="dc-live" id="dcLive" hidden><i></i><span id="dcLiveText"></span></span>
+  </div>
+  <span class="dc-cta">Join free ↗</span>
+</a>
 </main>
 
 <footer class="site-foot"><div class="wrap">
   <p><b style="color:var(--text)">Replica Index</b> is an independent catalogue of Chinese brands on Taobao. Not affiliated with Taobao. Kakobuy links are affiliate links — signing up through them supports the site.</p>
-  <a href="https://ikako.vip/r/9enta" target="_blank" rel="noopener" data-track="signup">Sign up to Kakobuy ↗</a>
+  <div style="display:flex;gap:20px;flex-wrap:wrap">
+    <a href="https://discord.gg/SRNW8bNbWa" target="_blank" rel="noopener" data-track="discord">Join the Discord ↗</a>
+    <a href="https://ikako.vip/r/9enta" target="_blank" rel="noopener" data-track="signup">Sign up to Kakobuy ↗</a>
+  </div>
 </div></footer>
 </div>
 <button class="fab" id="fab" aria-label="Add item">+</button>
@@ -891,6 +923,14 @@ document.addEventListener('click',e=>{
 },true);
 (()=>{try{if(!sessionStorage.getItem('ri-visit')){sessionStorage.setItem('ri-visit','1');track('visit')}}catch{track('visit')}})();
 
+// Live Discord member/online count from the public invite (no widget needed). Hidden until the server has some people in it.
+fetch('https://discord.com/api/v9/invites/SRNW8bNbWa?with_counts=true').then(r=>r.ok?r.json():null).then(d=>{
+  const m=d?.approximate_member_count||0,on=d?.approximate_presence_count||0;
+  if(m<25) return;
+  $('#dcLiveText').textContent=`${fmtN(m)} members · ${fmtN(on)} online now`;
+  $('#dcLive').hidden=false;
+}).catch(()=>{});
+
 /* ---------- stats dashboard (admin) ---------- */
 let statsDays=7;
 let itemStats=null; // Map product_id -> {views,kakobuy,taobao,saves} for the selected period
@@ -938,6 +978,7 @@ function renderDashboard(d){
     ['Sign-up clicks',fmtN(t.signup),'¥3000 credit link'],
     ['Click rate',pct(d.clickers,d.visitors),'visitors who clicked to buy'],
     ['Saves',fmtN(t.save),'♥ added'],
+    ['Discord clicks',fmtN(t.discord),'join-the-Discord links'],
   ].map(([k,v,sub])=>`<div class="st-tile"><span>${k}</span><b>${v}</b><small>${sub}</small></div>`).join('');
 
   const refs=(d.by_ref||[]).map(r=>`<tr><td>${esc(REF_LABEL[r.ref]||r.ref)}</td><td>${fmtN(r.visitors)}</td><td>${fmtN(r.kakobuy)}</td><td>${fmtN(r.signup)}</td><td>${pct(r.clickers,r.visitors)}</td></tr>`).join('')||`<tr><td colspan="5" class="st-none">No visits yet</td></tr>`;
