@@ -1176,5 +1176,65 @@
   "bottom": 0,
   "left": 0,
   "right": 0
+ },
+ "112": {
+  "key": "42452d02",
+  "ok": true,
+  "name": "Akimbo Club 'NY' zip up",
+  "coverage": 0.401,
+  "mainShare": 1,
+  "pieces": 1,
+  "top": 0,
+  "bottom": 0,
+  "left": 0,
+  "right": 0
+ },
+ "113": {
+  "key": "d1b4008c",
+  "ok": true,
+  "name": "Mutimer Cowhide Belt",
+  "coverage": 0.314,
+  "mainShare": 1,
+  "pieces": 1,
+  "top": 0,
+  "bottom": 0,
+  "left": 0,
+  "right": 0
+ },
+ "114": {
+  "key": "7f3001e1",
+  "ok": true,
+  "name": "Mobius Selvedge Denim",
+  "coverage": 0.456,
+  "mainShare": 1,
+  "pieces": 1,
+  "top": 0,
+  "bottom": 0,
+  "left": 0,
+  "right": 0.092
+ },
+ "115": {
+  "key": "2ae2b020",
+  "ok": true,
+  "name": "Dragon Union Brazil (full set)",
+  "coverage": 0.391,
+  "mainShare": 1,
+  "pieces": 1,
+  "top": 0,
+  "bottom": 0.492,
+  "left": 0,
+  "right": 0
+ },
+ "116": {
+  "key": "b034777b",
+  "ok": true,
+  "name": "Dragon Union 'France' Set",
+  "coverage": 0.373,
+  "mainShare": 1,
+  "pieces": 1,
+  "top": 0,
+  "bottom": 0.448,
+  "left": 0,
+  "right": 0
  }
 }
