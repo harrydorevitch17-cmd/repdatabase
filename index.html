@@ -99,6 +99,8 @@ radial-gradient(1000px 640px at 100% -4%,rgba(34,230,255,.13),transparent 55%),v
 .promo .promo-copy{font-size:12px;font-weight:700;color:#fff;background:var(--kb);border-radius:9px;padding:6px 10px;white-space:nowrap}
 .promo.done .promo-copy{background:#3ddc97}
 .qv-promo{margin-top:0;width:100%;justify-content:space-between}
+.promo-locked{text-decoration:none;border-style:solid;border-color:rgba(124,108,255,.45)}
+.promo-locked .promo-copy{background:var(--kb)}
 .stats{display:flex;gap:34px;margin-top:38px}
 .stats b{display:block;font-size:28px;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
 .stats span{font-family:var(--mono);font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
@@ -426,7 +428,7 @@ radial-gradient(1000px 640px at 100% -4%,rgba(34,230,255,.13),transparent 55%),v
       <a class="btn kb lg" href="https://ikako.vip/r/9enta" target="_blank" rel="noopener" data-track="signup">Get ¥3000 free credit ↗</a>
       <a class="btn lg" href="#shop">Browse finds ↓</a>
     </div>
-    <button class="promo" type="button" data-copy-code aria-label="Copy Kakobuy shipping code doz67"><span>🎟️ <b>$15 off shipping</b> on Kakobuy with code</span><code>doz67</code><span class="promo-copy">Copy</span></button>
+    <div data-promo=""></div>
     <div class="stats">
       <div><b id="statItems">—</b><span>Finds</span></div>
       <div><b id="statBrands">—</b><span>Brands</span></div>
@@ -470,7 +472,7 @@ radial-gradient(1000px 640px at 100% -4%,rgba(34,230,255,.13),transparent 55%),v
 </main>
 
 <footer class="site-foot"><div class="wrap">
-  <p><b style="color:var(--text)">Replica Index</b> is an independent catalogue of Chinese brands on Taobao. Not affiliated with Taobao. Kakobuy links are affiliate links — signing up through them supports the site. Use code <b style="color:var(--text);font-family:var(--mono)">doz67</b> on Kakobuy for $15 off shipping.</p>
+  <p><b style="color:var(--text)">Replica Index</b> is an independent catalogue of Chinese brands on Taobao. Not affiliated with Taobao. Kakobuy links are affiliate links — signing up through them supports the site. Sign up through our Kakobuy link to unlock a $15 shipping code.</p>
   <div style="display:flex;gap:20px;flex-wrap:wrap">
     <a href="https://discord.gg/SRNW8bNbWa" target="_blank" rel="noopener" data-track="discord">Join the Discord ↗</a>
     <a href="https://ikako.vip/r/9enta" target="_blank" rel="noopener" data-track="signup">Sign up to Kakobuy ↗</a>
@@ -797,7 +799,7 @@ function openView(id){
         ${thumbs}
         <div class="qv-actions">
           ${buyBtn(p,true)}
-          <button class="promo qv-promo" type="button" data-copy-code aria-label="Copy Kakobuy shipping code doz67"><span>🎟️ <b>$15 off shipping</b> at checkout</span><code>doz67</code><span class="promo-copy">Copy</span></button>
+          ${promoHtml('qv-promo')}
           <ul class="qv-trust"><li>Kakobuy buys it from the seller for you</li><li>QC photos before it ships</li><li>Ships worldwide</li></ul>
           ${signedUp()?'':`<a class="qv-credit" href="${AFF}" target="_blank" rel="noopener" data-track="signup"><span>🎁</span><span><b>New to Kakobuy?</b> Sign up first for ¥3000 credit</span><span class="buy-arrow-wrap">${ARROW}</span></a>`}
           <div class="qv-share">
@@ -942,8 +944,19 @@ fetch('https://discord.com/api/v9/invites/SRNW8bNbWa?with_counts=true').then(r=>
   $('#dcLive').hidden=false;
 }).catch(()=>{});
 
-// Kakobuy shipping code: tap to copy (works for the hero chip and the quick view one).
+// Kakobuy shipping code: locked until the visitor taps our referral (sign-up) link, then tap to copy.
 const PROMO_CODE='doz67';
+function promoHtml(cls=''){
+  if(!signedUp()) return `<a class="promo promo-locked ${cls}" href="${AFF}" target="_blank" rel="noopener" data-track="signup"><span>🔒 <b>Unlock $15 off shipping</b> — sign up to Kakobuy with our link</span><span class="promo-copy">Unlock</span></a>`;
+  return `<button class="promo ${cls}" type="button" data-copy-code aria-label="Copy Kakobuy shipping code"><span>🎟️ <b>$15 off shipping</b> ${cls?'at checkout':'on Kakobuy with code'}</span><code>${PROMO_CODE}</code><span class="promo-copy">Copy</span></button>`;
+}
+function renderPromos(){
+  document.querySelectorAll('[data-promo]').forEach(el=>{el.innerHTML=promoHtml(el.dataset.promo)});
+  document.querySelectorAll('#viewBox .qv-promo').forEach(el=>{el.outerHTML=promoHtml('qv-promo')});
+}
+renderPromos();
+// Unlock right away when they tap any sign-up link (the click handler above records it first).
+document.addEventListener('click',e=>{if(e.target.closest('a[data-track="signup"]')) setTimeout(()=>{renderPromos();showToast('Unlocked 🎟️ code doz67 — $15 off Kakobuy shipping. Tap to copy.')},400)});
 document.addEventListener('click',e=>{
   const b=e.target.closest('[data-copy-code]');
   if(!b) return;

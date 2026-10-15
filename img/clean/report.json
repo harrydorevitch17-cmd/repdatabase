@@ -1236,5 +1236,65 @@
   "bottom": 0.448,
   "left": 0,
   "right": 0
+ },
+ "117": {
+  "key": "c65ee36e",
+  "ok": true,
+  "name": "DU Baggy Sweatpants",
+  "coverage": 0.509,
+  "mainShare": 1,
+  "pieces": 1,
+  "top": 0,
+  "bottom": 0,
+  "left": 0,
+  "right": 0
+ },
+ "118": {
+  "key": "69599f48",
+  "ok": true,
+  "name": "8k polling rate coiled cable",
+  "coverage": 0.103,
+  "mainShare": 0.987,
+  "pieces": 4,
+  "top": 0,
+  "bottom": 0,
+  "left": 0,
+  "right": 0
+ },
+ "119": {
+  "key": "6a798b1c",
+  "ok": true,
+  "name": "Logitech superlight",
+  "coverage": 0.294,
+  "mainShare": 1,
+  "pieces": 1,
+  "top": 0,
+  "bottom": 0,
+  "left": 0,
+  "right": 0
+ },
+ "120": {
+  "key": "96b778b3",
+  "ok": true,
+  "name": "Scuffers Blue Jumper",
+  "coverage": 0.196,
+  "mainShare": 1,
+  "pieces": 1,
+  "top": 0,
+  "bottom": 0,
+  "left": 0,
+  "right": 0
+ },
+ "122": {
+  "key": "ca357d50",
+  "ok": true,
+  "name": "Scuffers Script Jumper",
+  "coverage": 0.273,
+  "mainShare": 1,
+  "pieces": 1,
+  "top": 0,
+  "bottom": 0,
+  "left": 0,
+  "right": 0
  }
 }
