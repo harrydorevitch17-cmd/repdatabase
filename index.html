@@ -14,7 +14,8 @@
 <meta property="og:image" content="https://repdatabase.store/img/og.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#05070f">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%237c6cff'/%3E%3Cstop offset='1' stop-color='%2322e6ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Ctext x='32' y='44' font-family='Arial,sans-serif' font-size='32' font-weight='800' fill='white' text-anchor='middle'%3ERI%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/png" href="/img/logo-64.png">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
 <!-- Two preconnects on purpose: the data fetch uses CORS, the <img> requests don't, and browsers pool those separately. -->
 <link rel="preconnect" href="https://xbhqvoapbfhyhcrhafxm.supabase.co" crossorigin>
 <link rel="preconnect" href="https://xbhqvoapbfhyhcrhafxm.supabase.co">
@@ -34,10 +35,10 @@
 --text:light-dark(#0c1226,#f3f6ff);
 --muted:light-dark(#5c6b8a,#8e99b8);
 --border:light-dark(#d8dff2,#1b2440);
---accent:light-dark(#5b4bff,#7c6cff);
---cyan:#22e6ff;
+--accent:light-dark(#5a5cf6,#7a7cff);
+--cyan:#2ee0ff;
 --grad:linear-gradient(135deg,var(--accent),var(--cyan));
---kb:linear-gradient(135deg,#4a1fd6 0%,#6d3df5 50%,#7c55ff 100%);
+--kb:linear-gradient(135deg,#6a52ff 0%,#4f6bff 55%,#2f8cf5 100%);
 --sans:Geist,Inter,system-ui,-apple-system,sans-serif;
 --mono:'Geist Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
 --radius:20px;
@@ -49,8 +50,9 @@ body.locked{overflow:hidden}
 a{color:inherit}
 .mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
 #app{min-height:100vh;background:
-radial-gradient(1400px 760px at 10% -14%,rgba(124,108,255,.26),transparent 60%),
-radial-gradient(1000px 640px at 100% -4%,rgba(34,230,255,.13),transparent 55%),var(--bg)}
+radial-gradient(1400px 760px at 8% -14%,rgba(122,124,255,.30),transparent 60%),
+radial-gradient(1000px 640px at 100% -4%,rgba(46,224,255,.14),transparent 55%),
+radial-gradient(900px 700px at 96% 72%,rgba(24,170,190,.10),transparent 60%),var(--bg)}
 .wrap{max-width:1320px;margin:auto;padding:0 24px}
 
 /* top announcement */
@@ -64,7 +66,7 @@ radial-gradient(1000px 640px at 100% -4%,rgba(34,230,255,.13),transparent 55%),v
 .site-head{position:sticky;top:0;z-index:4;backdrop-filter:blur(18px) saturate(150%);-webkit-backdrop-filter:blur(18px) saturate(150%);background:light-dark(rgba(243,245,252,.72),rgba(5,7,15,.68));border-bottom:1px solid var(--glass-border)}
 .site-head .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:66px}
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none}
-.mark{width:36px;height:36px;border-radius:11px;background:var(--grad);color:#fff;display:grid;place-items:center;font-weight:800;font-size:15px;letter-spacing:-.5px;box-shadow:0 0 22px rgba(124,108,255,.45)}
+.mark{width:36px;height:36px;border-radius:11px;object-fit:cover;background:var(--grad);color:#fff;display:grid;place-items:center;font-weight:800;font-size:15px;letter-spacing:-.5px;box-shadow:0 0 22px rgba(124,108,255,.45)}
 .brand h1{font-size:16px;font-weight:700;margin:0;letter-spacing:-.4px}
 .brand p{margin:2px 0 0;color:var(--muted);font-size:11px;font-family:var(--mono)}
 .header-actions{display:flex;gap:8px;align-items:center}
@@ -86,8 +88,8 @@ radial-gradient(1000px 640px at 100% -4%,rgba(34,230,255,.13),transparent 55%),v
 .select{padding:0 10px;font-family:var(--mono);font-size:12.5px}
 .btn:hover{border-color:rgba(124,108,255,.55);background:var(--surface2)}
 .btn:focus-visible,.action:focus-visible,.tab:focus-visible,.select:focus-visible,.photo:focus-visible,.qv-thumb:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
-.btn.kb{background:var(--kb);color:#fff;border-color:rgba(160,140,255,.55);box-shadow:0 8px 26px rgba(109,61,245,.42),inset 0 1px 0 rgba(255,255,255,.25)}
-.btn.kb:hover{transform:translateY(-1px);box-shadow:0 10px 34px rgba(109,61,245,.6),0 0 30px rgba(110,231,255,.2),inset 0 1px 0 rgba(255,255,255,.3)}
+.btn.kb{background:var(--kb);color:#fff;border-color:rgba(140,170,255,.55);box-shadow:0 8px 26px rgba(79,107,255,.42),inset 0 1px 0 rgba(255,255,255,.25)}
+.btn.kb:hover{transform:translateY(-1px);box-shadow:0 10px 34px rgba(79,107,255,.6),0 0 30px rgba(110,231,255,.2),inset 0 1px 0 rgba(255,255,255,.3)}
 .btn.lg{height:54px;padding:0 26px;font-size:15px;border-radius:16px}
 
 /* hero */
@@ -183,16 +185,16 @@ radial-gradient(1000px 640px at 100% -4%,rgba(34,230,255,.13),transparent 55%),v
 .photo.clean{background:#fff}
 .photo.clean::after{background:linear-gradient(90deg,transparent,rgba(120,120,160,.08),transparent)}
 /* primary buy button: label + arrow left, price right */
-.buy{position:relative;display:flex;align-items:center;justify-content:space-between;gap:10px;height:46px;padding:0 6px 0 16px;border-radius:14px;background:var(--kb);color:#fff;text-decoration:none;font-weight:650;font-size:14.5px;overflow:hidden;isolation:isolate;box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 6px 18px rgba(109,61,245,.28);transition:transform .2s var(--ease),box-shadow .2s}
+.buy{position:relative;display:flex;align-items:center;justify-content:space-between;gap:10px;height:46px;padding:0 6px 0 16px;border-radius:14px;background:var(--kb);color:#fff;text-decoration:none;font-weight:650;font-size:14.5px;overflow:hidden;isolation:isolate;box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 6px 18px rgba(79,107,255,.28);transition:transform .2s var(--ease),box-shadow .2s}
 .buy::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.22) 50%,transparent 70%);transform:translateX(-120%);transition:transform .6s var(--ease)}
-.buy:hover{transform:translateY(-1px);box-shadow:inset 0 1px 0 rgba(255,255,255,.25),0 10px 26px rgba(109,61,245,.5)}
+.buy:hover{transform:translateY(-1px);box-shadow:inset 0 1px 0 rgba(255,255,255,.25),0 10px 26px rgba(79,107,255,.5)}
 .buy:hover::before{transform:translateX(120%)}
 .buy:active{transform:translateY(0) scale(.98)}
 .buy-label{display:flex;align-items:center;gap:8px}
 .buy-arrow{width:16px;height:16px;transition:transform .2s var(--ease)}
 .buy:hover .buy-arrow,.qv-credit:hover .buy-arrow{transform:translateX(3px)}
 .buy-price{font-family:var(--mono);font-weight:600;font-size:14px;padding:7px 10px;border-radius:10px;background:rgba(255,255,255,.16);font-variant-numeric:tabular-nums}
-.buy.big{height:58px;font-size:16px;padding-left:20px;border-radius:16px;box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 12px 32px rgba(109,61,245,.42)}
+.buy.big{height:58px;font-size:16px;padding-left:20px;border-radius:16px;box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 12px 32px rgba(79,107,255,.42)}
 .buy.big .buy-price{font-size:15px;padding:9px 12px}
 .qv-trust{list-style:none;margin:2px 0 4px;padding:0;display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12.5px;color:var(--muted)}
 .qv-trust li{display:flex;align-items:center;gap:6px}
@@ -209,7 +211,7 @@ radial-gradient(1000px 640px at 100% -4%,rgba(34,230,255,.13),transparent 55%),v
 .action{border:1px solid var(--glass-border);border-radius:12px;background:var(--surface2);color:var(--text);font:inherit;font-weight:600;font-size:13px;height:38px;cursor:pointer;transition:.18s;display:flex;align-items:center;justify-content:center;gap:6px;text-decoration:none;text-align:center;padding:0 10px;white-space:nowrap}
 .action:hover{border-color:rgba(124,108,255,.55);background:rgba(124,108,255,.12)}
 .action.kb{height:42px;color:#fff;font-size:14px;border-color:transparent;background:var(--kb);box-shadow:inset 0 1px 0 rgba(255,255,255,.2)}
-.action.kb:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(109,61,245,.45),inset 0 1px 0 rgba(255,255,255,.25)}
+.action.kb:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(79,107,255,.45),inset 0 1px 0 rgba(255,255,255,.25)}
 .action.edit{height:32px;font-size:12px;border-style:dashed}
 .empty{padding:70px 20px;text-align:center;color:var(--muted);border:1px dashed var(--border);border-radius:var(--radius);grid-column:1/-1}
 .empty b{display:block;font-size:18px;font-weight:700;color:var(--text);margin-bottom:6px}
@@ -415,7 +417,7 @@ radial-gradient(1000px 640px at 100% -4%,rgba(34,230,255,.13),transparent 55%),v
 <a class="announce" href="https://ikako.vip/r/9enta" target="_blank" rel="noopener" data-track="signup"><b>New to Kakobuy?</b> <span class="long">Sign up free with our link for ¥3000 credit</span><span class="short">Get ¥3000 free credit</span> →</a>
 
 <header class="site-head"><div class="wrap">
-  <a class="brand" href="#top"><div class="mark">RI</div><div><h1>repdatabase</h1><p>hand-picked taobao finds</p></div></a>
+  <a class="brand" href="#top"><img class="mark" src="/img/logo-64.png" alt="" width="36" height="36"><div><h1>repdatabase</h1><p>hand-picked taobao finds</p></div></a>
   <div class="header-actions">
     <select class="select" id="currency" aria-label="Currency">
       <option>AUD</option><option>USD</option><option>EUR</option><option>GBP</option><option>CNY</option>
