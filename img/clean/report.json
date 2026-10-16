@@ -1524,5 +1524,101 @@
   "bottom": 0.001,
   "left": 0.591,
   "right": 0.261
+ },
+ "141": {
+  "key": "b7cbe04d",
+  "ok": true,
+  "name": "Arcteryx Down Jacket",
+  "coverage": 0.293,
+  "mainShare": 1,
+  "pieces": 1,
+  "top": 0,
+  "bottom": 0,
+  "left": 0,
+  "right": 0
+ },
+ "142": {
+  "key": "52692009",
+  "ok": true,
+  "name": "RL Bear Jumper",
+  "coverage": 0.34,
+  "mainShare": 1,
+  "pieces": 1,
+  "top": 0.006,
+  "bottom": 0,
+  "left": 0,
+  "right": 0
+ },
+ "143": {
+  "key": "f2df94c0",
+  "ok": true,
+  "name": "RL City Polo's",
+  "coverage": 0.485,
+  "mainShare": 1,
+  "pieces": 9,
+  "top": 0,
+  "bottom": 0,
+  "left": 0,
+  "right": 0
+ },
+ "144": {
+  "key": "ad2315a3",
+  "ok": true,
+  "name": "RL sweat shorts",
+  "coverage": 0.312,
+  "mainShare": 1,
+  "pieces": 1,
+  "top": 0,
+  "bottom": 0,
+  "left": 0,
+  "right": 0
+ },
+ "145": {
+  "key": "eeba5c97",
+  "ok": true,
+  "name": "RL logo t-shirt",
+  "coverage": 0.353,
+  "mainShare": 1,
+  "pieces": 1,
+  "top": 0,
+  "bottom": 0,
+  "left": 0,
+  "right": 0
+ },
+ "146": {
+  "key": "0ba79607",
+  "ok": true,
+  "name": "ALO Beanies",
+  "coverage": 0.521,
+  "mainShare": 1,
+  "pieces": 2,
+  "top": 0,
+  "bottom": 0,
+  "left": 0,
+  "right": 0
+ },
+ "147": {
+  "key": "4366dbd1",
+  "ok": true,
+  "name": "Acne Studios Polo's",
+  "coverage": 0.354,
+  "mainShare": 0.989,
+  "pieces": 1,
+  "top": 0,
+  "bottom": 0,
+  "left": 0,
+  "right": 0
+ },
+ "148": {
+  "key": "b29fcaac",
+  "ok": true,
+  "name": "Supreme Spitfire Jumper",
+  "coverage": 0.352,
+  "mainShare": 1,
+  "pieces": 1,
+  "top": 0,
+  "bottom": 0,
+  "left": 0,
+  "right": 0
  }
 }
