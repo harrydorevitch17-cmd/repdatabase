@@ -1620,5 +1620,29 @@
   "bottom": 0,
   "left": 0,
   "right": 0
+ },
+ "149": {
+  "key": "bb6568cc",
+  "ok": true,
+  "name": "Wallhack Glass Mousepad",
+  "coverage": 0.449,
+  "mainShare": 0.995,
+  "pieces": 2,
+  "top": 0.196,
+  "bottom": 0.583,
+  "left": 0,
+  "right": 0
+ },
+ "150": {
+  "key": "19e3c7a2",
+  "ok": true,
+  "name": "CS2 keycaps",
+  "coverage": 0.304,
+  "mainShare": 1,
+  "pieces": 1,
+  "top": 0,
+  "bottom": 0,
+  "left": 0,
+  "right": 0.289
  }
 }
