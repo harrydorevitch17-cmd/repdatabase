@@ -184,6 +184,12 @@ radial-gradient(900px 700px at 96% 72%,rgba(24,170,190,.10),transparent 60%),var
 .meta-row{font-family:var(--mono);font-size:11.5px;color:var(--muted);white-space:nowrap;display:flex;gap:6px;align-items:baseline;margin-top:2px}
 .meta-row a{color:light-dark(#c2410c,#ff9a4d);text-decoration:none;font-weight:500}
 .meta-row a:hover{text-decoration:underline}
+/* real QC photos (Doppel) */
+.qc-link{display:inline-flex;align-items:center;gap:5px;align-self:flex-start;margin-top:6px;padding:4px 9px;border-radius:999px;font-size:11.5px;font-weight:600;text-decoration:none;color:light-dark(#047857,#4ade80);background:light-dark(rgba(16,185,129,.1),rgba(74,222,128,.12));border:1px solid light-dark(rgba(16,185,129,.3),rgba(74,222,128,.28))}
+.qc-link:hover{background:light-dark(rgba(16,185,129,.18),rgba(74,222,128,.2))}
+.qv-qc{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border-radius:14px;text-decoration:none;font-size:13.5px;font-weight:600;color:var(--text);background:light-dark(rgba(16,185,129,.08),rgba(74,222,128,.1));border:1px solid light-dark(rgba(16,185,129,.3),rgba(74,222,128,.28))}
+.qv-qc small{font-weight:500;color:var(--muted)}
+.qv-qc:hover{background:light-dark(rgba(16,185,129,.14),rgba(74,222,128,.16))}
 .photo.clean{background:#fff}
 .photo.clean::after{background:linear-gradient(90deg,transparent,rgba(120,120,160,.08),transparent)}
 /* primary buy button: label + arrow left, price right */
@@ -560,6 +566,12 @@ const firstFetch=fetchRows();
 const useClean=!new URLSearchParams(location.search).has('original');
 const fetchClean=()=>useClean?fetch('/img/clean/index.json').then(r=>r.ok?r.json():{}).catch(()=>({})):Promise.resolve({});
 const firstClean=fetchClean();
+// Real QC photos on Doppel.fit for items that have them: {items: {id: {url, n}}}. Re-checked by hand (ask Claude to refresh).
+let qcData={};
+fetch('/img/qc.json').then(r=>r.ok?r.json():{}).then(d=>{qcData=d.items||{};if(products.length)render()}).catch(()=>{});
+const qcFor=p=>qcData[p.id];
+const fmtQc=n=>n>=1000?(n/1000).toFixed(1).replace(/\.0$/,'')+'k':String(n);
+const qcLink=(q,cls,label)=>`<a class="${cls}" href="${esc(q.url)}" target="_blank" rel="noopener" aria-label="See ${q.n} real QC photos on Doppel">${label}</a>`;
 let cleanMap={};
 const cleanSrc=p=>p.clean?`/img/clean/${p.clean}.webp`:'';
 
@@ -804,6 +816,7 @@ function card(p,i){
       <div class="topline">
         ${eyebrow?`<div class="eyebrow">${eyebrow}</div>`:''}<h3 class="name">${esc(p.name)}</h3>
         <div class="meta-row">${p.cny?`<span>¥${esc(p.cny)}</span>`:''}${p.cny&&tbLink?'<span>·</span>':''}${tbLink}</div>
+        ${qcFor(p)?qcLink(qcFor(p),'qc-link',`📸 ${fmtQc(qcFor(p).n)} QC pics ↗`):''}
       </div>
       <div class="actions">${buyBtn(p)}${statLine}${edit}</div>
     </div>
@@ -840,6 +853,7 @@ function openView(id){
         <div class="qv-actions">
           ${buyBtn(p,true)}
           ${promoHtml('qv-promo')}
+          ${qcFor(p)?qcLink(qcFor(p),'qv-qc',`<span>📸 See ${fmtQc(qcFor(p).n)} real QC photos</span><small>on Doppel ↗</small>`):''}
           <ul class="qv-trust"><li>Kakobuy buys it from the seller for you</li><li>QC photos before it ships</li><li>Ships worldwide</li></ul>
           ${signedUp()?'':`<a class="qv-credit" href="${AFF}" target="_blank" rel="noopener" data-track="signup"><span>🎁</span><span><b>New to Kakobuy?</b> Sign up first for ¥3000 credit</span><span class="buy-arrow-wrap">${ARROW}</span></a>`}
           <div class="qv-share">
