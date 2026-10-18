@@ -589,13 +589,21 @@ fetch('/img/qc.json').then(r=>r.ok?r.json():{}).then(d=>{
   qcData=d.items||{};
   // Update badges without replacing images that are already downloading.
   document.querySelectorAll('[data-qc]').forEach(slot=>{
-    const q=qcData[slot.dataset.qc];
-    slot.innerHTML=q?qcLink(q,'qc-link',`📸 ${fmtQc(q.n)} QC pics ↗`):'';
+    const p=products.find(p=>String(p.id)===slot.dataset.qc);
+    const q=p?qcFor(p):null;
+    slot.innerHTML=q?qcLink(q,'qc-link',qcLabel(q)):'';
   });
 }).catch(()=>{});
-const qcFor=p=>qcData[p.id];
+const qcFor=p=>{
+  if(qcData[p.id]) return qcData[p.id];
+  const key=parseLink(p.productLink)?.key;
+  if(!key) return null;
+  const [site,id]=key.split(':');
+  return {url:`https://doppel.fit/item/${site==='wd'?'weidian':'taobao'}/${id}/qcs`,n:null};
+};
 const fmtQc=n=>n>=1000?(n/1000).toFixed(1).replace(/\.0$/,'')+'k':String(n);
-const qcLink=(q,cls,label)=>`<a class="${cls}" href="${esc(q.url)}" target="_blank" rel="noopener" aria-label="See ${q.n} real QC photos on Doppel">${label}</a>`;
+const qcLabel=q=>q.n>0?`📸 ${fmtQc(q.n)} QC pics ↗`:'Check QC on Doppel ↗';
+const qcLink=(q,cls,label)=>`<a class="${cls}" href="${esc(q.url)}" target="_blank" rel="noopener" aria-label="${q.n>0?`See ${q.n} real QC photos on Doppel`:'Check QC availability for this exact product on Doppel'}">${label}</a>`;
 let cleanMap={};
 const cleanSrc=p=>p.clean?`/img/clean/${p.clean}.webp`:'';
 
@@ -864,7 +872,7 @@ function card(p,i){
       <div class="topline">
         ${eyebrow?`<div class="eyebrow">${eyebrow}</div>`:''}<h3 class="name">${esc(p.name)}</h3>
         <div class="meta-row">${p.cny?`<span>¥${esc(p.cny)}</span>`:''}${p.cny&&tbLink?'<span>·</span>':''}${tbLink}</div>
-        <span data-qc="${Number(p.id)}">${qcFor(p)?qcLink(qcFor(p),'qc-link',`📸 ${fmtQc(qcFor(p).n)} QC pics ↗`):''}</span>
+        <span data-qc="${Number(p.id)}">${qcFor(p)?qcLink(qcFor(p),'qc-link',qcLabel(qcFor(p))):''}</span>
       </div>
       <div class="actions">${buyBtn(p)}${statLine}${edit}</div>
     </div>
@@ -901,7 +909,7 @@ function openView(id){
         <div class="qv-actions">
           ${buyBtn(p,true)}
           ${promoHtml('qv-promo')}
-          ${qcFor(p)?qcLink(qcFor(p),'qv-qc',`<span>📸 See ${fmtQc(qcFor(p).n)} real QC photos</span><small>on Doppel ↗</small>`):''}
+          ${qcFor(p)?qcLink(qcFor(p),'qv-qc',qcFor(p).n>0?`<span>📸 See ${fmtQc(qcFor(p).n)} real QC photos</span><small>on Doppel ↗</small>`:'<span>Check QC on Doppel ↗</span><small>Check photo availability for this exact item</small>'):''}
           <ul class="qv-trust"><li>Kakobuy buys it from the seller for you</li><li>QC photos before it ships</li><li>Ships worldwide</li></ul>
           ${signedUp()?'':`<a class="qv-credit" href="${AFF}" target="_blank" rel="noopener" data-track="signup"><span>🎁</span><span><b>New to Kakobuy?</b> Sign up first for ¥3000 credit</span><span class="buy-arrow-wrap">${ARROW}</span></a>`}
           <div class="qv-share">
