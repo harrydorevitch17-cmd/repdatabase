@@ -16,6 +16,7 @@
 <meta name="theme-color" content="#05070f">
 <link rel="icon" type="image/png" href="/img/logo-64.png">
 <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<link rel="preload" href="/img/clean/index.json" as="fetch" crossorigin>
 <!-- Two preconnects on purpose: the data fetch uses CORS, the <img> requests don't, and browsers pool those separately. -->
 <link rel="preconnect" href="https://xbhqvoapbfhyhcrhafxm.supabase.co" crossorigin>
 <link rel="preconnect" href="https://xbhqvoapbfhyhcrhafxm.supabase.co">
@@ -568,7 +569,14 @@ const fetchClean=()=>useClean?fetch('/img/clean/index.json').then(r=>r.ok?r.json
 const firstClean=fetchClean();
 // Real QC photos on Doppel.fit for items that have them: {items: {id: {url, n}}}. Re-checked by hand (ask Claude to refresh).
 let qcData={};
-fetch('/img/qc.json').then(r=>r.ok?r.json():{}).then(d=>{qcData=d.items||{};if(products.length)render()}).catch(()=>{});
+fetch('/img/qc.json').then(r=>r.ok?r.json():{}).then(d=>{
+  qcData=d.items||{};
+  // Update badges without replacing images that are already downloading.
+  document.querySelectorAll('[data-qc]').forEach(slot=>{
+    const q=qcData[slot.dataset.qc];
+    slot.innerHTML=q?qcLink(q,'qc-link',`📸 ${fmtQc(q.n)} QC pics ↗`):'';
+  });
+}).catch(()=>{});
 const qcFor=p=>qcData[p.id];
 const fmtQc=n=>n>=1000?(n/1000).toFixed(1).replace(/\.0$/,'')+'k':String(n);
 const qcLink=(q,cls,label)=>`<a class="${cls}" href="${esc(q.url)}" target="_blank" rel="noopener" aria-label="See ${q.n} real QC photos on Doppel">${label}</a>`;
@@ -788,7 +796,8 @@ function card(p,i){
   const buyLink=buyLinkFor(p);
   const edit=currentUser?`<button class="action edit" onclick="openAdmin(${Number(p.id)})">✎ Edit</button>`:'';
   // First row loads immediately at high priority; everything else waits until it's near the viewport.
-  const load=i<4?'loading="eager" fetchpriority="high"':i<8?'loading="eager"':'loading="lazy"';
+  const firstRow=window.innerWidth<=720?2:window.innerWidth<=1100?3:4;
+  const load=i<firstRow?'loading="eager" fetchpriority="high"':'loading="lazy"';
   // Hovering a clean shot reveals the real photo; otherwise the second photo.
   const altSrc=p.clean?p.images[0]:p.images[1];
   const alt=altSrc?`<img class="alt" data-src="${esc(imgUrl(altSrc,480))}" data-srcset="${esc(srcset(altSrc,[320,480,720]))}" sizes="${CARD_SIZES}" alt="">`:'';
@@ -816,7 +825,7 @@ function card(p,i){
       <div class="topline">
         ${eyebrow?`<div class="eyebrow">${eyebrow}</div>`:''}<h3 class="name">${esc(p.name)}</h3>
         <div class="meta-row">${p.cny?`<span>¥${esc(p.cny)}</span>`:''}${p.cny&&tbLink?'<span>·</span>':''}${tbLink}</div>
-        ${qcFor(p)?qcLink(qcFor(p),'qc-link',`📸 ${fmtQc(qcFor(p).n)} QC pics ↗`):''}
+        <span data-qc="${Number(p.id)}">${qcFor(p)?qcLink(qcFor(p),'qc-link',`📸 ${fmtQc(qcFor(p).n)} QC pics ↗`):''}</span>
       </div>
       <div class="actions">${buyBtn(p)}${statLine}${edit}</div>
     </div>
