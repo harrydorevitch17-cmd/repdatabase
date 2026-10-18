@@ -138,9 +138,21 @@ radial-gradient(900px 700px at 96% 72%,rgba(24,170,190,.10),transparent 60%),var
 /* sticky filter bar */
 .filters{position:sticky;top:66px;z-index:3;margin:20px -24px 18px;padding:12px 24px;backdrop-filter:blur(18px) saturate(150%);-webkit-backdrop-filter:blur(18px) saturate(150%);background:light-dark(rgba(243,245,252,.8),rgba(5,7,15,.74));border-bottom:1px solid var(--glass-border)}
 .filters-row{display:flex;align-items:center;gap:12px}
-.tabs{display:flex;gap:6px;overflow-x:auto;flex:1;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 92%,transparent);mask-image:linear-gradient(90deg,#000 92%,transparent)}
+.category-bar{display:flex;align-items:flex-start;gap:16px;margin-bottom:12px}
+.category-label{padding-top:12px;font-size:12px;font-weight:600;color:var(--muted);white-space:nowrap}
+.tabs{display:flex;flex-wrap:wrap;gap:7px;flex:1;min-width:0}
+.category-mobile{display:none}
 .tabs::-webkit-scrollbar{display:none}
-.tab{border:1px solid transparent;background:transparent;color:var(--muted);padding:8px 14px;border-radius:999px;cursor:pointer;white-space:nowrap;font:inherit;font-weight:500;font-size:13.5px;transition:.15s}
+.tab{border:1px solid var(--glass-border);background:var(--surface);color:var(--muted);padding:10px 14px;min-height:44px;border-radius:12px;cursor:pointer;white-space:nowrap;font:inherit;font-weight:500;font-size:13.5px;transition:.15s}
+.tab:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.filters-row .search{flex:1}
+.filters-row .search-input{width:100%}
+@media(max-width:720px){
+  .category-bar{margin-bottom:10px;align-items:center;gap:12px}
+  .category-label{padding:0}
+  .category-bar .tabs{display:none}
+  .category-mobile{display:block;flex:1;min-width:0;height:44px;width:100%}
+}
 .tab:hover{color:var(--text);background:var(--surface)}
 .tab.active{background:var(--text);color:var(--bg);font-weight:600}
 .tab .tab-count{opacity:.55;margin-left:6px;font-family:var(--mono);font-size:11.5px}
@@ -466,8 +478,12 @@ radial-gradient(900px 700px at 96% 72%,rgba(24,170,190,.10),transparent 60%),var
 <div class="ticker" id="ticker" hidden aria-hidden="true"><div class="ticker-track" id="tickerTrack"></div></div>
 
 <div class="filters" id="shop">
-  <div class="filters-row">
+  <div class="category-bar">
+    <label class="category-label" for="categorySelect">Browse categories</label>
     <nav class="tabs" id="tabs" aria-label="Categories"></nav>
+    <select class="select category-mobile" id="categorySelect" aria-label="Category"></select>
+  </div>
+  <div class="filters-row">
     <label class="search">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
       <input class="search-input" id="search" placeholder="Search finds…" autocomplete="off" aria-label="Search">
@@ -618,12 +634,17 @@ function showSkeletons(){
     </div>`).join('');
 }
 
+function normalizeCategory(value){
+  const label=String(value||'').trim().replace(/\s+/g,' ');
+  return label?label.toLowerCase().replace(/\b\w/g,c=>c.toUpperCase()):'Other';
+}
+
 function mapRows(data){
   return (data||[]).map(row=>{
     const imgs=Array.isArray(row.images)?row.images.filter(Boolean):[];
     const main=imgs[0]||row.image||'';
     return {
-      id:row.id,name:row.name,brand:row.brand,category:row.category,
+      id:row.id,name:row.name,brand:row.brand,category:normalizeCategory(row.category),
       seller:row.seller,rating:row.rating,qc:row.qc,cny:row.cny,status:row.status,
       createdAt:row.created_at,
       image:main,images:imgs.length?imgs:(main?[main]:[]),
@@ -716,18 +737,36 @@ function closeAuth(){$('#authModal').classList.remove('open')}
 function closeAdmin(){$('#adminModal').classList.remove('open')}
 
 function renderTabs(){
-  const counts={};
+  const counts=Object.create(null);
   products.forEach(p=>{counts[p.category]=(counts[p.category]||0)+1});
-  const cats=['All',...new Set(products.map(p=>p.category))];
+  const cats=['All',...Object.keys(counts).filter(c=>c!=='All'&&c!=='Saved').sort((a,b)=>{
+    if(a==='Other') return 1;
+    if(b==='Other') return -1;
+    return a.localeCompare(b);
+  }),'Saved'];
   const savedCount=products.filter(p=>saved.has(p.id)).length;
-  if(savedCount||active==='Saved'){cats.push('Saved');counts.Saved=savedCount}
+  counts.Saved=savedCount;
+  if(!cats.includes(active)) active='All';
   const tabs=$('#tabs');
+  const select=$('#categorySelect');
   if(!tabs) return;
-  tabs.innerHTML=cats.map((c,i)=>{
+  const signature=JSON.stringify([cats,counts,products.length]);
+  if(tabs.dataset.signature!==signature){
+    tabs.innerHTML=cats.map((c,i)=>{
     const n=c==='All'?products.length:(counts[c]||0);
-    return `<button class="tab ${active===c?'active':''}" data-cat="${i}">${c==='Saved'?'♥ Saved':esc(c)}<span class="tab-count">${n}</span></button>`;
-  }).join('');
-  tabs.querySelectorAll('.tab').forEach(b=>{b.onclick=()=>setCat(cats[+b.dataset.cat])});
+      return `<button type="button" class="tab" data-cat="${i}" aria-pressed="false">${c==='Saved'?'♥ Saved':c==='All'?'All finds':esc(c)}<span class="tab-count">${n}</span></button>`;
+    }).join('');
+    tabs.querySelectorAll('.tab').forEach(b=>{b.onclick=()=>setCat(cats[+b.dataset.cat])});
+    select.innerHTML=cats.map((c,i)=>`<option value="${i}">${c==='All'?'All finds':esc(c)} (${c==='All'?products.length:counts[c]||0})</option>`).join('');
+    select.onchange=()=>setCat(cats[+select.value]);
+    tabs.dataset.signature=signature;
+  }
+  tabs.querySelectorAll('.tab').forEach(b=>{
+    const selected=cats[+b.dataset.cat]===active;
+    b.classList.toggle('active',selected);
+    b.setAttribute('aria-pressed',String(selected));
+  });
+  select.value=String(cats.indexOf(active));
 }
 function setCat(c){active=c;render()}
 
