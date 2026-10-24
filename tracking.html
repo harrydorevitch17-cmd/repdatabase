@@ -21,32 +21,41 @@
 <main class="wrap">
 <section class="tool-hero">
 <div><span class="eyebrow">The shipping desk / 01</span><h1>Follow the<br>whole journey.</h1></div>
-<p>From the first scan to your front door. Find the right tracking sources and the carrier handling the next leg.</p>
+<p>Enter your parcel number to see tracking results here. Follow carrier updates from the first scan to the final delivery.</p>
 </section>
 <div class="tool-layout">
 <section class="tool-panel" aria-label="Parcel tracking helper">
-<div class="section-heading"><h2>Find your parcel.</h2><span class="section-number">01 / TRACK</span></div>
+<div class="section-heading"><h2>Track your parcel.</h2><span class="section-number">01 / TRACK</span></div>
 <form id="tracking-form">
-<div class="field-row"><div><label for="tracking-number">Tracking number</label><input class="tool-input mono" id="tracking-number" required minlength="5" maxlength="60" autocomplete="off" spellcheck="false" placeholder="EE123456789CN" aria-describedby="tracking-help"></div>
+<div class="field-row"><div><label for="tracking-number">Tracking number</label><input class="tool-input mono" id="tracking-number" required minlength="5" maxlength="50" autocomplete="off" spellcheck="false" placeholder="EE123456789CN" aria-describedby="tracking-help"></div>
 <div><label for="destination">Destination country</label><select id="destination" class="tool-input"><option value="">Select country (optional)</option></select></div></div>
-<div class="form-actions"><button class="btn kb" type="submit">Find tracking sources <span aria-hidden="true">&rarr;</span></button><p id="tracking-help" class="muted">Use your shipment number, rather than the order number from your agent.</p></div>
+<details class="tracking-options"><summary>Choose a carrier manually (optional)</summary><label for="tracking-carrier">Carrier name</label><input id="tracking-carrier" class="tool-input" type="search" list="tracking-carriers" placeholder="Auto-detect, or choose a carrier"><datalist id="tracking-carriers"></datalist></details>
+<div class="form-actions"><button class="btn kb" type="submit">Track parcel <span aria-hidden="true">&rarr;</span></button><p id="tracking-help" class="muted">Use your shipment number, rather than the order number from your agent.</p></div>
 </form>
-<p class="helper-note">Free to use. No account needed. Live results open with your chosen provider.</p>
+<p class="helper-note">Carrier updates powered by 17TRACK. Your number is sent to the provider when you track.</p>
 <p id="tracking-status" class="muted" role="status"></p>
-<section id="tracking-results" class="tracking-result" hidden aria-label="Suggested tracking sources">
-<h2>Your next places to check.</h2><p id="number-hint" class="muted"></p>
+<details id="tracking-results" class="tracking-result" hidden>
+<summary>Cross-check with another source</summary><p id="number-hint" class="muted"></p>
 <div class="result-toolbar"><button id="copy-number" type="button" class="btn">Copy tracking number</button><p id="copy-status" role="status"></p></div>
 <div id="tracking-sources" class="source-list"></div>
-<p class="muted">These are places to check, rather than confirmed carrier matches. Your number is shared only with tracking links you open.</p>
-</section>
+<p class="muted">Additional sources can help compare carrier handovers. Opening a tracking link shares the number with that provider.</p>
+</details>
 </section>
 <aside class="tool-aside" aria-label="Tracking tips">
 <h2>A better way to check.</h2>
-<div class="guide-step"><span>01</span><div><h3>Start with the full picture</h3><p>International trackers can reveal the carrier and a separate last-mile number.</p></div></div>
+<div class="guide-step"><span>01</span><div><h3>Start with the full picture</h3><p>Track above to see the carrier updates available through 17TRACK, including handovers when reported.</p></div></div>
 <div class="guide-step"><span>02</span><div><h3>Go straight to the source</h3><p>Find the named carrier below. For local delivery, check the destination operator too.</p></div></div>
 <div class="guide-step"><span>03</span><div><h3>Read the scan, not the refresh</h3><p>Compare event times, time zones and locations. A recent page refresh is not a new scan.</p></div></div>
 </aside>
 </div>
+<section id="live-tracking" class="live-tracking" hidden aria-labelledby="live-tracking-title">
+<div class="live-tracking-heading"><div><span class="eyebrow">Your shipment</span><h2 id="live-tracking-title">Tracking results</h2></div><a id="live-external" class="btn" href="https://t.17track.net/en" target="_blank" rel="noopener noreferrer">Open on 17TRACK &rarr;</a></div>
+<p id="live-tracking-status" class="muted" role="status" aria-live="polite">Checking carrier updates...</p>
+<div id="live-match-picker" hidden><label for="live-carrier-match">Multiple carriers matched. Choose the one used by your sender.</label><select id="live-carrier-match" class="tool-input"><option value="">Choose a carrier match</option></select></div>
+<div id="live-tracking-container" aria-busy="true"></div>
+<button type="button" class="btn" id="live-tracking-retry" hidden>Retry tracking</button>
+<p class="live-tracking-note">Showing the latest carrier information available through 17TRACK. Carrier scan times and the time of this lookup are shown separately. New numbers may take time to return their first scan.</p>
+</section>
 <section class="journey" aria-labelledby="journey-title">
 <div class="journey-heading"><div><span class="eyebrow">A little perspective</span><h2 id="journey-title">One parcel. A few handovers.</h2></div><p>Match a stage to the latest update you read on your carrier's site.</p></div>
 <div class="journey-canvas">

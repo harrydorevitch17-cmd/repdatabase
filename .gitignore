@@ -1,2 +1,7 @@
 .DS_Store
 video/
+
+.env
+.env.*
+!.env.example
+.vercel/

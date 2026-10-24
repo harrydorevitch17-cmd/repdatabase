@@ -28,7 +28,7 @@ async function loadDirectory(){
  try{
   const response=await fetch('/carriers.json');if(!response.ok)throw Error('Directory unavailable');
   const data=await response.json();if(!Array.isArray(data.carriers))throw Error('Invalid directory');
-  carriers=data.carriers.filter(c=>{try{return ['https:','http:'].includes(new URL(c.url).protocol)&&typeof c.name==='string'}catch{return false}});renderDirectory();
+  carriers=data.carriers.filter(c=>{try{return ['https:','http:'].includes(new URL(c.url).protocol)&&typeof c.name==='string'}catch{return false}});renderDirectory();populateTrackingCarriers();
  }catch{el('directory-status').textContent='Could not load the carrier directory. Retry, or use the UPU and EMS links below.';el('directory-retry').hidden=false;}
 }
 function showSources(number){
@@ -43,15 +43,15 @@ function showSources(number){
  el('tracking-sources').replaceChildren(...sources);
  const postal=/^[A-Z]{2}[0-9]{9}[A-Z]{2}$/.test(number),suffix=number.slice(-2);
  el('number-hint').textContent=postal?`This resembles a 13-character international postal number${countryCodes.includes(suffix)?' with issuing-country code '+regionNames.of(suffix):''}. The suffix does not identify the destination or confirm the current carrier. Check EMS if the sender used EMS.`:'The format alone does not reliably identify the carrier. Start with an international tracker, then check the named carrier portal.';
- el('tracking-results').hidden=false;el('tracking-status').textContent='Tracking resources ready. Choose a source below to check live results.';
+ el('tracking-results').hidden=false;
 }
 el('tracking-form').addEventListener('submit',event=>{
  event.preventDefault();const input=el('tracking-number');input.setCustomValidity('');
  const number=input.value.replace(/[\s-]/g,'').toUpperCase();
- if(!/^[A-Z0-9]{5,60}$/.test(number)){input.setCustomValidity('Enter 5 to 60 letters or numbers. Spaces and hyphens are allowed.');input.reportValidity();return;}
- activeNumber=number;el('copy-status').textContent='';showSources(number);renderDirectory();
+ if(!/^[A-Z0-9]{5,50}$/.test(number)){input.setCustomValidity('Enter 5 to 50 letters or numbers. Spaces and hyphens are allowed.');input.reportValidity();return;}
+ activeNumber=number;el('copy-status').textContent='';showSources(number);renderDirectory();startLiveTracking(number);
 });
-el('tracking-number').addEventListener('input',event=>{event.target.setCustomValidity('');el('tracking-results').hidden=true;el('tracking-status').textContent='';activeNumber='';});
+el('tracking-number').addEventListener('input',event=>{event.target.setCustomValidity('');el('tracking-results').hidden=true;el('tracking-status').textContent='';activeNumber='';clearLiveTracking();});
 el('destination').addEventListener('change',()=>{limit=12;renderDirectory();if(activeNumber)showSources(activeNumber);});
 el('carrier-search').addEventListener('input',()=>{limit=12;renderDirectory();});
 el('more-carriers').addEventListener('click',()=>{limit+=12;renderDirectory();});
@@ -87,3 +87,83 @@ journeyStops.forEach(button=>button.addEventListener('click',()=>selectJourneySt
 el('journey-reset').addEventListener('click',()=>{selectJourneyStage(-1);journeyStops[0].focus();});
 el('destination').addEventListener('change',()=>{el('journey-destination').textContent=el('destination').value?regionNames.of(el('destination').value).toUpperCase():'DESTINATION';});
 el('tracking-number').addEventListener('input',()=>selectJourneyStage(-1));
+
+// Real tracking uses a same-origin server endpoint. The provider key never enters the browser.
+let liveRequest=0,liveController=null,activeShipments=[];
+function populateTrackingCarriers(){
+ const options=carriers.map(c=>{const option=document.createElement('option');option.value=c.name+(c.country?' ('+c.country+')':'');return option;});
+ el('tracking-carriers').replaceChildren(...options);
+}
+function clearLiveTracking(){
+ liveRequest++;liveController?.abort();el('live-tracking').hidden=true;el('live-tracking-container').replaceChildren();el('live-tracking-container').setAttribute('aria-busy','false');el('live-match-picker').hidden=true;el('tracking-form').querySelector('button[type=submit]').disabled=false;activeShipments=[];
+}
+function node(tag,text,cls){const item=document.createElement(tag);item.textContent=text;if(cls)item.className=cls;return item;}
+function scanTime(event){
+ const value=event?.time||event?.timeUTC;
+ if(value&&/(?:Z|[+-]\d{2}:?\d{2})$/i.test(value)&&Number.isFinite(Date.parse(value)))return new Intl.DateTimeFormat(undefined,{dateStyle:'medium',timeStyle:'short',timeZoneName:undefined}).format(new Date(value))+' (your local time)';
+ if(value)return value.replace('T',' ')+' (carrier time; timezone not supplied)';
+ const raw=event?.rawTime;return raw?.date?[raw.date,raw.time,raw.timezone||'(timezone not supplied)'].filter(Boolean).join(' '):'Scan time not supplied';
+}
+const trackingStatusLabels={NotFound:'No scans available',InfoReceived:'Label created',InTransit:'In transit',Expired:'Tracking expired',AvailableForPickup:'Ready for collection',OutForDelivery:'Out for delivery',Delivered:'Delivered',DeliveryFailure:'Delivery attempt unsuccessful',Exception:'Shipment exception'};
+function renderShipment(shipment){
+ const container=el('live-tracking-container');container.replaceChildren();
+ const summary=node('div','','scan-summary');
+ summary.append(node('span','LATEST CARRIER UPDATE','eyebrow'),node('span',trackingStatusLabels[shipment.status]||shipment.status||'Awaiting update','scan-status'));
+ if(shipment.latest){
+  summary.append(node('h3',shipment.latest.description),node('p',scanTime(shipment.latest),'scan-time'));
+  if(shipment.latest.location)summary.append(node('p',shipment.latest.location,'scan-location'));
+ }else summary.append(node('h3','No carrier scans available yet.'),node('p','Check the number with your sender. New registrations can take a few minutes to return their first update.','muted'));
+ if(shipment.carriers?.length)summary.append(node('p',shipment.carriers.join(' / '),'scan-carriers'));
+ if(shipment.localNumber)summary.append(node('p','Last-mile number: '+shipment.localNumber+(shipment.localCarrier?' / '+shipment.localCarrier:''),'muted'));
+ if(shipment.lastSynced)summary.append(node('p','Provider last synced: '+scanTime({time:shipment.lastSynced}),'muted'));
+ container.append(summary);
+ if(shipment.events?.length){
+  container.append(node('h3','Tracking history','scan-history-heading'));
+  const list=node('ol','','scan-timeline');
+  for(const event of shipment.events){
+   const item=node('li','','scan-event');item.append(node('p',scanTime(event),'scan-event-time'),node('h4',event.description));
+   const details=[event.location,event.carrier].filter(Boolean).join(' / ');if(details)item.append(node('p',details,'muted'));list.append(item);
+  }
+  container.append(list);
+ }
+}
+async function startLiveTracking(number){
+ const entered=el('tracking-carrier').value.trim();
+ const chosen=entered?carriers.find(c=>c.name+(c.country?' ('+c.country+')':'')===entered):null;
+ el('tracking-carrier').setCustomValidity(entered&&!chosen?'Select a carrier from the list, or clear this field for automatic detection.':'');
+ if(entered&&!chosen){el('tracking-carrier').reportValidity();return;}
+ const request=++liveRequest;liveController?.abort();liveController=new AbortController();const controller=liveController;
+ el('live-tracking').hidden=false;el('live-tracking-title').textContent='Tracking '+number;
+ el('live-external').href='https://t.17track.net/en#nums='+encodeURIComponent(number);
+ el('live-tracking-status').textContent='Checking the latest available carrier updates...';
+ el('live-tracking-retry').hidden=true;el('live-match-picker').hidden=true;
+ const container=el('live-tracking-container');container.replaceChildren();container.setAttribute('aria-busy','true');
+ const button=el('tracking-form').querySelector('button[type=submit]');button.disabled=true;
+ const timer=setTimeout(()=>controller.abort(),28000);
+ try{
+  const payload={number};if(chosen)payload.carrier=Number(chosen.id);
+  const response=await fetch('/api/track',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),signal:controller.signal});
+  const data=await response.json();if(request!==liveRequest)return;
+  if(!response.ok)throw new Error(data.message||'Tracking could not be completed. Please try again.');
+  activeShipments=Array.isArray(data.shipments)?data.shipments:[];
+  if(data.ambiguous&&activeShipments.length>1){
+   const select=el('live-carrier-match');select.replaceChildren(node('option','Choose a carrier match'));select.firstChild.value='';
+   activeShipments.forEach((shipment,i)=>{const option=node('option',(shipment.carriers||[]).join(' / ')||'Carrier '+shipment.carrierCode);option.value=String(i);select.append(option);});
+   el('live-match-picker').hidden=false;
+   el('live-tracking-status').textContent='More than one carrier matched this number. Choose the carrier your sender used to see the correct history.';
+  }else{
+   renderShipment(activeShipments[0]||{status:'NotFound',events:[]});
+   el('live-tracking-status').textContent=(data.pending?'Waiting for carrier scans. ':'Latest available carrier information. ')+'Checked '+new Intl.DateTimeFormat(undefined,{hour:'numeric',minute:'2-digit'}).format(new Date())+'.';
+  }
+  el('live-tracking-retry').textContent='Check for updates';el('live-tracking-retry').hidden=false;
+ }catch(error){
+  if(request!==liveRequest)return;
+  el('live-tracking-status').textContent=error.name==='AbortError'?'The tracking provider took too long to respond. Please try again.':error.message;
+  el('live-tracking-retry').textContent='Retry tracking';el('live-tracking-retry').hidden=false;
+ }finally{
+  clearTimeout(timer);if(request===liveRequest){container.setAttribute('aria-busy','false');button.disabled=false;}
+ }
+}
+el('live-carrier-match').addEventListener('change',event=>{const index=event.target.value;if(index!==''&&activeShipments[Number(index)])renderShipment(activeShipments[Number(index)]);else el('live-tracking-container').replaceChildren();});
+el('tracking-carrier').addEventListener('input',event=>{event.target.setCustomValidity('');});
+el('live-tracking-retry').addEventListener('click',()=>{if(activeNumber)startLiveTracking(activeNumber);});
