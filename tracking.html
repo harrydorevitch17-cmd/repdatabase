@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Parcel tracking | repdatabase</title>
+<meta name="description" content="Find EMS, international tracking resources and carrier portals around the world.">
+<link rel="canonical" href="https://repdatabase.store/tracking.html">
+<link rel="icon" href="/img/logo-64.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/tools.css">
+<script src="/tracking.js" defer></script>
+</head>
+<body>
+<header class="site-head"><div class="wrap head-inner">
+<a class="brand" href="/"><img class="mark" src="/img/logo-64.png" width="30" height="30" alt="">repdatabase<span class="brand-tag">An independent finds directory.</span></a>
+<nav class="page-nav" aria-label="Main navigation"><a href="/">Finds</a><a href="/sellers.html">Sellers</a><a href="/tracking.html" aria-current="page">Tracking</a></nav>
+</div></header>
+<main class="wrap">
+<section class="tool-hero">
+<div><span class="eyebrow">The shipping desk / 01</span><h1>Follow the<br>whole journey.</h1></div>
+<p>From the first scan to your front door. Find the right tracking sources and the carrier handling the next leg.</p>
+</section>
+<div class="tool-layout">
+<section class="tool-panel" aria-label="Parcel tracking helper">
+<div class="section-heading"><h2>Find your parcel.</h2><span class="section-number">01 / TRACK</span></div>
+<form id="tracking-form">
+<div class="field-row"><div><label for="tracking-number">Tracking number</label><input class="tool-input mono" id="tracking-number" required minlength="5" maxlength="60" autocomplete="off" spellcheck="false" placeholder="EE123456789CN" aria-describedby="tracking-help"></div>
+<div><label for="destination">Destination country</label><select id="destination" class="tool-input"><option value="">Select country (optional)</option></select></div></div>
+<div class="form-actions"><button class="btn kb" type="submit">Find tracking sources <span aria-hidden="true">&rarr;</span></button><p id="tracking-help" class="muted">Use your shipment number, rather than the order number from your agent.</p></div>
+</form>
+<p class="helper-note">Free to use. No account needed. Live results open with your chosen provider.</p>
+<p id="tracking-status" class="muted" role="status"></p>
+<section id="tracking-results" class="tracking-result" hidden aria-label="Suggested tracking sources">
+<h2>Your next places to check.</h2><p id="number-hint" class="muted"></p>
+<div class="result-toolbar"><button id="copy-number" type="button" class="btn">Copy tracking number</button><p id="copy-status" role="status"></p></div>
+<div id="tracking-sources" class="source-list"></div>
+<p class="muted">These are places to check, rather than confirmed carrier matches. Your number is shared only with tracking links you open.</p>
+</section>
+</section>
+<aside class="tool-aside" aria-label="Tracking tips">
+<h2>A better way to check.</h2>
+<div class="guide-step"><span>01</span><div><h3>Start with the full picture</h3><p>International trackers can reveal the carrier and a separate last-mile number.</p></div></div>
+<div class="guide-step"><span>02</span><div><h3>Go straight to the source</h3><p>Find the named carrier below. For local delivery, check the destination operator too.</p></div></div>
+<div class="guide-step"><span>03</span><div><h3>Read the scan, not the refresh</h3><p>Compare event times, time zones and locations. A recent page refresh is not a new scan.</p></div></div>
+</aside>
+</div>
+<section class="directory" id="portal-directory" aria-label="Carrier directory">
+<div class="directory-head"><div><span class="eyebrow">02 / Go direct</span><h2>The carrier directory.</h2><p class="muted">Postal services, EMS operators and private couriers. Use your destination above to narrow the list, or search worldwide.</p></div><div class="directory-search"><label for="carrier-search">Find a carrier</label><input id="carrier-search" class="tool-input" type="search" placeholder="Try EMS, Australia Post, 4PX..."></div></div>
+<div class="directory-status"><p id="directory-status" role="status">Loading the directory...</p><button id="directory-retry" type="button" class="btn" hidden>Try again</button></div>
+<div id="carrier-portals" class="portal-grid"></div>
+<button id="more-carriers" type="button" class="btn" hidden>Show more carriers</button>
+<div class="directory-foot"><p class="muted">Missing an operator? Check the <a href="https://www.upu.int/en/contact-us/postal-shipments" target="_blank" rel="noopener noreferrer">UPU postal contacts</a> or <a href="https://www.ems.post/en/global-network/ems-operators" target="_blank" rel="noopener noreferrer">EMS operator directory</a>. Some portals require pasting your number.</p><p class="muted">Links supplied by the <a href="https://help.17track.net/hc/en-us/articles/37467353177753-Supported-carriers-and-carrier-codes" target="_blank" rel="noopener noreferrer">17TRACK directory</a>. Updated 24 Oct 2026. Individual links may change; directory inclusion does not confirm a carrier match.</p></div>
+</section>
+<section class="faq"><div><span class="eyebrow">03 / Make sense of it</span><h2>Between the scans.</h2><p class="muted">A few common updates, explained.</p></div><div>
+<details><summary>Label created / information received</summary><p>The shipping label exists, but the carrier may not have scanned the parcel yet. Check your agent's shipment details to confirm handover.</p></details>
+<details><summary>In transit</summary><p>Your parcel is moving through the delivery network. There may be gaps between scans, especially during international transport.</p></details>
+<details><summary>Customs processing</summary><p>The parcel is being processed at the border. Check the carrier's official tracking page for any request for information or payment.</p></details>
+<details><summary>Out for delivery</summary><p>The parcel has reached the local delivery stage. Check the carrier's latest update for instructions or delivery changes.</p></details>
+<details><summary>Delivered, but not received</summary><p>Check the delivery photo, safe places and other people at the address. Contact the delivery carrier if you still cannot find it.</p></details>
+<details><summary>No results or no new scans</summary><p>Confirm the number with your agent and check for a separate international or local tracking number. If the update remains unclear, contact your agent or carrier; this helper cannot determine whether a parcel is lost.</p></details>
+</div></section>
+</main>
+<footer class="tool-foot"><div class="wrap foot-inner"><span><strong>repdatabase</strong> &nbsp; / &nbsp; A little less digging.</span><a href="/">Back to the catalogue &rarr;</a></div></footer>
+</body>
+</html>

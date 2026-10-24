@@ -431,7 +431,9 @@ radial-gradient(900px 700px at 96% 72%,rgba(24,170,190,.10),transparent 60%),var
   .qv-info h3{font-size:19px}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+.page-nav{display:flex;gap:8px;flex-wrap:wrap;padding:14px 0}.page-nav a{padding:10px 16px;border-radius:12px;text-decoration:none;border:1px solid var(--border)}.page-nav a[aria-current]{background:var(--accent);color:white}
 </style>
+<link rel="stylesheet" href="/catalogue.css">
 </head>
 <body>
 <div id="app">
@@ -452,10 +454,11 @@ radial-gradient(900px 700px at 96% 72%,rgba(24,170,190,.10),transparent 60%),var
 </div></header>
 
 <main class="wrap" id="top">
+<nav class="page-nav" aria-label="Main navigation"><a href="/" aria-current="page">Finds</a><a href="/sellers.html">Sellers</a><a href="/tracking.html">Tracking</a></nav>
 <section class="hero">
   <div>
-    <span class="pill"><i></i>No sloppy spreadsheets</span>
-    <h2>The best <span style="white-space:nowrap">hand-curated</span><br><span class="grad">Taobao finds.</span></h2>
+    <span class="pill">The independent finds directory</span>
+    <h2>Good finds.<br><span class="grad">Less digging.</span></h2>
     <p class="hero-sub">Every piece picked by hand from real Chinese brands — no copy-pasted spreadsheets, no junk. One tap to order through Kakobuy.</p>
     <div class="hero-ctas">
       <a class="btn kb lg" href="https://ikako.vip/r/9enta" target="_blank" rel="noopener" data-track="signup">Get ¥3000 free credit ↗</a>
@@ -619,6 +622,7 @@ let sb=null;
 let products=[];
 let currentUser=null;
 let active='All';
+const sellerFilter=new URLSearchParams(location.search).get('seller')||'';
 let query='';
 let sortBy='new';
 let priceBand='any';
@@ -780,6 +784,7 @@ function setCat(c){active=c;render()}
 
 function visibleList(){
   let list=active==='All'?products:active==='Saved'?products.filter(p=>saved.has(p.id)):products.filter(p=>p.category===active);
+  if(sellerFilter) list=list.filter(p=>String(p.seller||'').trim().toLowerCase()===sellerFilter.trim().toLowerCase());
   if(query){
     const q=query.toLowerCase().trim();
     list=list.filter(p=>`${p.name} ${p.brand||''} ${p.seller||''}`.toLowerCase().includes(q));
@@ -1601,6 +1606,7 @@ gridEl.addEventListener('pointerover',e=>{
 const curSel=$('#currency');
 if(curSel){curSel.value=currency;curSel.onchange=e=>{currency=e.target.value;store.set('ri-currency',currency);render()}}
 const searchEl=$('#search');
+if(sellerFilter){const note=document.createElement('p');note.append(document.createTextNode('Showing finds from '+sellerFilter+' - '));const clear=document.createElement('a');clear.href='/#shop';clear.textContent='Show all finds';note.append(clear);document.querySelector('#shop').prepend(note);}
 if(searchEl){searchEl.oninput=e=>{query=e.target.value;render()}}
 $('#sort').onchange=e=>{sortBy=e.target.value;render()};
 $('#price').onchange=e=>{priceBand=e.target.value;render()};
