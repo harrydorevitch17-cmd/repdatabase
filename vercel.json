@@ -18,5 +18,13 @@
         }
       ]
     }
-  ]
+  ],
+  "functions": {
+    "api/track.js": {
+      "maxDuration": 30
+    },
+    "api/flights.js": {
+      "maxDuration": 15
+    }
+  }
 }

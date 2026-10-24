@@ -1,6 +1,7 @@
 'use strict';
 // 17TRACK v2.4: server-side credentials, registration once, then latest stored carrier scans.
 const {createHash}=require('node:crypto');
+const {coordinates}=require('../lib/shipping-core.js');
 const visitors=new Map();
 const TTL=60000,MAX_REQUESTS=12;
 function fail(res,status,code,message){return res.status(status).json({error:code,message});}
@@ -29,7 +30,7 @@ function cleanEvent(event,carrier){
  const translated=event.description_translation?.lang==='en'?event.description_translation.description:null;
  const description=String(translated||event.description||'').slice(0,1500);
  if(!description)return null;
- return {description,time:event.time_iso||event.time_utc||null,timeUTC:event.time_utc||null,rawTime:event.time_raw||null,location:String(event.location||'').slice(0,300),stage:event.stage||null,subStatus:event.sub_status||null,carrier:carrier||null};
+ return {description,time:event.time_iso||event.time_utc||null,timeUTC:event.time_utc||null,rawTime:event.time_raw||null,location:String(event.location||[event.address?.city,event.address?.state,event.address?.country].filter(Boolean).join(', ')).slice(0,300),city:String(event.address?.city||'').slice(0,150),country:String(event.address?.country||'').slice(0,2).toUpperCase(),coordinates:coordinates(event.address?.coordinates),source:'carrier',stage:event.stage||null,subStatus:event.sub_status||null,carrier:carrier||null};
 }
 function timestamp(event){
  const date=event?.timeUTC||event?.time;
@@ -39,7 +40,7 @@ function timestamp(event){
 function normalize(item){
  const info=item.track_info||{},providers=Array.isArray(info.tracking?.providers)?info.tracking.providers:[];
  const events=[],seen=new Set();
- function add(event,name){const entry=cleanEvent(event,name);if(!entry)return;const key=[entry.time,entry.description,entry.location].join('|');if(seen.has(key)){const existing=events.find(e=>[e.time,e.description,e.location].join('|')===key);if(existing&&!existing.carrier)existing.carrier=entry.carrier;return;}seen.add(key);events.push(entry);}
+ function add(event,name){const entry=cleanEvent(event,name);if(!entry)return;const key=[entry.time,entry.description,entry.location].join('|');if(seen.has(key)){const existing=events.find(e=>[e.time,e.description,e.location].join('|')===key);if(existing)for(const field of ['carrier','country','city','coordinates'])if(!existing[field]&&entry[field])existing[field]=entry[field];return;}seen.add(key);events.push(entry);}
  add(info.latest_event,null);
  for(const provider of providers)for(const event of provider.events||[])add(event,provider.provider?.name);
  events.sort((a,b)=>{const at=timestamp(a),bt=timestamp(b);if(at===null&&bt===null)return 0;if(at===null)return 1;if(bt===null)return -1;return bt-at;});
@@ -47,7 +48,7 @@ function normalize(item){
  const latest=canonical&&timestamp(canonical)===null?canonical:events[0]||null;
  const names=[...new Set(providers.map(p=>p.provider?.name).filter(Boolean))];
  const sync=providers.map(p=>p.latest_sync_time).filter(t=>typeof t==='string'&&Number.isFinite(Date.parse(t))).sort((a,b)=>Date.parse(b)-Date.parse(a))[0]||null;
- return {number:item.number,carrierCode:item.carrier,carriers:names,status:info.latest_status?.status||'NotFound',subStatus:info.latest_status?.sub_status||null,latest,events:events.slice(0,150),lastSynced:sync,localNumber:info.misc_info?.local_number||null,localCarrier:info.misc_info?.local_provider||null};
+ return {number:item.number,carrierCode:item.carrier,carriers:names,status:info.latest_status?.status||'NotFound',subStatus:info.latest_status?.sub_status||null,latest,events:events.slice(0,150),lastSynced:sync,localNumber:info.misc_info?.local_number||null,localCarrier:info.misc_info?.local_provider||null,originCountry:info.shipping_info?.shipper_address?.country||null,destinationCountry:info.shipping_info?.recipient_address?.country||null};
 }
 async function requestProvider(endpoint,number,carrier,key){
  const body={number};if(carrier)body.carrier=carrier;

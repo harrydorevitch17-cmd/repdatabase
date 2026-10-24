@@ -30,3 +30,20 @@ The endpoint applies a best-effort per-instance request limit. Use Vercel Firewa
 Official references:
 - https://api.17track.net/en/doc
 - https://vercel.com/docs/environment-variables/managing-environment-variables
+
+
+## Shipping desk: maps, warehouse updates and flight schedules
+
+The shipping desk at `/tracking.html` now uses `/shipping-desk.js`, `/shipping-desk.css`, `/lib/shipping-core.js` and locally hosted Leaflet. The earlier `/tracking.js` remains for compatibility with cached pages but is not loaded by the new page.
+
+- Map locations use valid carrier event coordinates where supplied, or a conservative match against the bundled GeoNames city index. Ambiguous or unknown city names do not produce a guessed pin. A city-centre pin is labelled approximate. The route line connects reported scan positions; it is not GPS or confirmed aircraft routing.
+- The basemap has a local Natural Earth fallback. Street detail loads standard OpenStreetMap tiles on demand after scans are mapped, with visible attribution and normal browser caching. No tiles are downloaded in bulk. See data/SOURCES.md and vendor/LEAFLET-LICENSE.txt for licences.
+- KakoBuy account events are not available through the carrier API in general. A visitor can add the exact text, time, timezone and city from their parcel page. These updates remain only in the current tab and are labelled added by you. The code does not ask for KakoBuy passwords, scrape private accounts or invent warehouse departures.
+- Progress markers light up only for stages described by events. Airline receipt is not shown as an airborne parcel, a shipping label is not shown as carrier collection, and a generic warehouse is not automatically attributed to KakoBuy.
+- `/api/flights?airport=CAN` supports Aviationstack schedules when `AVIATIONSTACK_API_KEY` is present in Vercel. This is a separate provider account and entitlement from parcel tracking. No account purchase or paid subscription is created by the site. Enable a provider plan supporting the endpoint only after reviewing its current limits.
+- Departures are requested only when the visitor presses Check upcoming departures. Results are cached for 10 minutes per server instance. The endpoint filters future departures, removes codeshares/duplicates and excludes cancelled or already-departed flights. Partial provider pages are labelled partial; the UI never claims complete coverage or links a parcel to an aircraft based on proximity alone.
+- Airports come from OurAirports. Nearby scheduled-service airports within 150 km are offered; a nearby large airport is selected by default. This is reference geography, not a carrier-confirmed origin airport.
+- A sample journey is available via an explicit button. All sample scans and flight rows are labelled illustrative; the sample never calls the tracking or flight provider. Real tracking and schedules never silently fall back to example data.
+- `/api/tracking-config` reports only whether each provider key exists. It never returns the keys or guarantees that a key is valid.
+
+Verification: `node --test tests/*.test.cjs`. Browser QA covers real map reference files and explicit fixture responses for providers. A real parcel test and real departure-board test remain required after provider credentials are available. Public API quotas need provider-side usage caps or Vercel Firewall controls beyond the per-instance protections in this source.
