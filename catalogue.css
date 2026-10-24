@@ -4,3 +4,7 @@
 @media(max-width:980px){.hero{gap:35px;grid-template-columns:1.15fr 1fr}}@media(max-width:720px){.wrap{padding-left:20px;padding-right:20px}.site-head .wrap{height:66px}.brand h1{font-size:17px}.header-actions{gap:6px}.header-actions .btn{padding:0 10px;font-size:11px}.hero{display:block;padding:32px 0 24px}.hero h2{font-size:42px}.hero .steps{display:none}.hero-sub{font-size:13px}.hero-ctas .btn{font-size:11px;padding:0 14px}.page-nav{gap:26px}.page-nav a{font-size:12px;padding:13px 0}.filters{top:66px}.grid{gap:12px}.content{padding:11px}.buy{font-size:11px;padding-left:9px}.stats{margin-top:24px}.community{padding:22px;gap:15px}.community .dc-cta{font-size:11px}.steps-mini{font-size:10px}.promo{font-size:10px}}
 
 @media(max-width:720px){.steps-mini{gap:0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:12px 0}.steps-mini li{background:none;border:0;border-radius:0;padding:0 8px;box-shadow:none}.steps-mini li::before{border-radius:2px;background:none;color:var(--accent);font-size:10px;width:16px;height:20px}}
+
+/* Keep supplier garments fully visible, including wide sleeves and trouser hems. */
+.photo.full-product{background:#fff}.photo.full-product img{object-fit:contain;padding:12px;box-sizing:border-box}
+@media(max-width:720px){.photo.full-product img{padding:7px}}

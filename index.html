@@ -851,7 +851,7 @@ function card(p,i){
   const firstRow=window.innerWidth<=720?2:window.innerWidth<=1100?3:4;
   const load=i<firstRow?'loading="eager" fetchpriority="high"':'loading="lazy"';
   // Hovering a clean shot reveals the real photo; otherwise the second photo.
-  const altSrc=p.clean?p.images[0]:p.images[1];
+  const altSrc=/^firerep$/i.test(p.seller||'')?null:(p.clean?p.images[0]:p.images[1]);
   const alt=altSrc?`<img class="alt" data-src="${esc(imgUrl(altSrc,480))}" data-srcset="${esc(srcset(altSrc,[320,480,720]))}" sizes="${CARD_SIZES}" alt="">`:'';
   const mainImg=p.clean
     // If the clean file is missing (e.g. not deployed yet), fall back to the original photo instead of a blank box.
@@ -867,7 +867,7 @@ function card(p,i){
   const statLine=currentUser&&itemStats?`<div class="stat-line"><span>${statsDays}d:</span><span><b>${st?.views||0}</b> views</span><span><b>${st?.kakobuy||0}</b> Kakobuy</span><span><b>${st?.saves||0}</b> ♥</span></div>`:'';
   return `<article class="card" style="--i:${Math.min(i,12)}">
     <button class="save ${saved.has(p.id)?'on':''}" data-save="${Number(p.id)}" aria-label="${saved.has(p.id)?'Remove from saved':'Save'}" aria-pressed="${saved.has(p.id)}">${saved.has(p.id)?'♥':'♡'}</button>
-    <a class="photo${p.clean?' clean':''}" href="${esc(buyLink)}" target="_blank" rel="noopener" data-view="${Number(p.id)}" aria-label="View ${esc(p.name)}">
+    <a class="photo${p.clean?' clean':''}${/^firerep$/i.test(p.seller||'')?' full-product':''}" href="${esc(buyLink)}" target="_blank" rel="noopener" data-view="${Number(p.id)}" aria-label="View ${esc(p.name)}">
       ${mainImg}
       ${alt}
       <span class="chips">${chips}</span>
