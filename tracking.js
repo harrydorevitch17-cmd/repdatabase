@@ -61,3 +61,29 @@ el('copy-number').addEventListener('click',async()=>{
  catch{el('copy-status').textContent='Copy this tracking number: '+activeNumber;}
 });
 loadDirectory();
+
+// Visitors select a stage to interpret a scan they have read; no stage is inferred.
+const journeyStages=[
+ {title:'The label is ready.',copy:'The sender has created a shipping label. A carrier scan confirms when the parcel actually enters the delivery network. Check with your agent if all you see is electronic information received.',action:'Check your tracking sources',href:'#tracking-form'},
+ {title:'In the carrier\'s hands.',copy:'A collection or acceptance scan usually means the carrier has received the parcel. Sorting and export scans may follow. Compare the event time on the original carrier portal.',action:'Find the carrier portal',href:'#portal-directory'},
+ {title:'The international leg.',copy:'Updates such as dispatched overseas or in transit can cover several handovers. A departure scan is not a live aircraft location. Look for arrival details and any new local tracking number.',action:'Cross-check international trackers',href:'#tracking-form'},
+ {title:'At the border.',copy:'Customs scans describe processing at a border. Check the exact event wording and whether the carrier requests information. A customs scan alone does not confirm clearance or a release date.',action:'Check the carrier\'s latest update',href:'#portal-directory'},
+ {title:'Closer to your door.',copy:'Arrival at a local depot and out for delivery are different updates. Use the destination carrier and its last-mile number to check which one applies, along with any delivery instructions.',action:'Find destination delivery portals',href:'#portal-directory'},
+ {title:'The final handover.',copy:'For a delivered scan, check the carrier\'s delivery time, location and any photo or signature. If the parcel is missing, check safe places and contact the delivery carrier.',action:'Open the delivery carrier portal',href:'#portal-directory'}
+];
+const journeyStops=[...document.querySelectorAll('[data-stage]')];
+function selectJourneyStage(index){
+ const stage=journeyStages[index];
+ journeyStops.forEach((button,i)=>button.setAttribute('aria-pressed',String(i===index)));
+ el('journey-marker').textContent=stage?String(index+1).padStart(2,'0'):'?';
+ el('journey-kicker').textContent=stage?'YOUR SELECTED STAGE':'YOUR LATEST SCAN';
+ el('journey-stage-title').textContent=stage?stage.title:'Where are you in the journey?';
+ el('journey-stage-copy').textContent=stage?stage.copy:'Choose a stage above to understand the update and what to check next. Stages are a guide; individual shipping routes vary.';
+ el('journey-stage-action').textContent=stage?stage.action+' \u2192':'Find your tracking sources \u2192';
+ el('journey-stage-action').href=stage?stage.href:'#tracking-form';
+ el('journey-reset').hidden=!stage;
+}
+journeyStops.forEach(button=>button.addEventListener('click',()=>selectJourneyStage(Number(button.dataset.stage))));
+el('journey-reset').addEventListener('click',()=>{selectJourneyStage(-1);journeyStops[0].focus();});
+el('destination').addEventListener('change',()=>{el('journey-destination').textContent=el('destination').value?regionNames.of(el('destination').value).toUpperCase():'DESTINATION';});
+el('tracking-number').addEventListener('input',()=>selectJourneyStage(-1));

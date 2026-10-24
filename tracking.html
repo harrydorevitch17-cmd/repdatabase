@@ -47,6 +47,26 @@
 <div class="guide-step"><span>03</span><div><h3>Read the scan, not the refresh</h3><p>Compare event times, time zones and locations. A recent page refresh is not a new scan.</p></div></div>
 </aside>
 </div>
+<section class="journey" aria-labelledby="journey-title">
+<div class="journey-heading"><div><span class="eyebrow">A little perspective</span><h2 id="journey-title">One parcel. A few handovers.</h2></div><p>Match a stage to the latest update you read on your carrier's site.</p></div>
+<div class="journey-canvas">
+<div class="journey-route" aria-hidden="true"><span>DISPATCH</span><span class="journey-route-note">AN ILLUSTRATED SHIPPING JOURNEY</span><span id="journey-destination">DESTINATION</span></div>
+<div class="journey-stops" role="group" aria-label="Choose a shipping stage">
+<button type="button" class="journey-stop" data-stage="0" aria-pressed="false" aria-controls="journey-detail"><span class="journey-stop-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 7 8-4 8 4v10l-8 4-8-4Z"/><path d="m4 7 8 4 8-4M12 11v10M8 5l8 4"/></svg></span><span class="journey-stop-number">01</span><span class="journey-stop-label">Label created</span></button>
+<button type="button" class="journey-stop" data-stage="1" aria-pressed="false" aria-controls="journey-detail"><span class="journey-stop-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V8l9-5 9 5v13M1 21h22M7 21V11h10v10M7 15h10M7 18h10"/></svg></span><span class="journey-stop-number">02</span><span class="journey-stop-label">Collected</span></button>
+<button type="button" class="journey-stop" data-stage="2" aria-pressed="false" aria-controls="journey-detail"><span class="journey-stop-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg></span><span class="journey-stop-number">03</span><span class="journey-stop-label">International transit</span></button>
+<button type="button" class="journey-stop" data-stage="3" aria-pressed="false" aria-controls="journey-detail"><span class="journey-stop-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 5 8 9 8 9s8-4 8-9V6Z"/><path d="m8 12 3 3 5-6"/></svg></span><span class="journey-stop-number">04</span><span class="journey-stop-label">Customs</span></button>
+<button type="button" class="journey-stop" data-stage="4" aria-pressed="false" aria-controls="journey-detail"><span class="journey-stop-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17V6h11v11M14 10h4l3 4v3h-3M7 17h7M1 17h2"/><circle cx="5" cy="18" r="2"/><circle cx="16" cy="18" r="2"/></svg></span><span class="journey-stop-number">05</span><span class="journey-stop-label">Local delivery</span></button>
+<button type="button" class="journey-stop" data-stage="5" aria-pressed="false" aria-controls="journey-detail"><span class="journey-stop-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 9-8 9 8M5 10v11h14V10M10 21v-7h4v7"/></svg></span><span class="journey-stop-number">06</span><span class="journey-stop-label">Delivered</span></button>
+</div>
+<div class="journey-detail" id="journey-detail" role="status" aria-live="polite" aria-atomic="true">
+<div class="journey-detail-marker" id="journey-marker" aria-hidden="true">?</div>
+<div><span class="journey-detail-kicker" id="journey-kicker">YOUR LATEST SCAN</span><h3 id="journey-stage-title">Where are you in the journey?</h3><p id="journey-stage-copy">Choose a stage above to understand the update and what to check next. Stages are a guide; individual shipping routes vary.</p><a id="journey-stage-action" href="#tracking-form">Find your tracking sources &rarr;</a></div>
+<button type="button" id="journey-reset" class="journey-reset" hidden>Clear selection</button>
+</div>
+<div class="journey-caption"><span>Interactive guide &middot; manually selected</span><span>No live scans or delivery estimate</span></div>
+</div>
+</section>
 <section class="directory" id="portal-directory" aria-label="Carrier directory">
 <div class="directory-head"><div><span class="eyebrow">02 / Go direct</span><h2>The carrier directory.</h2><p class="muted">Postal services, EMS operators and private couriers. Use your destination above to narrow the list, or search worldwide.</p></div><div class="directory-search"><label for="carrier-search">Find a carrier</label><input id="carrier-search" class="tool-input" type="search" placeholder="Try EMS, Australia Post, 4PX..."></div></div>
 <div class="directory-status"><p id="directory-status" role="status">Loading the directory...</p><button id="directory-retry" type="button" class="btn" hidden>Try again</button></div>
