@@ -22,3 +22,8 @@ html{scroll-padding-top:90px}.wrap{max-width:1480px;padding:0 40px}.site-head{po
 .kako-offers-links a{background:#dfefc6;color:#1d2815;border-color:#dfefc6;font-weight:700}
 .kako-offers-links a:last-child{background:transparent;color:#f5f7ef;border-color:#64715a}
 .kako-offers-links a:hover{background:#fff;color:#1d2815;border-color:#fff}
+
+/* The supplied Festival photo is a phone screenshot: frame its central product collage. */
+.photo[data-view="435"] img{padding:0!important;object-fit:cover!important;clip-path:inset(10% 0 10% 0)}
+.qv-media:has(img[src*="f91a79381af663dc"]) {aspect-ratio:1;height:auto;min-height:0;align-self:center;overflow:hidden}
+.qv-media img[src*="f91a79381af663dc"]{width:100%;height:100%;object-fit:cover;aspect-ratio:1}
