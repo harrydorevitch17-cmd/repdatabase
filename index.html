@@ -1640,7 +1640,9 @@ function openAdmin(id=null){
   if(p) $('#aDelete').onclick=()=>deleteAdmin(p.id);
 }
 
+let adminSaving=false;
 async function saveAdmin(id){
+  if(adminSaving)return;
   if(!currentUser){showToast('Not logged in.');return}
   const urlImage=$('#aImage').value.trim();
   const finalImages=[...draftImages];
@@ -1662,20 +1664,24 @@ async function saveAdmin(id){
     notes:$('#aNotes').value.trim()
   };
   if(!data.name){showToast('Add a name first.');return}
-  let error;
-  if(id){({error}=await sb.from('products').update(data).eq('id',id))}
-  else{({error}=await sb.from('products').insert(data))}
-  if(error){console.error(error);showToast('Save failed: '+error.message);return}
-  closeAdmin();
-  await loadProducts();
-  showToast(id?'Updated.':'Added.');
+  if(!Number.isFinite(Number($('#aPrice').value))||Number($('#aPrice').value)<0){showToast('Enter a valid non-negative price.');return}
+  if(!Number.isFinite(Number($('#aRating').value))||data.rating<0||data.rating>5){showToast('Rating must be between 0 and 5.');return}
+  if(finalImages.some(url=>!/^https?:\/\//i.test(url)&&!/^\/(?!\/)/.test(url))){showToast('Use a valid image URL.');return}
+  adminSaving=true;const button=$('#aSave');button.disabled=true;button.textContent='Saving...';
+  try{
+    const result=id?await sb.from('products').update(data).eq('id',id).select('id').single():await sb.from('products').insert(data).select('id').single();
+    if(result.error)throw result.error;
+    if(!result.data?.id)throw Error('No item was saved. Please sign in again.');
+    closeAdmin();await loadProducts();showToast(id?'Updated.':'Added.');
+  }catch(error){showToast('Save failed: '+error.message)}
+  finally{adminSaving=false;button.disabled=false;button.textContent=id?'Save':'Add'}
 }
 
 async function deleteAdmin(id){
   if(!currentUser){showToast('Not logged in.');return}
   if(!confirm('Delete this item permanently?')) return;
-  const {error}=await sb.from('products').delete().eq('id',id);
-  if(error){showToast('Delete failed: '+error.message);return}
+  const {data:deleted,error}=await sb.from('products').delete().eq('id',id).select('id');
+  if(error||!deleted?.length){showToast('Delete failed: '+(error?.message||'No item was deleted. Please sign in again.'));return}
   closeAdmin();
   await loadProducts();
   showToast('Deleted.');
@@ -1812,7 +1818,9 @@ async function addDraftPhotos(i,files){
   refreshDraft(i);
 }
 
+let bulkPublishing=false;
 async function publishDrafts(){
+  if(bulkPublishing||!currentUser)return;
   const ready=drafts.filter(isReady);
   if(!ready.length) return;
   const rows=ready.map(d=>({
@@ -1832,14 +1840,16 @@ async function publishDrafts(){
     notes:''
   }));
   const btn=$('#bulkPublish');
-  btn.disabled=true;btn.textContent='Publishing…';
-  const {error}=await sb.from('products').insert(rows);
-  if(error){console.error(error);showToast('Publish failed: '+error.message);refreshBulkBar();return}
-  drafts=drafts.filter(d=>!isReady(d));
-  saveDrafts();
-  await loadProducts();
-  showToast(`Published ${rows.length} item${rows.length===1?'':'s'}.`);
-  drafts.length?renderDrafts():closeBulk();
+  bulkPublishing=true;btn.disabled=true;btn.textContent='Publishing...';
+  try{
+    const {data:published,error}=await sb.from('products').insert(rows).select('id');
+    if(error)throw error;
+    if(published?.length!==rows.length)throw Error('Not all items were confirmed. Reload before trying again.');
+    drafts=drafts.filter(d=>!ready.includes(d));saveDrafts();await loadProducts();
+    showToast(`Published ${rows.length} item${rows.length===1?'':'s'}.`);
+    drafts.length?renderDrafts():closeBulk();
+  }catch(error){showToast('Publish failed: '+error.message)}
+  finally{bulkPublishing=false;refreshBulkBar()}
 }
 
 const bulkBox=$('#bulkBox');

@@ -5,3 +5,6 @@ TRACKING_SETUP.md
 .env*
 
 scripts/
+
+supabase/
+BACKEND.md
