@@ -7,9 +7,6 @@
 <meta name="description" content="Track your haul from KakoBuy warehouse updates to carrier handovers, mapped scans and airport departures.">
 <link rel="canonical" href="https://repdatabase.store/tracking.html">
 <link rel="icon" href="/img/logo-64.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/tools.css">
 <link rel="stylesheet" href="/vendor/leaflet.css">
 <link rel="stylesheet" href="/shipping-desk.css">
@@ -19,7 +16,7 @@
 <link rel="stylesheet" href="/theme.css">
 </head>
 <body class="shipping-desk">
-<header class="site-head"><div class="wrap head-inner"><a class="brand" href="/"><img class="mark" src="/img/logo-64.png" width="30" height="30" alt="">repdatabase<span class="brand-tag">An independent finds directory.</span></a><nav class="page-nav" aria-label="Main navigation"><a href="/">Finds</a><a href="/sellers.html">Sellers</a><a href="/tracking.html" aria-current="page">Tracking</a></nav></div></header>
+<header class="site-head"><div class="wrap head-inner"><a class="brand" href="/"><span class="catalogue-mark" aria-hidden="true">r/d</span>repdatabase<span class="brand-tag">An independent finds directory.</span></a><nav class="page-nav" aria-label="Main navigation"><a href="/">Finds</a><a href="/sellers.html">Sellers</a><a href="/tracking.html" aria-current="page">Tracking</a></nav></div></header>
 <main class="wrap desk-wrap">
 <section class="desk-intro"><div><span class="eyebrow">REPDATABASE / THE SHIPPING DESK</span><h1>Your haul, in view.</h1><p>From the warehouse floor to your front door.</p></div><div class="desk-intro-actions"><span id="connection-state" class="connection-state">Checking carrier connection</span><button id="demo-button" class="btn" type="button">Explore a sample journey <span aria-hidden="true">&rarr;</span></button></div></section>
 <section class="tracking-search" aria-labelledby="search-title"><h2 id="search-title" class="sr-only">Track a parcel</h2><form id="tracking-form"><div class="tracking-fields"><div class="number-field"><label for="tracking-number">Parcel tracking number</label><input id="tracking-number" class="tool-input mono" required minlength="5" maxlength="50" placeholder="Enter your international tracking number" autocomplete="off" spellcheck="false"></div><div><label for="destination">Destination country</label><select id="destination" class="tool-input"><option value="">Choose destination</option></select></div><button type="submit" class="btn kb track-submit">Track parcel <span aria-hidden="true">&rarr;</span></button></div><details class="tracking-options"><summary>Carrier not detected? Choose manually</summary><label for="tracking-carrier">Carrier name</label><input id="tracking-carrier" class="tool-input" type="search" list="tracking-carriers" placeholder="Auto-detect, or choose a carrier"><datalist id="tracking-carriers"></datalist></details></form><div class="search-foot"><span>Carrier tracking via 17TRACK. The number is sent when you track.</span><span>No account needed for visitors.</span></div><p id="tracking-status" role="status" class="desk-notice" hidden></p></section>
