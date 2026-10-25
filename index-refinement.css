@@ -14,3 +14,5 @@ html{scroll-padding-top:90px}.wrap{max-width:1480px;padding:0 40px}.site-head{po
 .card .buy-label{gap:8px;white-space:nowrap}.card .buy-arrow{width:14px;height:14px;flex-shrink:0}
 .card .buy-price{color:#fff!important;font-size:13px;font-weight:650;white-space:nowrap;border-left:1px solid #617254;padding-left:12px}
 @media(max-width:720px){.card .buy{min-height:44px;height:44px;padding:0 9px;font-size:10px;gap:5px}.card .buy-label{gap:4px}.card .buy-arrow{width:11px;height:11px}.card .buy-price{font-size:11px;padding-left:7px}}
+
+@media(max-width:360px){.card .buy{padding:8px;gap:4px;flex-wrap:wrap;height:auto}.card .buy-price{margin-left:auto;font-size:10px}.card .buy-label{font-size:9px}}
