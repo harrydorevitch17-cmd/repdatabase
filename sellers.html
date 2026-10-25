@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Seller directory | repdatabase</title>
-<meta name="description" content="Explore sellers featured in our catalogue and browse their listed finds.">
+<meta name="description" content="Browse 230 sellers from Jadeship&rsquo;s Yupoo directory. Search names, explore seller types, and open their albums directly.">
 <link rel="canonical" href="https://repdatabase.store/sellers.html">
 <link rel="icon" href="/img/logo-64.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,6 +12,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/tools.css">
 <script src="/sellers.js" defer></script>
+<link rel="stylesheet" href="/theme.css">
 </head>
 <body>
 <header class="site-head"><div class="wrap head-inner">
@@ -19,12 +20,13 @@
 <nav class="page-nav" aria-label="Main navigation"><a href="/">Finds</a><a href="/sellers.html" aria-current="page">Sellers</a><a href="/tracking.html">Tracking</a></nav>
 </div></header>
 <main class="wrap">
-<section class="tool-hero"><div><span class="eyebrow">The address book / 02</span><h1>Know where<br>to look.</h1></div><p>The sellers behind our finds, together in one place. Browse their listed pieces and find more of what you like.</p></section>
-<section aria-label="Seller directory">
-<div class="seller-toolbar"><div class="search-field"><label for="seller-search">Find a seller or category</label><input id="seller-search" class="tool-input" type="search" placeholder="Search the address book..."></div><p id="seller-status" role="status">Loading sellers...</p></div>
+<section class="tool-hero"><div><span class="eyebrow">The address book / 02</span><h1>Know where<br>to look.</h1></div><p>A wider address book. Explore sellers from Jadeship&rsquo;s Yupoo directory and go straight to their albums.</p></section>
+<section id="seller-directory" aria-label="Seller directory">
+<div class="seller-toolbar"><div class="search-field"><label for="seller-search">Find a seller or album</label><input id="seller-search" class="tool-input" type="search" placeholder="Search the address book..."></div><div class="seller-filter-field"><label for="seller-filter">Seller type</label><select id="seller-filter" class="tool-input"><option value="">All seller types</option></select></div><p id="seller-status" role="status">Loading sellers...</p></div>
 <button id="retry" class="btn" hidden>Try again</button>
 <div id="seller-grid" class="seller-grid"></div>
-<p class="seller-note">Drawn from the named sellers in our catalogue. Check individual listings for product details and availability. Inclusion is not an endorsement.</p>
+<nav id="seller-pagination" class="seller-pagination" aria-label="Seller directory pages" hidden><button id="seller-previous" class="btn" type="button">&larr; Previous</button><span id="seller-page" aria-live="polite"></span><button id="seller-next" class="btn" type="button">Next &rarr;</button></nav>
+<div class="seller-provenance"><p class="seller-note">Source: <a href="https://www.jadeship.com/sellers/platform/yupoo" target="_blank" rel="noopener noreferrer">Jadeship&rsquo;s Yupoo directory</a>, all five pages. Seller types come from the source; inclusion is not an endorsement.</p><p id="seller-updated" class="seller-note"></p></div>
 </section>
 </main>
 <footer class="tool-foot"><div class="wrap foot-inner"><span><strong>repdatabase</strong> &nbsp; / &nbsp; A little less digging.</span><a href="/">Back to the catalogue &rarr;</a></div></footer>

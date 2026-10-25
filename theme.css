@@ -1,0 +1,23 @@
+/* Shared warm-grey palette with a charcoal masthead. Product photos retain white. */
+:root{--bg:#e8e7df;--surface:#f5f4ee;--solid:#f5f4ee;--surface2:#deded4;--text:#232820;--muted:#596052;--border:#c8cbbf;--glass-border:#c8cbbf;--accent:#a83d27;--cyan:#a83d27;--grad:linear-gradient(#a83d27,#a83d27)}
+.site-head{background:#272c25;color:#f2f2e9;border-bottom-color:#3c4437;backdrop-filter:none;-webkit-backdrop-filter:none}
+.site-head .brand,.site-head .brand h1,.site-head .page-nav a[aria-current]{color:#f2f2e9}
+.site-head .brand p,.site-head .brand-tag,.site-head .page-nav a{color:#bac2b1}
+.site-head .brand-tag{border-left-color:#4d5646}.site-head .page-nav a:hover{color:white}.site-head .page-nav a[aria-current]::after{background:#d9e1cc}
+.site-head .btn,.site-head .select{background:#333b2e;border-color:#515b46;color:#f2f2e9}.site-head .btn:hover,.site-head .select:hover{background:#46513c}.site-head select option{background:#333b2e;color:#f2f2e9}
+.site-head a:focus-visible,.site-head button:focus-visible,.site-head select:focus-visible{outline-color:#e5c29d}
+.announce{background:#d9ddce;color:#3e4836}.card{background:var(--surface)}.photo{background:#f1f1e9}.photo.clean,.photo.full-product{background:#fff}.filters{background:var(--bg)}
+.community{background:#d4dac8}.ticker{border-color:var(--border)}.tool-panel,.desk-panel,.shipment-card,.tracking-search,.map-panel{background:var(--solid)}
+.tool-input,.search-input,.sort{border-color:#b5bcaa}.tool-input::placeholder,.search-input::placeholder{color:#747c6a}
+.tool-foot{background:#dee0d4}.tool-foot a,.seller-note a{text-underline-offset:3px}
+/* Compact directory entries with real album links and clear source attribution. */
+.seller-toolbar{gap:20px;align-items:end}.seller-toolbar .search-field{flex:1;max-width:520px}.seller-filter-field{width:220px;flex-shrink:0}.seller-toolbar #seller-status{min-width:125px;text-align:right;padding-bottom:15px}
+.seller-grid>.seller-card{min-height:276px;padding:25px;background:var(--surface);border-color:var(--border)}.seller-grid>.seller-card:hover{background:#f9f8f1}.seller-grid .seller-card::before{background:#d8dece;color:#39452e;font:12px var(--mono);border:1px solid #c9d1bc;margin-bottom:18px}
+.seller-grid .seller-card h2{font-size:19px;margin-bottom:4px}.seller-grid .seller-card .seller-address{font:10px/1.7 var(--mono);overflow-wrap:anywhere;margin-bottom:15px;color:var(--muted)}
+.seller-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:20px;min-height:23px}.seller-tag{font-size:10px;line-height:1.5;padding:3px 7px;border:1px solid var(--border);border-radius:3px;color:#4d5943;background:#e8ecdf}
+.seller-links{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;margin-top:auto}.seller-primary{font-size:12px;font-weight:600;color:var(--accent);text-decoration:none}.seller-primary:hover{text-decoration:underline;text-underline-offset:4px}.seller-source{font-size:10px;color:var(--muted);text-underline-offset:3px}.seller-alternates{font-size:10px;max-width:100%;color:var(--muted)}.seller-alternates summary{cursor:pointer}.seller-alternates a{display:block;overflow-wrap:anywhere;padding-top:8px}
+.seller-pagination{display:flex;justify-content:center;align-items:center;gap:25px;padding:28px 0;border-bottom:1px solid var(--border)}.seller-pagination>span{font:11px var(--mono);color:var(--muted)}.seller-pagination .btn{background:var(--solid);min-width:110px}.seller-pagination .btn:disabled{opacity:.4;cursor:default}
+.seller-provenance{display:flex;justify-content:space-between;gap:30px;align-items:start}.seller-provenance .seller-note{max-width:650px}.seller-provenance #seller-updated{white-space:nowrap}
+@media(max-width:720px){.seller-toolbar{flex-wrap:wrap;gap:14px}.seller-toolbar .search-field{flex-basis:100%;max-width:none}.seller-filter-field{flex:1;width:auto}.seller-toolbar #seller-status{min-width:0;font-size:10px;padding-bottom:17px}.seller-grid>.seller-card{padding:20px 16px;min-height:270px}.seller-grid .seller-card h2{font-size:17px}.seller-links{gap:12px}.seller-source{flex-basis:100%}.seller-pagination{gap:15px;justify-content:space-between}.seller-pagination .btn{min-width:0;padding:10px 12px;font-size:11px}.seller-pagination>span{font-size:10px}.seller-provenance{display:block}.seller-provenance #seller-updated{margin-top:8px}}
+
+@media(max-width:720px){.seller-grid>.seller-card{padding:20px 16px 20px 74px;min-height:190px}.seller-grid>.seller-card::before{position:absolute;left:16px;top:20px}.seller-tags{margin-bottom:15px}.seller-grid .seller-card .seller-address{margin-bottom:10px}}

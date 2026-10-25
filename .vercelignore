@@ -3,3 +3,5 @@ video
 tests/
 TRACKING_SETUP.md
 .env*
+
+scripts/
