@@ -16,3 +16,9 @@ html{scroll-padding-top:90px}.wrap{max-width:1480px;padding:0 40px}.site-head{po
 @media(max-width:720px){.card .buy{min-height:44px;height:44px;padding:0 9px;font-size:10px;gap:5px}.card .buy-label{gap:4px}.card .buy-arrow{width:11px;height:11px}.card .buy-price{font-size:11px;padding-left:7px}}
 
 @media(max-width:360px){.card .buy{padding:8px;gap:4px;flex-wrap:wrap;height:auto}.card .buy-price{margin-left:auto;font-size:10px}.card .buy-label{font-size:9px}}
+/* High-contrast Kakobuy signup panel. */
+.kako-offers{background:#191d17;border-color:#191d17;color:#f5f7ef}
+.kako-offers-copy>span{color:#bbc8ac}.kako-offers-copy>strong{color:#fff}.kako-offers-copy>small{color:#bdc5b5}
+.kako-offers-links a{background:#dfefc6;color:#1d2815;border-color:#dfefc6;font-weight:700}
+.kako-offers-links a:last-child{background:transparent;color:#f5f7ef;border-color:#64715a}
+.kako-offers-links a:hover{background:#fff;color:#1d2815;border-color:#fff}
