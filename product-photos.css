@@ -1,0 +1,11 @@
+﻿/* One photo format for the catalogue, gallery and future uploads. */
+.photo,.photo.clean,.photo.full-product,.skeleton-photo{aspect-ratio:1/1;background:#fff;border-radius:0}
+.product-image-stage{position:absolute;display:block;inset:0;margin:auto;width:88%;height:88%;overflow:hidden;background:#fff;pointer-events:none}
+.photo .product-image-stage img,.qv-media .product-image-stage img,.qv-thumb .product-image-stage img{position:absolute;inset:0;width:100%;height:100%;max-height:none;object-fit:contain!important;object-position:center;padding:0!important;box-sizing:border-box;transform:none!important;clip-path:none;mix-blend-mode:normal}
+.qv-media,.qv-media.white{background:#fff;aspect-ratio:1/1;height:auto;min-height:0;align-self:start;width:100%}
+.qv-thumb,.qv-thumb.white{position:relative;width:60px;height:60px;aspect-ratio:1/1;padding:0;background:#fff;border-radius:0;flex-shrink:0}
+.qv-thumb .product-image-stage{width:88%;height:88%}
+/* Frame only the central photo of the supplied phone screenshot. The file stays intact. */
+.product-image-stage img[src*="f91a79381af663dc"],.product-image-stage img[src*="1792928095011-zjb7zr"]{top:-58.32%!important;bottom:auto!important;height:216.64%!important;object-fit:fill!important}
+@media(max-width:720px){.qv-thumb,.qv-thumb.white{width:52px;height:52px}.qv-media{max-height:none}.qv-media .product-image-stage{width:88%;height:88%}}
+@media(prefers-reduced-motion:reduce){.photo img,.qv-media img{transition:none}}
