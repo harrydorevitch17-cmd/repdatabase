@@ -3,7 +3,7 @@ from pathlib import Path
 import json,re,zipfile,argparse
 root=Path(__file__).resolve().parents[1]
 parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',type=Path,default=root.parent/'exports'/'repdatabase-static.zip');args=parser.parse_args()
-files={'index.html','catalogue.css','theme.css','index-refinement.css','tools.css','sellers.html','sellers.js','tutorials.html','tutorials.css','data/sellers.json','data/catalogue.json','data/image-aliases.json','img/clean/index.json','img/qc.json'}
+files={'index.html','catalogue.css','theme.css','index-refinement.css','tools.css','sellers.html','sellers.js','tutorials.html','tutorials.css','tutorials.js','data/sellers.json','data/catalogue.json','data/image-aliases.json','img/clean/index.json','img/qc.json'}
 for rel in json.loads((root/'data/image-aliases.json').read_text('utf8')).values():files.add(rel.lstrip('/'))
 for stem in json.loads((root/'img/clean/index.json').read_text('utf8')).values():files.add('img/clean/'+stem+'.webp')
 for rel in ['img/logo-64.png','img/logo-192.png','img/apple-touch-icon.png','img/og.png']:
