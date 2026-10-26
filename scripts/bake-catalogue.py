@@ -1,13 +1,14 @@
 ﻿"""Bake the local catalogue into HTML so the product grid also works without JavaScript."""
 import html,json,re
 from pathlib import Path
+from product_links import buy_link_for
 root=Path(__file__).resolve().parents[1]
 rows=json.loads((root/'data/catalogue.json').read_text('utf8'));aliases=json.loads((root/'data/image-aliases.json').read_text('utf8'));clean=json.loads((root/'img/clean/index.json').read_text('utf8'))
 esc=lambda value:html.escape(str(value or ''),quote=True)
 cards=[]
 for i,p in enumerate(rows):
     original=(p.get('images') or [p['image']])[0];image='/img/clean/'+clean[str(p['id'])]+'.webp' if str(p['id']) in clean else aliases.get(original,original)
-    link=p.get('kakobuy_link') or 'https://www.kakobuy.com/item/details?url='+__import__('urllib.parse',fromlist=['quote']).quote(p['product_link'],safe='')+'&affcode=9enta'
+    link=buy_link_for(p)
     title=p['name'];brand=p.get('brand') or ''
     if brand and title.lower().startswith(brand.lower()+' '):title=title[len(brand)+1:]
     label=' / '.join(v for v in [brand,p.get('seller')] if v)
