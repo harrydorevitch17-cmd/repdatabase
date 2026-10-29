@@ -430,13 +430,14 @@ radial-gradient(900px 700px at 96% 72%,rgba(24,170,190,.10),transparent 60%),var
 <link rel="stylesheet" href="/theme.css">
 <link rel="stylesheet" href="/index-refinement.css">
 <link rel="stylesheet" href="/product-photos.css">
+<link rel="stylesheet" href="/spreadsheet.css">
 </head>
 <body>
 <div id="app">
-<a class="spreadsheet-banner" href="https://docs.google.com/spreadsheets/d/16tc10g7fNPkJMmI56X2Hp15R26cvBg4O_iY5DEFm3oY/edit?gid=277678860#gid=277678860" target="_blank" rel="noopener noreferrer"><span class="spreadsheet-banner-copy"><strong>The repdatabase spreadsheet</strong><span>Prefer browsing in Sheets? Jump straight in.</span></span><span class="spreadsheet-banner-cta">Open the spreadsheet <span aria-hidden="true">&#8599;</span></span></a>
+<a class="spreadsheet-banner" href="https://docs.google.com/spreadsheets/d/16tc10g7fNPkJMmI56X2Hp15R26cvBg4O_iY5DEFm3oY/edit?gid=277678860#gid=277678860" target="_blank" rel="noopener noreferrer"><span class="spreadsheet-banner-copy"><strong>Your next find is in the spreadsheet.</strong><span>The repdatabase Google Sheet. One click away.</span></span><span class="spreadsheet-banner-cta">Explore the spreadsheet <span aria-hidden="true">&#8599;</span></span></a>
 <header class="site-head"><div class="wrap">
   <a class="brand" href="#top"><span class="catalogue-mark" aria-hidden="true">r/d</span><div><h1>repdatabase<span class="brand-divider">/</span></h1></div></a>
-  <nav class="page-nav" aria-label="Main navigation"><a href="/" aria-current="page">Finds</a><a href="/sellers.html">Sellers</a><a href="/tutorials.html">Tutorials</a><a href="/tracking.html">Tracking</a></nav>
+  <nav class="page-nav" aria-label="Main navigation"><a href="/" aria-current="page">Finds</a><a href="/sellers.html">Sellers</a><a href="/tutorials.html">Tutorials</a><a href="/tracking.html">Tracking</a><a class="spreadsheet-nav" href="https://docs.google.com/spreadsheets/d/16tc10g7fNPkJMmI56X2Hp15R26cvBg4O_iY5DEFm3oY/edit?gid=277678860#gid=277678860" target="_blank" rel="noopener noreferrer">Spreadsheet <span aria-hidden="true">&#8599;</span></a></nav>
   <div class="header-actions">
     <button class="btn" id="authBtn">Log in</button>
     <select class="select" id="currency" aria-label="Currency">
@@ -452,11 +453,13 @@ radial-gradient(900px 700px at 96% 72%,rgba(24,170,190,.10),transparent 60%),var
 <main class="wrap" id="top">
 
 <section class="catalogue-intro"><div><span class="index-label">REP / DATABASE &nbsp; — &nbsp; PRODUCT INDEX</span><h2>For the people. No slop.</h2><p>Good finds. Direct links. Buy through Kakobuy.</p></div><div class="index-total"><b id="statItems">430</b><span>IN THE INDEX</span><span id="statBrands" hidden></span><span id="statCats" hidden></span></div></section>
+<a class="spreadsheet-feature" href="https://docs.google.com/spreadsheets/d/16tc10g7fNPkJMmI56X2Hp15R26cvBg4O_iY5DEFm3oY/edit?gid=277678860#gid=277678860" target="_blank" rel="noopener noreferrer"><span class="sheet-icon" aria-hidden="true">&#9638;</span><span class="spreadsheet-feature-copy"><span class="sheet-eyebrow">THE REPDATABASE SPREADSHEET</span><strong>More of a spreadsheet person?</strong><span>Jump into our Google Sheet and start exploring.</span></span><span class="sheet-button">Browse the spreadsheet <span aria-hidden="true">&#8599;</span></span></a>
 <aside class="kako-offers" aria-label="Kakobuy welcome offer"><div class="kako-offers-copy"><span>YOUR FIRST HAUL STARTS HERE</span><strong>Claim &#165;3,000 in new-user vouchers.</strong><small>Sign up with Kakobuy. Start your first haul.</small></div><div class="kako-offers-links"><a href="https://ikako.vip/r/9enta" target="_blank" rel="noopener sponsored">Claim my vouchers &#8594;</a><a href="https://ikako.vip/r/9enta" target="_blank" rel="noopener sponsored">Join Kakobuy &#8599;</a></div></aside>
 <a class="guide-prompt" href="/tutorials.html"><span class="guide-prompt-icon" aria-hidden="true">?</span><span><strong>Confused? Start with our guide.</strong><small>Buying, QC photos and shipping, step by step.</small></span><span class="guide-prompt-link">Show me how <span aria-hidden="true">&#8599;</span></span></a>
 <details class="catalogue-buy-help"><summary>Kakobuy link not loading?</summary><p>Kakobuy may show &ldquo;This product may not exist&rdquo; when you are logged out. Sign in on Kakobuy, then reopen the item. If it still will not load, open the product photo here and use <strong>Copy product link</strong> to paste the original listing into Kakobuy&rsquo;s search. A listing can also be unavailable or sold out.</p></details>
 <div class="filters" id="shop">
   <div class="category-bar">
+    <a class="spreadsheet-filter" href="https://docs.google.com/spreadsheets/d/16tc10g7fNPkJMmI56X2Hp15R26cvBg4O_iY5DEFm3oY/edit?gid=277678860#gid=277678860" target="_blank" rel="noopener noreferrer">View spreadsheet <span aria-hidden="true">&#8599;</span></a>
     <label class="category-label" for="categorySelect">Browse categories</label>
     <nav class="tabs" id="tabs" aria-label="Categories"></nav>
     <select class="select category-mobile" id="categorySelect" aria-label="Category"></select>
@@ -1991,4 +1994,5 @@ async function loadAdmin(){
  if(!sb){sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);const {data}=await sb.auth.getSession();currentUser=data?.session?.user||null;sb.auth.onAuthStateChange((_e,session)=>{currentUser=session?.user||null;refreshAuthUI()});refreshAuthUI()}
 }
 $('#authBtn').onclick=async()=>{try{await loadAdmin();openAuth()}catch{showToast('Could not load admin login. Please try again.')}};
-</script></body></html>
+</script><a class="spreadsheet-mobile" href="https://docs.google.com/spreadsheets/d/16tc10g7fNPkJMmI56X2Hp15R26cvBg4O_iY5DEFm3oY/edit?gid=277678860#gid=277678860" target="_blank" rel="noopener noreferrer"><span class="sheet-icon" aria-hidden="true">&#9638;</span> Open spreadsheet <span aria-hidden="true">&#8599;</span></a>
+</body></html>
